@@ -23,7 +23,7 @@ class ItemClassAdmin(admin.ModelAdmin):
     inlines = [ItemAttributeInline]
 
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('title', 'origin_title')
+    list_display = ('date_create', 'title', 'enable')
     prepopulated_fields = {"slug": ("title", )}
     inlines = [AttributeInline]
     formfield_overrides = {

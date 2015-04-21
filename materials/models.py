@@ -108,22 +108,22 @@ class Item(models.Model):
         default=STANDALONE)
 
     title = models.CharField(_('Title'), max_length=100)
-    origin_title = models.CharField(max_length=100)
+    origin_title = models.CharField(max_length=100, blank=True)
     slug = models.SlugField(_('Slug'), max_length=255, unique=False)
-    main_image = models.ImageField(upload_to=settings.IMAGE_FOLDER)
-    trailer_link = models.URLField(blank=True)
-    trailer_image = models.ImageField(upload_to=settings.IMAGE_FOLDER, blank=True)
+    main_image = models.ImageField(upload_to=settings.IMAGE_FOLDER, blank=True, null=True)
+    trailer_link = models.URLField(blank=True, null=True)
+    trailer_image = models.ImageField(upload_to=settings.IMAGE_FOLDER, blank=True, null=True)
     date_create = models.DateTimeField(auto_now_add=True)
     date_last_modified = models.DateTimeField(auto_now=True)
     enable = models.BooleanField(default=True)
-    description = models.TextField()
-    group = models.ForeignKey(Group)
+    description = models.TextField(blank=True)
+    group = models.ForeignKey(Group, blank=True, null=True)
     images = ArrayField(models.ImageField(upload_to=settings.IMAGE_FOLDER), blank=True)
     tags = ArrayField(models.CharField(max_length=100), blank=True)
     related_items = models.ManyToManyField('self', blank=True)
 
     item_class = models.ForeignKey(
-        'materials.ItemClass', null=True, on_delete=models.PROTECT,
+        'materials.ItemClass', null=True, blank=True, on_delete=models.PROTECT,
         verbose_name=_('Item type'), related_name="items",
         help_text=_("Choose what type of item this is"))
 
@@ -149,6 +149,11 @@ class Item(models.Model):
                     "4 of a particular t-shirt.  Leave blank if this is a "
                     "stand-alone item (i.e. there is only one version of"
                     " this item)."))
+
+    class Meta:
+        ordering = ['-date_create', 'title']
+        verbose_name = _('Item')
+        verbose_name_plural = _('Items')
 
     def __init__(self, *args, **kwargs):
         super(Item, self).__init__(*args, **kwargs)
@@ -548,8 +553,8 @@ class ItemAttribute(models.Model):
 
     class Meta:
         ordering = ['code']
-        verbose_name = _('Item option')
-        verbose_name_plural = _('Item options')
+        verbose_name = _('Item attribute')
+        verbose_name_plural = _('Item attributes')
 
     @property
     def is_option(self):
