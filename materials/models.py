@@ -2,7 +2,6 @@ from datetime import datetime, date
 
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
-from django.utils.translation import ugettext_lazy as _
 from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
 from django.utils import six
@@ -13,16 +12,18 @@ from django.utils.html import strip_tags
 from django.utils.safestring import mark_safe
 from django.core.urlresolvers import reverse
 from django.utils.text import slugify
+from django.utils.translation import ugettext_lazy as _, pgettext_lazy
+from django.utils.functional import cached_property
+from fs import settings
 
-from options.models import Option, OptionValue
+from fs.core.decorators import deprecated
 from fs.core.loading import get_model
 from fs.models.fields import AutoSlugField
 
 class Group(models.Model):
     name = models.CharField(max_length=100)
     parent = models.ForeignKey('self', blank=True, null=True)
-    icon = models.ImageField(upload_to='self._meta.app_label' + '/icon/', blank=True)
-    option = models.ManyToManyField(Option)
+    icon = models.ImageField(upload_to=settings.IMAGE_FOLDER, blank=True)
     enable = models.BooleanField(default=True)
     date_create = models.DateTimeField(auto_now_add=True)
     date_last_modified = models.DateTimeField(auto_now=True)
@@ -30,7 +31,7 @@ class Group(models.Model):
     def __unicode__(self):
         return self.name
 
-class ItemOptionContainer(object):
+class ItemAttributesContainer(object):
     """
     Stolen liberally from django-eav, but simplified to be item-specific
 
@@ -49,88 +50,115 @@ class ItemOptionContainer(object):
 
     def __getattr__(self, name):
         if not name.startswith('_') and not self.initialised:
-            values = self.get_values().select_related('option')
+            values = self.get_values().select_related('attribute')
             for v in values:
-                setattr(self, v.option.code, v.value)
+                setattr(self, v.attribute.code, v.value)
             self.initialised = True
             return getattr(self, name)
         raise AttributeError(
-            _("%(obj)s has no option named '%(attr)s'") % {
+            _("%(obj)s has no attribute named '%(attr)s'") % {
                 'obj': self.item.get_item_class(), 'attr': name})
 
-    def validate_options(self):
-        for option in self.get_all_options():
-            value = getattr(self, option.code, None)
+    def validate_attributes(self):
+        for attribute in self.get_all_attributes():
+            value = getattr(self, attribute.code, None)
             if value is None:
-                if option.required:
+                if attribute.required:
                     raise ValidationError(
-                        _("%(attr)s option cannot be blank") %
-                        {'attr': option.code})
+                        _("%(attr)s attribute cannot be blank") %
+                        {'attr': attribute.code})
             else:
                 try:
-                    option.validate_value(value)
+                    attribute.validate_value(value)
                 except ValidationError as e:
                     raise ValidationError(
-                        _("%(attr)s option %(err)s") %
-                        {'attr': option.code, 'err': e})
+                        _("%(attr)s attribute %(err)s") %
+                        {'attr': attribute.code, 'err': e})
 
     def get_values(self):
-        return self.item.option_values.all()
+        return self.item.attribute_values.all()
 
-    def get_value_by_option(self, option):
-        return self.get_values().get(option=option)
+    def get_value_by_attribute(self, attribute):
+        return self.get_values().get(attribute=attribute)
 
-    def get_all_options(self):
-        return self.item.get_item_class().options.all()
+    def get_all_attributes(self):
+        return self.item.get_item_class().attributes.all()
 
-    def get_option_by_code(self, code):
-        return self.get_all_options().get(code=code)
+    def get_attribute_by_code(self, code):
+        return self.get_all_attributes().get(code=code)
 
     def __iter__(self):
         return iter(self.get_values())
 
     def save(self):
-        for option in self.get_all_options():
-            if hasattr(self, option.code):
-                value = getattr(self, option.code)
-                option.save_value(self.item, value)
+        for attribute in self.get_all_attributes():
+            if hasattr(self, attribute.code):
+                value = getattr(self, attribute.code)
+                attribute.save_value(self.item, value)
 
 class Item(models.Model):
+    STANDALONE, PARENT, CHILD = 'standalone', 'parent', 'child'
+    STRUCTURE_CHOICES = (
+        (STANDALONE, _('Stand-alone product')),
+        (PARENT, _('Parent product')),
+        (CHILD, _('Child product'))
+    )
+    structure = models.CharField(
+        _("Product structure"), max_length=10, choices=STRUCTURE_CHOICES,
+        default=STANDALONE)
+
     title = models.CharField(_('Title'), max_length=100)
     origin_title = models.CharField(max_length=100)
     slug = models.SlugField(_('Slug'), max_length=255, unique=False)
-    main_image = models.ImageField(upload_to='/item/main_image/%Y/%m/%d/')
+    main_image = models.ImageField(upload_to=settings.IMAGE_FOLDER)
     trailer_link = models.URLField(blank=True)
-    trailer_image = models.ImageField(upload_to='/item/trailer_image/', blank=True)
+    trailer_image = models.ImageField(upload_to=settings.IMAGE_FOLDER, blank=True)
     date_create = models.DateTimeField(auto_now_add=True)
     date_last_modified = models.DateTimeField(auto_now=True)
     enable = models.BooleanField(default=True)
     description = models.TextField()
     group = models.ForeignKey(Group)
-    images = ArrayField(models.ImageField(upload_to='/item/images/%Y/%m/%d/'), blank=True)
+    images = ArrayField(models.ImageField(upload_to=settings.IMAGE_FOLDER), blank=True)
     tags = ArrayField(models.CharField(max_length=100), blank=True)
-    option_value = models.ManyToManyField(OptionValue)
     related_items = models.ManyToManyField('self', blank=True)
+
     item_class = models.ForeignKey(
         'materials.ItemClass', null=True, on_delete=models.PROTECT,
         verbose_name=_('Item type'), related_name="items",
         help_text=_("Choose what type of item this is"))
-    options = models.ManyToManyField(
-        'materials.ItemOption',
-        through='ItemOptionValue',
-        verbose_name=_("Options"),
-        help_text=_("A item option is something that this item may "
+
+    attributes = models.ManyToManyField(
+        'materials.ItemAttribute',
+        through='ItemAttributeValue',
+        verbose_name=_("Attributes"),
+        help_text=_("A item attribute is something that this item may "
                     "have, such as a size, as specified by its class"))
+
+    item_options = models.ManyToManyField(
+        'materials.Option', blank=True, verbose_name=_("Item options"),
+        help_text=_("Options are values that can be associated with a item "
+                    "when it is added to a customer's basket.  This could be "
+                    "something like a personalised message to be printed on "
+                    "a T-shirt."))
+
+    parent = models.ForeignKey(
+        'self', null=True, blank=True, related_name='children',
+        verbose_name=_("Parent item"),
+        help_text=_("Only choose a parent item if you're creating a child "
+                    "item.  For example if this is a size "
+                    "4 of a particular t-shirt.  Leave blank if this is a "
+                    "stand-alone item (i.e. there is only one version of"
+                    " this item)."))
 
     def __init__(self, *args, **kwargs):
         super(Item, self).__init__(*args, **kwargs)
-        self.attr = ItemOptionContainer(item=self)
+        self.attr = ItemAttributesContainer(item=self)
 
-    def __unicode__(self):
+    def __str__(self):
         if self.title:
             return self.title
-        if self.option_summary:
-            return u"%s (%s)" % (self.get_title(), self.option_summary)
+        if self.attribute_summary:
+            return u"%s (%s)" % (self.get_title(), self.attribute_summary)
         else:
             return self.get_title()
 
@@ -138,7 +166,7 @@ class Item(models.Model):
         """
         Return a item's absolute url
         """
-        return reverse('catalogue:detail',
+        return reverse('materials:detail',
                        kwargs={'item_slug': self.slug, 'pk': self.id})
 
     def clean(self):
@@ -158,7 +186,7 @@ class Item(models.Model):
         +---------------+-------------+--------------+--------------+
         | categories    | 1 or more   | 1 or more    | forbidden    |
         +---------------+-------------+--------------+--------------+
-        | options    | optional    | optional     | optional     |
+        | attributes    | optional    | optional     | optional     |
         +---------------+-------------+--------------+--------------+
         | rec. items | optional    | optional     | unsupported  |
         +---------------+-------------+--------------+--------------+
@@ -170,7 +198,7 @@ class Item(models.Model):
         """
         getattr(self, '_clean_%s' % self.structure)()
         if not self.is_parent:
-            self.attr.validate_options()
+            self.attr.validate_attributes()
 
     def _clean_standalone(self):
         """
@@ -215,7 +243,7 @@ class Item(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.get_title())
-        super(AbstractProduct, self).save(*args, **kwargs)
+        super(Item, self).save(*args, **kwargs)
         self.attr.save()
 
     # Properties
@@ -274,61 +302,13 @@ class Item(models.Model):
         return self.stockrecords.count()
 
     @property
-    def option_summary(self):
+    def attribute_summary(self):
         """
-        Return a string of all of a item's options
+        Return a string of all of a item's attributes
         """
-        options = self.option_values.all()
-        pairs = [option.summary() for option in options]
+        attributes = self.attribute_values.all()
+        pairs = [attribute.summary() for attribute in attributes]
         return ", ".join(pairs)
-
-    # The two properties below are deprecated because determining minimum
-    # price is not as trivial as it sounds considering multiple stockrecords,
-    # currencies, tax, etc.
-    # The current implementation is very naive and only works for a limited
-    # set of use cases.
-    # At the very least, we should pass in the request and
-    # user. Hence, it's best done as an extension to a Strategy class.
-    # Once that is accomplished, these properties should be removed.
-
-    @property
-    @deprecated
-    def min_child_price_incl_tax(self):
-        """
-        Return minimum child item price including tax.
-        """
-        return self._min_child_price('incl_tax')
-
-    @property
-    @deprecated
-    def min_child_price_excl_tax(self):
-        """
-        Return minimum child item price excluding tax.
-
-        This is a very naive approach; see the deprecation notice above. And
-        only use it for display purposes (e.g. "new Oscar shirt, prices
-        starting from $9.50").
-        """
-        return self._min_child_price('excl_tax')
-
-    def _min_child_price(self, prop):
-        """
-        Return minimum child item price.
-
-        This is for visual purposes only. It ignores currencies, most of the
-        Strategy logic for selecting stockrecords, knows nothing about the
-        current user or request, etc. It's only here to ensure
-        backwards-compatibility; the previous implementation wasn't any
-        better.
-        """
-        strategy = Selector().strategy()
-
-        children_stock = strategy.select_children_stockrecords(self)
-        prices = [
-            strategy.pricing_policy(child, stockrecord)
-            for child, stockrecord in children_stock]
-        raw_prices = sorted([getattr(price, prop) for price in prices])
-        return raw_prices[0] if raw_prices else None
 
     # Wrappers for child items
 
@@ -340,7 +320,7 @@ class Item(models.Model):
         if not title and self.parent_id:
             title = self.parent.title
         return title
-    get_title.short_description = pgettext_lazy(u"Product title", u"Title")
+    get_title.short_description = pgettext_lazy(u"Item title", u"Title")
 
     def get_item_class(self):
         """
@@ -350,7 +330,7 @@ class Item(models.Model):
             return self.parent.item_class
         else:
             return self.item_class
-    get_item_class.short_description = _("Product class")
+    get_item_class.short_description = _("Item class")
 
     def get_is_discountable(self):
         """
@@ -374,13 +354,13 @@ class Item(models.Model):
 
     # Images
 
-    def get_missing_image(self):
-        """
-        Returns a missing image object.
-        """
-        # This class should have a 'name' property so it mimics the Django file
-        # field.
-        return MissingProductImage()
+    # def get_missing_image(self):
+    #     """
+    #     Returns a missing image object.
+    #     """
+    #     # This class should have a 'name' property so it mimics the Django file
+    #     # field.
+    #     return MissingProductImage()
 
     def primary_image(self):
         """
@@ -415,21 +395,6 @@ class Item(models.Model):
         self.save()
     update_rating.alters_data = True
 
-    def calculate_rating(self):
-        """
-        Calculate rating value
-        """
-        result = self.reviews.filter(
-            status=self.reviews.model.APPROVED
-        ).aggregate(
-            sum=Sum('score'), count=Count('id'))
-        reviews_sum = result['sum'] or 0
-        reviews_count = result['count'] or 0
-        rating = None
-        if reviews_count > 0:
-            rating = float(reviews_sum) / reviews_count
-        return rating
-
     def has_review_by(self, user):
         if user.is_anonymous():
             return False
@@ -445,7 +410,7 @@ class Item(models.Model):
         Override this if you want to alter the default behaviour; e.g. enforce
         that a user purchased the item to be allowed to leave a review.
         """
-        if user.is_authenticated() or settings.OSCAR_ALLOW_ANON_REVIEWS:
+        if user.is_authenticated(): #... or settings.OSCAR_ALLOW_ANON_REVIEWS
             return not self.has_review_by(user)
         else:
             return False
@@ -483,7 +448,7 @@ class ItemClass(models.Model):
     #: require a message to be specified before it could be bought.
     #: Note that you can also set options on a per-item level.
     options = models.ManyToManyField(
-        'materials.OptionClass', blank=True, verbose_name=_("Options"))
+        'materials.Option', blank=True, verbose_name=_("Options"))
 
     class Meta:
         ordering = ['name']
@@ -494,10 +459,10 @@ class ItemClass(models.Model):
         return self.name
 
     @property
-    def has_options(self):
-        return self.options.exists()
+    def has_attributes(self):
+        return self.attributes.exists()
 
-class OptionClass(models.Model):
+class Option(models.Model):
     """
     An option that can be selected for a particular item when the item
     is added to the basket.
@@ -522,8 +487,8 @@ class OptionClass(models.Model):
                             choices=TYPE_CHOICES)
 
     class Meta:
-        verbose_name = _("Option class")
-        verbose_name_plural = _("Options class")
+        verbose_name = _("Option")
+        verbose_name_plural = _("Options")
 
     def __str__(self):
         return self.name
@@ -532,11 +497,14 @@ class OptionClass(models.Model):
     def is_required(self):
         return self.type == self.REQUIRED
 
-class ItemOption(models.Model):
+class ItemAttribute(models.Model):
     """
     Defines an option for a item class. (For example, number_of_pages for
     a 'book' class)
     """
+    item_class = models.ForeignKey(
+        'materials.ItemClass', related_name='attributes', blank=True,
+        null=True, verbose_name=_("Item type"))
     name = models.CharField(_('Name'), max_length=128)
     code = models.SlugField(
         _('Code'), max_length=128,
@@ -572,6 +540,10 @@ class ItemOption(models.Model):
         choices=TYPE_CHOICES, default=TYPE_CHOICES[0][0],
         max_length=20, verbose_name=_("Type"))
 
+    option_group = models.ForeignKey(
+        'materials.AttributeOptionGroup', blank=True, null=True,
+        verbose_name=_("Option Group"),
+        help_text=_('Select an option group if using type "Option"'))
     required = models.BooleanField(_('Required'), default=False)
 
     class Meta:
@@ -591,17 +563,17 @@ class ItemOption(models.Model):
         return self.name
 
     def save_value(self, item, value):
-        ItemOptionValue = get_model('materials', 'ItemOptionValue')
+        ItemAttributeValue = get_model('materials', 'ItemAttributeValue')
         try:
-            value_obj = item.option_values.get(option=self)
-        except ItemOptionValue.DoesNotExist:
+            value_obj = item.attribute_values.get(attribute=self)
+        except ItemAttributeValue.DoesNotExist:
             # FileField uses False for announcing deletion of the file
             # not creating a new value
             delete_file = self.is_file and value is False
             if value is None or value == '' or delete_file:
                 return
-            value_obj = ItemOptionValue.objects.create(
-                item=item, option=self)
+            value_obj = ItemAttributeValue.objects.create(
+                item=item, attribute=self)
 
         if self.is_file:
             # File fields in Django are treated differently, see
@@ -659,23 +631,36 @@ class ItemOption(models.Model):
         if not isinstance(value, models.Model):
             raise ValidationError(_("Must be a model instance"))
 
+    def _validate_option(self, value):
+        if not isinstance(value, get_model('materials', 'AttributeOption')):
+            raise ValidationError(
+                _("Must be an AttributeOption model object instance"))
+        if not value.pk:
+            raise ValidationError(_("AttributeOption has not been saved yet"))
+        valid_values = self.option_group.options.values_list(
+            'option', flat=True)
+        if value.option not in valid_values:
+            raise ValidationError(
+                _("%(enum)s is not a valid choice for %(attr)s") %
+                {'enum': value, 'attr': self})
+
     def _validate_file(self, value):
         if value and not isinstance(value, File):
             raise ValidationError(_("Must be a file field"))
     _validate_image = _validate_file
 
-class ItemOptionValue(models.Model):
+class ItemAttributeValue(models.Model):
     """
-    The "through" model for the m2m relationship between catalogue.Product and
-    catalogue.ProductAttribute.  This specifies the value of the option for
+    The "through" model for the m2m relationship between materials.Product and
+    materials.ProductAttribute.  This specifies the value of the option for
     a particular item
 
     For example: number_of_pages = 295
     """
-    option = models.ForeignKey(
-        'materials.ItemOption', verbose_name=_("Option"))
+    attribute = models.ForeignKey(
+        'materials.ItemAttribute', verbose_name=_("Attribute"))
     item = models.ForeignKey(
-        'materials.Item', related_name='option_values',
+        'materials.Item', related_name='attribute_values',
         verbose_name=_("Item"))
 
     value_text = models.TextField(_('Text'), blank=True, null=True)
@@ -684,11 +669,14 @@ class ItemOptionValue(models.Model):
     value_float = models.FloatField(_('Float'), blank=True, null=True)
     value_richtext = models.TextField(_('Richtext'), blank=True, null=True)
     value_date = models.DateField(_('Date'), blank=True, null=True)
+    value_option = models.ForeignKey(
+        'materials.AttributeOption', blank=True, null=True,
+        verbose_name=_("Value option"))
     value_file = models.FileField(
-        upload_to='self._meta.app_label', max_length=255,
+        upload_to=settings.IMAGE_FOLDER, max_length=255,
         blank=True, null=True)
     value_image = models.ImageField(
-        upload_to='self._meta.app_label', max_length=255,
+        upload_to=settings.IMAGE_FOLDER, max_length=255,
         blank=True, null=True)
     value_entity = GenericForeignKey(
         'entity_content_type', 'entity_object_id')
@@ -699,40 +687,40 @@ class ItemOptionValue(models.Model):
         null=True, blank=True, editable=False)
 
     def _get_value(self):
-        return getattr(self, 'value_%s' % self.option.type)
+        return getattr(self, 'value_%s' % self.attribute.type)
 
     def _set_value(self, new_value):
-        if self.option.is_option and isinstance(new_value, str):
+        if self.attribute.is_option and isinstance(new_value, str):
             # Need to look up instance of AttributeOption
-            new_value = self.option.option_group.options.get(
+            new_value = self.attribute.option_group.options.get(
                 option=new_value)
-        setattr(self, 'value_%s' % self.option.type, new_value)
+        setattr(self, 'value_%s' % self.attribute.type, new_value)
 
     value = property(_get_value, _set_value)
 
     class Meta:
-        unique_together = ('option', 'item')
-        verbose_name = _('Item option value')
-        verbose_name_plural = _('Item option values')
+        unique_together = ('attribute', 'item')
+        verbose_name = _('Item attribute value')
+        verbose_name_plural = _('Item attribute values')
 
     def __str__(self):
         return self.summary()
 
     def summary(self):
         """
-        Gets a string representation of both the option and it's value,
+        Gets a string representation of both the attribute and it's value,
         used e.g in item summaries.
         """
-        return u"%s: %s" % (self.option.name, self.value_as_text)
+        return u"%s: %s" % (self.attribute.name, self.value_as_text)
 
     @property
     def value_as_text(self):
         """
-        Returns a string representation of the option's value. To customise
-        e.g. image option values, declare a _image_as_text property and
+        Returns a string representation of the attribute's value. To customise
+        e.g. image attribute values, declare a _image_as_text property and
         return something appropriate.
         """
-        property_name = '_%s_as_text' % self.option.type
+        property_name = '_%s_as_text' % self.attribute.type
         return getattr(self, property_name, self.value)
 
     @property
@@ -750,13 +738,54 @@ class ItemOptionValue(models.Model):
     @property
     def value_as_html(self):
         """
-        Returns a HTML representation of the option's value. To customise
-        e.g. image option values, declare a _image_as_html property and
+        Returns a HTML representation of the attribute's value. To customise
+        e.g. image attribute values, declare a _image_as_html property and
         return e.g. an <img> tag.  Defaults to the _as_text representation.
         """
-        property_name = '_%s_as_html' % self.option.type
+        property_name = '_%s_as_html' % self.attribute.type
         return getattr(self, property_name, self.value_as_text)
 
     @property
     def _richtext_as_html(self):
         return mark_safe(self.value)
+
+class AttributeOptionGroup(models.Model):
+    """
+    Defines a group of options that collectively may be used as an
+    attribute type
+
+    For example, Language
+    """
+    name = models.CharField(_('Name'), max_length=128)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        app_label = 'materials'
+        verbose_name = _('Attribute option group')
+        verbose_name_plural = _('Attribute option groups')
+
+    @property
+    def option_summary(self):
+        options = [o.option for o in self.options.all()]
+        return ", ".join(options)
+
+class AttributeOption(models.Model):
+    """
+    Provides an option within an option group for an attribute type
+    Examples: In a Language group, English, Greek, French
+    """
+    group = models.ForeignKey(
+        'materials.AttributeOptionGroup', related_name='options',
+        verbose_name=_("Group"))
+    option = models.CharField(_('Option'), max_length=255)
+
+    def __str__(self):
+        return self.option
+
+    class Meta:
+        app_label = 'materials'
+        verbose_name = _('Attribute option')
+        verbose_name_plural = _('Attribute options')
+

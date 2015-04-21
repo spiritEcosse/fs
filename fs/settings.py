@@ -37,7 +37,6 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'options',
     'materials',
 )
 
@@ -113,3 +112,4 @@ TEMPLATE_DIRS = (
 )
 
 DEFAULT_FROM_EMAIL = 'shevchenkcoigor@gmail.com'
+IMAGE_FOLDER = 'images/materials/%Y/%m/'

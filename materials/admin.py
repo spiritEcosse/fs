@@ -1,30 +1,31 @@
 from django.contrib import admin
-from .models import Group, Item, ItemOption, ItemOptionValue
+from .models import Group, Item, ItemAttribute, ItemAttributeValue, AttributeOption, ItemClass, Option
 from django.db import models
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.utils.translation import ugettext_lazy as _
 
-class OptionInline(admin.TabularInline):
-    model = ItemOptionValue
+class AttributeInline(admin.TabularInline):
+    model = ItemAttributeValue
 
-class ItemOptionInline(admin.TabularInline):
-    model = ItemOption
+class ItemAttributeInline(admin.TabularInline):
+    model = ItemAttribute
     extra = 2
 
-class ItemOptionAdmin(admin.ModelAdmin):
-    list_display = ('name', 'code', 'type')
+class ItemAttributeAdmin(admin.ModelAdmin):
+    list_display = ('name', 'code', 'item_class', 'type')
     prepopulated_fields = {"code": ("name", )}
 
-class ItemOptionValueAdmin(admin.ModelAdmin):
-    list_display = ('item', 'option', 'value')
+class ItemAttributeValueAdmin(admin.ModelAdmin):
+    list_display = ('item', 'attribute', 'value')
 
-# class ItemClassAdmin(admin.ModelAdmin):
-#     list_display = ('name', 'requires_shipping', 'track_stock')
-#     inlines = [ItemOptionInline]
+class ItemClassAdmin(admin.ModelAdmin):
+    list_display = ('name', 'requires_shipping', 'track_stock')
+    inlines = [ItemAttributeInline]
 
 class ItemAdmin(admin.ModelAdmin):
     list_display = ('title', 'origin_title')
-    inlines = [OptionInline]
+    prepopulated_fields = {"slug": ("title", )}
+    inlines = [AttributeInline]
     formfield_overrides = {
         models.ManyToManyField: {'widget': FilteredSelectMultiple(
             verbose_name=_('grouped options'),
@@ -40,7 +41,20 @@ class ItemAdmin(admin.ModelAdmin):
                 'option_values',
                 'option_values__option'))
 
-admin.site.register(Item, ItemAdmin)
+class OptionAdmin(admin.ModelAdmin):
+    pass
+
+class AttributeOptionInline(admin.TabularInline):
+    model = AttributeOption
+
+class AttributeOptionGroupAdmin(admin.ModelAdmin):
+    list_display = ('name', 'option_summary')
+    inlines = [AttributeOptionInline, ]
+
+
 admin.site.register(Group)
-admin.site.register(ItemOption, ItemOptionAdmin)
-admin.site.register(ItemOptionValue, ItemOptionValueAdmin)
+admin.site.register(Item, ItemAdmin)
+admin.site.register(ItemClass, ItemClassAdmin)
+admin.site.register(ItemAttribute, ItemAttributeAdmin)
+admin.site.register(ItemAttributeValue, ItemAttributeValueAdmin)
+admin.site.register(Option, OptionAdmin)
