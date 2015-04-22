@@ -1,38 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6aad01fd-8a8a-4683-a63c-43ca567eccca" name="Default" comment="initial commit">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/materials/migrations/0002_item_structure.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fs/core/decorators.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/materials/migrations/0002_auto_20150416_1119.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/materials/migrations/0003_auto_20150416_1437.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/materials/migrations/0004_auto_20150416_1511.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/materials/migrations/0005_auto_20150416_1515.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/materials/migrations/0006_auto_20150416_1557.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/materials/migrations/0007_auto_20150416_1600.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/materials/migrations/0008_auto_20150417_1426.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/materials/migrations/0009_auto_20150420_1400.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/materials/migrations/0010_remove_item_rating.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/materials/migrations/0011_item_rating.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/materials/migrations/0012_auto_20150420_1417.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/materials/migrations/0013_remove_item_rating.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/options/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/options/admin.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/options/migrations/0001_initial.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/options/migrations/0002_option_enable.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/options/migrations/0003_auto_20150416_1453.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/options/migrations/0004_auto_20150416_1511.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/options/migrations/0005_auto_20150416_1513.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/options/migrations/__init__.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/options/models.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/options/tests.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/options/views.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/materials/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/materials/migrations/0001_initial.py" />
+    <list default="true" id="6aad01fd-8a8a-4683-a63c-43ca567eccca" name="Default" comment="change">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/materials/migrations/0003_auto_20150421_1525.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/materials/admin.py" afterPath="$PROJECT_DIR$/materials/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fs/models/fields/autoslugfield.py" afterPath="$PROJECT_DIR$/fs/models/fields/autoslugfield.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/materials/models.py" afterPath="$PROJECT_DIR$/materials/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fs/settings.py" afterPath="$PROJECT_DIR$/fs/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fs/core/utils.py" afterPath="$PROJECT_DIR$/fs/core/utils.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="fs.iws" />
@@ -71,11 +43,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="admin.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="admin.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/materials/admin.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.792" vertical-offset="0" max-vertical-offset="1170">
-              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+            <state vertical-scroll-proportion="-4.064516" vertical-offset="0" max-vertical-offset="1170">
+              <caret line="7" column="21" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="30" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -83,16 +55,30 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/materials/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="624" max-vertical-offset="12564">
-              <caret line="112" column="66" selection-start-line="112" selection-start-column="54" selection-end-line="112" selection-end-column="66" />
+            <state vertical-scroll-proportion="0.7754717" vertical-offset="1515" max-vertical-offset="6768">
+              <caret line="220" column="33" selection-start-line="220" selection-start-column="18" selection-end-line="220" selection-end-column="33" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
-                <element signature="e#1327#3506#0" expanded="false" />
-                <element signature="e#27238#27761#0" expanded="false" />
-                <element signature="e#27804#28328#0" expanded="false" />
+                <element signature="e#979#1369#0" expanded="false" />
+                <element signature="e#1414#3593#0" expanded="false" />
+                <element signature="e#6331#6432#0" expanded="false" />
+                <element signature="e#6614#6818#0" expanded="false" />
+                <element signature="e#6860#7026#0" expanded="false" />
+                <element signature="e#7057#8576#0" expanded="false" />
+                <element signature="e#9032#9866#0" expanded="false" />
+                <element signature="e#9905#9986#0" expanded="false" />
+                <element signature="e#10033#10173#0" expanded="false" />
+                <element signature="e#10510#10847#0" expanded="false" />
+                <element signature="e#10894#11164#0" expanded="false" />
+                <element signature="e#11224#11270#0" expanded="false" />
+                <element signature="e#15215#16781#0" expanded="false" />
+                <element signature="e#16844#18015#0" expanded="false" />
+                <element signature="e#18085#23271#0" expanded="false" />
+                <element signature="e#27135#27658#0" expanded="false" />
+                <element signature="e#27730#28254#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -118,10 +104,10 @@
         <option value="$PROJECT_DIR$/fs/core/utils.py" />
         <option value="$PROJECT_DIR$/fs/models/fields/autoslugfield.py" />
         <option value="$PROJECT_DIR$/fs/core/decorators.py" />
-        <option value="$PROJECT_DIR$/materials/admin.py" />
         <option value="$PROJECT_DIR$/ENV/lib/python2.7/site-packages/django/contrib/contenttypes/management.py" />
-        <option value="$PROJECT_DIR$/materials/models.py" />
         <option value="$PROJECT_DIR$/fs/settings.py" />
+        <option value="$PROJECT_DIR$/materials/admin.py" />
+        <option value="$PROJECT_DIR$/materials/models.py" />
       </list>
     </option>
   </component>
@@ -473,6 +459,19 @@
       <option name="number" value="Default" />
       <updated>1429020729346</updated>
     </task>
+    <task id="LOCAL-00001" summary="delete app options">
+      <created>1429629657356</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1429629657356</updated>
+    </task>
+    <task id="LOCAL-00002" summary="fix bags">
+      <created>1429630514443</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1429630514443</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -501,14 +500,16 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.55401236" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3271605" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.12808642" sideWeight="0.5003984" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.08796296" sideWeight="0.32669324" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3271605" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287037" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29938272" sideWeight="0.4996016" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.56790125" sideWeight="0.4996016" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1936255" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.08796296" sideWeight="0.67330676" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1936255" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25308642" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3595679" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -517,7 +518,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25308642" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -536,13 +536,16 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
+    <MESSAGE value="delete app options" />
+    <MESSAGE value="fix bags" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix bags" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/materials/models.py</url>
-          <line>412</line>
+          <line>404</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
@@ -553,7 +556,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="5" />
+      <option name="time" value="8" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -582,9 +585,23 @@
           <caret line="728" column="28" selection-start-line="728" selection-start-column="28" selection-end-line="728" selection-end-column="28" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#1327#3506#0" expanded="false" />
-            <element signature="e#27238#27761#0" expanded="false" />
-            <element signature="e#27804#28328#0" expanded="false" />
+            <element signature="e#979#1369#0" expanded="false" />
+            <element signature="e#1414#3593#0" expanded="false" />
+            <element signature="e#6331#6432#0" expanded="false" />
+            <element signature="e#6614#6818#0" expanded="false" />
+            <element signature="e#6860#7026#0" expanded="false" />
+            <element signature="e#7057#8576#0" expanded="false" />
+            <element signature="e#9032#9866#0" expanded="false" />
+            <element signature="e#9905#9986#0" expanded="false" />
+            <element signature="e#10033#10173#0" expanded="false" />
+            <element signature="e#10510#10847#0" expanded="false" />
+            <element signature="e#10894#11164#0" expanded="false" />
+            <element signature="e#11224#11270#0" expanded="false" />
+            <element signature="e#15215#16781#0" expanded="false" />
+            <element signature="e#16844#18015#0" expanded="false" />
+            <element signature="e#18085#23271#0" expanded="false" />
+            <element signature="e#27135#27658#0" expanded="false" />
+            <element signature="e#27730#28254#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -613,9 +630,23 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#1327#3506#0" expanded="false" />
-            <element signature="e#27238#27761#0" expanded="false" />
-            <element signature="e#27804#28328#0" expanded="false" />
+            <element signature="e#979#1369#0" expanded="false" />
+            <element signature="e#1414#3593#0" expanded="false" />
+            <element signature="e#6331#6432#0" expanded="false" />
+            <element signature="e#6614#6818#0" expanded="false" />
+            <element signature="e#6860#7026#0" expanded="false" />
+            <element signature="e#7057#8576#0" expanded="false" />
+            <element signature="e#9032#9866#0" expanded="false" />
+            <element signature="e#9905#9986#0" expanded="false" />
+            <element signature="e#10033#10173#0" expanded="false" />
+            <element signature="e#10510#10847#0" expanded="false" />
+            <element signature="e#10894#11164#0" expanded="false" />
+            <element signature="e#11224#11270#0" expanded="false" />
+            <element signature="e#15215#16781#0" expanded="false" />
+            <element signature="e#16844#18015#0" expanded="false" />
+            <element signature="e#18085#23271#0" expanded="false" />
+            <element signature="e#27135#27658#0" expanded="false" />
+            <element signature="e#27730#28254#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -792,6 +823,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.46698114" vertical-offset="0" max-vertical-offset="424">
           <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -809,19 +841,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/materials/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="624" max-vertical-offset="12564">
-          <caret line="112" column="66" selection-start-line="112" selection-start-column="54" selection-end-line="112" selection-end-column="66" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#1327#3506#0" expanded="false" />
-            <element signature="e#27238#27761#0" expanded="false" />
-            <element signature="e#27804#28328#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/fs/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1560" max-vertical-offset="2178">
@@ -832,10 +851,37 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/materials/admin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.792" vertical-offset="0" max-vertical-offset="1170">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        <state vertical-scroll-proportion="-4.064516" vertical-offset="0" max-vertical-offset="1170">
+          <caret line="7" column="21" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="30" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/materials/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7754717" vertical-offset="1515" max-vertical-offset="6768">
+          <caret line="220" column="33" selection-start-line="220" selection-start-column="18" selection-end-line="220" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#979#1369#0" expanded="false" />
+            <element signature="e#1414#3593#0" expanded="false" />
+            <element signature="e#6331#6432#0" expanded="false" />
+            <element signature="e#6614#6818#0" expanded="false" />
+            <element signature="e#6860#7026#0" expanded="false" />
+            <element signature="e#7057#8576#0" expanded="false" />
+            <element signature="e#9032#9866#0" expanded="false" />
+            <element signature="e#9905#9986#0" expanded="false" />
+            <element signature="e#10033#10173#0" expanded="false" />
+            <element signature="e#10510#10847#0" expanded="false" />
+            <element signature="e#10894#11164#0" expanded="false" />
+            <element signature="e#11224#11270#0" expanded="false" />
+            <element signature="e#15215#16781#0" expanded="false" />
+            <element signature="e#16844#18015#0" expanded="false" />
+            <element signature="e#18085#23271#0" expanded="false" />
+            <element signature="e#27135#27658#0" expanded="false" />
+            <element signature="e#27730#28254#0" expanded="false" />
           </folding>
         </state>
       </provider>

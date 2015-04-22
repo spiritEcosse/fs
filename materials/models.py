@@ -14,12 +14,14 @@ from django.core.urlresolvers import reverse
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _, pgettext_lazy
 from django.utils.functional import cached_property
-from fs import settings
+from django.utils.encoding import python_2_unicode_compatible
 
+from fs import settings
 from fs.core.decorators import deprecated
 from fs.core.loading import get_model
 from fs.models.fields import AutoSlugField
 
+@python_2_unicode_compatible
 class Group(models.Model):
     name = models.CharField(max_length=100)
     parent = models.ForeignKey('self', blank=True, null=True)
@@ -28,7 +30,7 @@ class Group(models.Model):
     date_create = models.DateTimeField(auto_now_add=True)
     date_last_modified = models.DateTimeField(auto_now=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 class ItemAttributesContainer(object):
@@ -96,36 +98,46 @@ class ItemAttributesContainer(object):
                 value = getattr(self, attribute.code)
                 attribute.save_value(self.item, value)
 
+@python_2_unicode_compatible
 class Item(models.Model):
     STANDALONE, PARENT, CHILD = 'standalone', 'parent', 'child'
     STRUCTURE_CHOICES = (
-        (STANDALONE, _('Stand-alone product')),
-        (PARENT, _('Parent product')),
-        (CHILD, _('Child product'))
+        (STANDALONE, _('Stand-alone item')),
+        (PARENT, _('Parent item')),
+        (CHILD, _('Child item'))
     )
     structure = models.CharField(
-        _("Product structure"), max_length=10, choices=STRUCTURE_CHOICES,
+        _("Item structure"), max_length=10, choices=STRUCTURE_CHOICES,
         default=STANDALONE)
 
+    parent = models.ForeignKey(
+        'self', null=True, blank=True, related_name='children',
+        verbose_name=_("Parent item"),
+        help_text=_("Only choose a parent item if you're creating a child "
+                    "item.  For example if this is a size "
+                    "4 of a particular t-shirt.  Leave blank if this is a "
+                    "stand-alone item (i.e. there is only one version of"
+                    " this item)."))
+
+    item_class = models.ForeignKey(
+        'materials.ItemClass', null=True, blank=True, on_delete=models.PROTECT,
+        verbose_name=_('Item class'), related_name="items",
+        help_text=_("Choose what type of item this is"))
+
+    group = models.ForeignKey('materials.Group', blank=True, null=True)
     title = models.CharField(_('Title'), max_length=100)
-    origin_title = models.CharField(max_length=100, blank=True)
     slug = models.SlugField(_('Slug'), max_length=255, unique=False)
+    origin_title = models.CharField(max_length=100, blank=True)
+    enable = models.BooleanField(default=True)
     main_image = models.ImageField(upload_to=settings.IMAGE_FOLDER, blank=True, null=True)
     trailer_link = models.URLField(blank=True, null=True)
     trailer_image = models.ImageField(upload_to=settings.IMAGE_FOLDER, blank=True, null=True)
     date_create = models.DateTimeField(auto_now_add=True)
     date_last_modified = models.DateTimeField(auto_now=True)
-    enable = models.BooleanField(default=True)
     description = models.TextField(blank=True)
-    group = models.ForeignKey(Group, blank=True, null=True)
     images = ArrayField(models.ImageField(upload_to=settings.IMAGE_FOLDER), blank=True)
     tags = ArrayField(models.CharField(max_length=100), blank=True)
     related_items = models.ManyToManyField('self', blank=True)
-
-    item_class = models.ForeignKey(
-        'materials.ItemClass', null=True, blank=True, on_delete=models.PROTECT,
-        verbose_name=_('Item type'), related_name="items",
-        help_text=_("Choose what type of item this is"))
 
     attributes = models.ManyToManyField(
         'materials.ItemAttribute',
@@ -141,17 +153,8 @@ class Item(models.Model):
                     "something like a personalised message to be printed on "
                     "a T-shirt."))
 
-    parent = models.ForeignKey(
-        'self', null=True, blank=True, related_name='children',
-        verbose_name=_("Parent item"),
-        help_text=_("Only choose a parent item if you're creating a child "
-                    "item.  For example if this is a size "
-                    "4 of a particular t-shirt.  Leave blank if this is a "
-                    "stand-alone item (i.e. there is only one version of"
-                    " this item)."))
-
     class Meta:
-        ordering = ['-date_create', 'title']
+        ordering = ['-date_create']
         verbose_name = _('Item')
         verbose_name_plural = _('Items')
 
@@ -187,8 +190,6 @@ class Item(models.Model):
         +---------------+-------------+--------------+--------------+
         | parent        | forbidden   | forbidden    | required     |
         +---------------+-------------+--------------+--------------+
-        | stockrecords  | 0 or more   | forbidden    | 0 or more    |
-        +---------------+-------------+--------------+--------------+
         | categories    | 1 or more   | 1 or more    | forbidden    |
         +---------------+-------------+--------------+--------------+
         | attributes    | optional    | optional     | optional     |
@@ -209,41 +210,42 @@ class Item(models.Model):
         """
         Validates a stand-alone item
         """
-        if not self.title:
-            raise ValidationError(_("Your item must have a title."))
+        validate_dict = {}
+
         if not self.item_class:
-            raise ValidationError(_("Your item must have a item class."))
+            validate_dict["item_class"] = _("Your item must have a item class.")
         if self.parent_id:
-            raise ValidationError(_("Only child items can have a parent."))
+            validate_dict["parent"] = _("Only child items can have a parent.")
+
+        if validate_dict:
+            raise ValidationError(validate_dict)
 
     def _clean_child(self):
         """
         Validates a child item
         """
+        validate_dict = {}
+
         if not self.parent_id:
-            raise ValidationError(_("A child item needs a parent."))
+            validate_dict["parent"] = _("A child item needs a parent")
         if self.parent_id and not self.parent.is_parent:
-            raise ValidationError(
-                _("You can only assign child items to parent items."))
+            validate_dict["parent"] = _("You can only assign child items to parent items")
         if self.item_class:
-            raise ValidationError(
-                _("A child item can't have a item class."))
-        if self.pk and self.categories.exists():
-            raise ValidationError(
-                _("A child item can't have a category assigned."))
+            validate_dict["item_class"] = _("A child item can't have a item class.")
+        if self.pk and self.group.exists():
+            validate_dict["group"] = _("A child item can't have a category assigned.")
         # Note that we only forbid options on item level
         if self.pk and self.item_options.exists():
-            raise ValidationError(
-                _("A child item can't have options."))
+            validate_dict["item_options"] = _("A child item can't have options.")
+
+        if validate_dict:
+            raise ValidationError(validate_dict)
 
     def _clean_parent(self):
         """
         Validates a parent item.
         """
         self._clean_standalone()
-        if self.has_stockrecords:
-            raise ValidationError(
-                _("A parent item can't have stockrecords."))
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -272,10 +274,6 @@ class Item(models.Model):
         reason = None
         if self.is_child:
             reason = _('The specified parent item is a child item.')
-        if self.has_stockrecords:
-            reason = _(
-                "One can't add a child item to a item with stock"
-                " records.")
         is_valid = reason is None
         if give_reason:
             return is_valid, reason
@@ -294,17 +292,6 @@ class Item(models.Model):
     @property
     def is_shipping_required(self):
         return self.get_item_class().requires_shipping
-
-    @property
-    def has_stockrecords(self):
-        """
-        Test if this item has any stockrecords
-        """
-        return self.stockrecords.exists()
-
-    @property
-    def num_stockrecords(self):
-        return self.stockrecords.count()
 
     @property
     def attribute_summary(self):
@@ -425,6 +412,7 @@ class Item(models.Model):
         return self.reviews.filter(
             status=self.reviews.model.APPROVED).count()
 
+@python_2_unicode_compatible
 class ItemClass(models.Model):
     """
     Used for defining options and options for a subset of items.
@@ -467,6 +455,7 @@ class ItemClass(models.Model):
     def has_attributes(self):
         return self.attributes.exists()
 
+@python_2_unicode_compatible
 class Option(models.Model):
     """
     An option that can be selected for a particular item when the item
@@ -502,6 +491,7 @@ class Option(models.Model):
     def is_required(self):
         return self.type == self.REQUIRED
 
+@python_2_unicode_compatible
 class ItemAttribute(models.Model):
     """
     Defines an option for a item class. (For example, number_of_pages for
@@ -654,6 +644,7 @@ class ItemAttribute(models.Model):
             raise ValidationError(_("Must be a file field"))
     _validate_image = _validate_file
 
+@python_2_unicode_compatible
 class ItemAttributeValue(models.Model):
     """
     The "through" model for the m2m relationship between materials.Product and
@@ -691,6 +682,11 @@ class ItemAttributeValue(models.Model):
     entity_object_id = models.PositiveIntegerField(
         null=True, blank=True, editable=False)
 
+    class Meta:
+        unique_together = ('attribute', 'item')
+        verbose_name = _('Item attribute value')
+        verbose_name_plural = _('Item attribute values')
+
     def _get_value(self):
         return getattr(self, 'value_%s' % self.attribute.type)
 
@@ -702,11 +698,6 @@ class ItemAttributeValue(models.Model):
         setattr(self, 'value_%s' % self.attribute.type, new_value)
 
     value = property(_get_value, _set_value)
-
-    class Meta:
-        unique_together = ('attribute', 'item')
-        verbose_name = _('Item attribute value')
-        verbose_name_plural = _('Item attribute values')
 
     def __str__(self):
         return self.summary()
@@ -754,6 +745,7 @@ class ItemAttributeValue(models.Model):
     def _richtext_as_html(self):
         return mark_safe(self.value)
 
+@python_2_unicode_compatible
 class AttributeOptionGroup(models.Model):
     """
     Defines a group of options that collectively may be used as an
@@ -776,6 +768,7 @@ class AttributeOptionGroup(models.Model):
         options = [o.option for o in self.options.all()]
         return ", ".join(options)
 
+@python_2_unicode_compatible
 class AttributeOption(models.Model):
     """
     Provides an option within an option group for an attribute type
@@ -793,4 +786,3 @@ class AttributeOption(models.Model):
         app_label = 'materials'
         verbose_name = _('Attribute option')
         verbose_name_plural = _('Attribute options')
-
