@@ -55,21 +55,13 @@ class Attribute(models.Model):
     def __unicode__(self):
         return self.title
 
-class ItemAttributeRelationship(models.Model):
-    item = models.ForeignKey('Item')
-    attribute = models.ForeignKey('Attribute')
-    attribute_values = models.ManyToManyField('AttributeValue')
-
-    def __init__(self, *args, **kwargs):
-        super(ItemAttributeRelationship, self).__init__(*args, **kwargs)
-
-        if getattr(self, 'attribute', False):
-            self.attribute_values = AttributeValue.objects.filter(attribute=self.attribute)
-
 class AttributeValue(models.Model):
     title = models.CharField(_('Title'), max_length=200)
     slug = models.SlugField(_('Slug'), max_length=200, unique=True)
     attribute = models.ForeignKey('Attribute', verbose_name=_('Attribute'), related_name="attribute_values")
+
+    def __init__(self, *args, **kwargs):
+        super(AttributeValue, self).__init__(*args, **kwargs)
 
     class Meta:
         ordering = ['title']
@@ -79,7 +71,14 @@ class AttributeValue(models.Model):
     def __unicode__(self):
         return self.title
 
-#
+class ItemAttributeRelationship(models.Model):
+    item = models.ForeignKey('Item')
+    attribute = models.ForeignKey('Attribute')
+    attribute_values = models.ManyToManyField('AttributeValue', blank=True)
+
+    def __init__(self, *args, **kwargs):
+        super(ItemAttributeRelationship, self).__init__(*args, **kwargs)
+
 # class Group(models.Model):
 #     name = models.CharField(max_length=100)
 #     parent = models.ForeignKey('self', blank=True, null=True)

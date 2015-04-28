@@ -1,24 +1,30 @@
 from django.contrib import admin
 from .models import Item, Attribute, AttributeValue, ItemAttributeRelationship
+from django import forms
 from django.db import models
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.utils.translation import ugettext_lazy as _
 
+class ItemAttributeRelationshipForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ItemAttributeRelationshipForm, self).__init__(*args, **kwargs)
+
+        if 'attribute' in self.initial:
+            self.fields['attribute_values'].queryset = AttributeValue.objects.filter(attribute_id=self.initial['attribute'])
+
+    class Meta:
+        model = ItemAttributeRelationship
+        fields = ['attribute', 'attribute_values']
 
 class ItemAttributeRelationshipInline(admin.TabularInline):
     model = ItemAttributeRelationship
-    extra = 1
+    extra = 0
+    form = ItemAttributeRelationshipForm
 
 class ItemAdmin(admin.ModelAdmin):
     list_display = ('title', 'origin_title')
     inlines = (ItemAttributeRelationshipInline,)
     prepopulated_fields = {"slug": ("title", )}
-
-    # def formfield_for_manytomany(self, db_field, request, **kwargs):
-    #     if db_field.name == "cars":
-    #         kwargs["queryset"] = Attribute.objects.filter()
-    #     return super(ItemAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
-
 
 class AttributeAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title", )}
