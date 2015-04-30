@@ -21,6 +21,17 @@ from fs.core.decorators import deprecated
 from fs.core.loading import get_model
 from fs.models.fields import AutoSlugField
 
+class ItemClass(models.Model):
+    title = models.CharField(max_length=200)
+    attributes = models.ManyToManyField('Attribute', related_name='item_classes')
+
+    class Meta:
+        ordering = ['title']
+        verbose_name = _('Item class')
+        verbose_name_plural = _('Item classes')
+
+    def __unicode__(self):
+        return self.title
 
 class Item(models.Model):
     title = models.CharField(_('Title'), max_length=200)
@@ -33,6 +44,7 @@ class Item(models.Model):
     tags = ArrayField(models.CharField(max_length=200), blank=True, verbose_name=_('Tags'))
     date_create = models.DateTimeField(auto_now_add=True)
     date_last_modified = models.DateTimeField(auto_now=True)
+    item_class = models.ForeignKey('ItemClass', blank=True, null=True)
 
     class Meta:
         ordering = ['-date_create']
@@ -41,6 +53,10 @@ class Item(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    def attribute_summary(self):
+        attributes = ['%s' % attribute.item_attributes.get() for attribute in self.attributes.all()]
+        return '; '.join(attributes)
 
 class Attribute(models.Model):
     title = models.CharField(_('Title'), max_length=200)
@@ -60,9 +76,6 @@ class AttributeValue(models.Model):
     slug = models.SlugField(_('Slug'), max_length=200, unique=True)
     attribute = models.ForeignKey('Attribute', verbose_name=_('Attribute'), related_name="attribute_values")
 
-    def __init__(self, *args, **kwargs):
-        super(AttributeValue, self).__init__(*args, **kwargs)
-
     class Meta:
         ordering = ['title']
         verbose_name = _('Attribute value')
@@ -73,11 +86,15 @@ class AttributeValue(models.Model):
 
 class ItemAttributeRelationship(models.Model):
     item = models.ForeignKey('Item')
-    attribute = models.ForeignKey('Attribute')
-    attribute_values = models.ManyToManyField('AttributeValue', blank=True)
+    attribute = models.ForeignKey('Attribute', related_name='item_attributes')
+    attribute_values = models.ManyToManyField('AttributeValue')
 
-    def __init__(self, *args, **kwargs):
-        super(ItemAttributeRelationship, self).__init__(*args, **kwargs)
+    def __unicode__(self):
+        return self.get()
+
+    def get(self):
+        item_attribute_values = [value.title for value in self.attribute_values.all()]
+        return '%s:  %s' % (self.attribute.title, ', '.join(item_attribute_values))
 
 # class Group(models.Model):
 #     name = models.CharField(max_length=100)

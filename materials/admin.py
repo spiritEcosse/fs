@@ -1,30 +1,64 @@
 from django.contrib import admin
-from .models import Item, Attribute, AttributeValue, ItemAttributeRelationship
+from .models import Item, ItemClass, Attribute, AttributeValue, ItemAttributeRelationship
 from django import forms
+from django.db.models import Q
 from django.db import models
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.utils.translation import ugettext_lazy as _
 
 class ItemAttributeRelationshipForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(ItemAttributeRelationshipForm, self).__init__(*args, **kwargs)
-
-        if 'attribute' in self.initial:
-            self.fields['attribute_values'].queryset = AttributeValue.objects.filter(attribute_id=self.initial['attribute'])
-
     class Meta:
         model = ItemAttributeRelationship
         fields = ['attribute', 'attribute_values']
 
+    def __init__(self, *args, **kwargs):
+        super(ItemAttributeRelationshipForm, self).__init__(*args, **kwargs)
+
+        if self.initial.get('attribute', None):
+            self.fields['attribute_values'].queryset = AttributeValue.objects.filter(attribute_id=self.initial['attribute'])
+
+    # def clean(self):
+    #     cleaned_data = super(AttributeForm, self).clean()
+    #     raise Exception(cleaned_data)
+
 class ItemAttributeRelationshipInline(admin.TabularInline):
     model = ItemAttributeRelationship
-    extra = 0
+    extra = 3
     form = ItemAttributeRelationshipForm
 
+    # def get_queryset(self, request):
+        # raise Exception(dir(self))
+        # queryset = super(AttributeInline, self).get_queryset(request)
+        # queryset = Attribute.objects.none()
+        # queryset = Attribute.objects.filter(Q(item_classes=1) | Q(items=5))
+        # queryset = Attribute.objects.filter(Q(item=5) | Q(attribute__item_classes=1))
+        # raise Exception(queryset)
+            # attribute.item_classes.filter(pk=Item.objects.get(pk=5).item_class)
+        # raise Exception(queryset)
+        # return queryset
+
+    # def get_formset(self, request, obj=None, **kwargs):
+    #     formset = super(AttributeInline, self).get_formset(request, obj=None, **kwargs)
+    #     raise Exception(self.formset)
+    #     return formset
+
+        # raise Exception(self.get_queryset(request))
+        # raise Exception(dir(self))
+
+        #     raise Exception(dir(self))
+        #
+        #     raise Exception(dir(self))
+
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('title', 'origin_title')
-    inlines = (ItemAttributeRelationshipInline,)
+    list_display = ('title', 'origin_title', 'attribute_summary', 'date_create', 'item_class', 'enable')
+    inlines = [ItemAttributeRelationshipInline, ]
     prepopulated_fields = {"slug": ("title", )}
+
+    def get_queryset(self, request):
+        qs = super(ItemAdmin, self).get_queryset(request)
+        return qs\
+            .select_related('item_class')\
+            .prefetch_related('attributes', 'attributes__attribute_values', 'recommend_item')
 
 class AttributeAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title", )}
@@ -32,8 +66,8 @@ class AttributeAdmin(admin.ModelAdmin):
 class AttributeValueAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title", )}
 
-
 admin.site.register(Item, ItemAdmin)
+admin.site.register(ItemClass)
 admin.site.register(Attribute, AttributeAdmin)
 admin.site.register(AttributeValue, AttributeValueAdmin)
 
