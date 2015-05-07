@@ -55,7 +55,7 @@ class Item(models.Model):
         return self.title
 
     def attribute_summary(self):
-        attributes = ['%s' % attribute.item_attributes.get() for attribute in self.attributes.all()]
+        attributes = ['%s' % attribute.item_attributes.all() for attribute in self.attributes.all()]
         return '; '.join(attributes)
 
 class Attribute(models.Model):
@@ -92,7 +92,7 @@ class ItemAttributeRelationship(models.Model):
     def __unicode__(self):
         return self.get()
 
-    def get(self):
+    def get_a(self):
         item_attribute_values = [value.title for value in self.attribute_values.all()]
         return '%s:  %s' % (self.attribute.title, ', '.join(item_attribute_values))
 

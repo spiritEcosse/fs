@@ -5,8 +5,10 @@ from django.db.models import Q
 from django.db import models
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.utils.translation import ugettext_lazy as _
+from django.forms.models import BaseInlineFormSet
+from django.core.exceptions import ValidationError
 
-class ItemAttributeRelationshipForm(forms.ModelForm):
+class ItemAttributeRelationshipForm(BaseInlineFormSet):
     class Meta:
         model = ItemAttributeRelationship
         fields = ['attribute', 'attribute_values']
@@ -17,14 +19,31 @@ class ItemAttributeRelationshipForm(forms.ModelForm):
         # if self.initial.get('attribute', None):
         #     self.fields['attribute_values'].queryset = AttributeValue.objects.filter(attribute_id=self.initial['attribute'])
 
-    # def clean(self):
-    #     cleaned_data = super(AttributeForm, self).clean()
-    #     raise Exception(cleaned_data)
+
+    def clean(self):
+        if self.instance.item_class:
+            attr_form = set()
+
+            for form in self.forms:
+                if 'attribute' in form.cleaned_data:
+                    attr_form.add(form.cleaned_data['attribute'])
+
+            attr_class = set(self.instance.item_class.attributes.all())
+            diff_attr = attr_class.difference(attr_form)
+
+            if diff_attr:
+                validate_error = []
+
+                for attr in diff_attr:
+                    validate_error.append(_('%s attribute cannot be blank') % attr)
+
+                if validate_error:
+                    raise ValidationError(validate_error)
 
 class ItemAttributeRelationshipInline(admin.TabularInline):
     model = ItemAttributeRelationship
     extra = 3
-    form = ItemAttributeRelationshipForm
+    formset = ItemAttributeRelationshipForm
 
     # def get_queryset(self, request):
         # raise Exception(dir(self))
@@ -51,7 +70,7 @@ class ItemAttributeRelationshipInline(admin.TabularInline):
 
 class ItemAdmin(admin.ModelAdmin):
     list_display = ('title', 'origin_title', 'attribute_summary', 'date_create', 'item_class', 'enable')
-    inlines = [ItemAttributeRelationshipInline, ]
+    inlines = [ItemAttributeRelationshipInline]
     prepopulated_fields = {"slug": ("title", )}
 
     def get_queryset(self, request):
