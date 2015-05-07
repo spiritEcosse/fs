@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6aad01fd-8a8a-4683-a63c-43ca567eccca" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/materials/migrations/0002_auto_20150430_1704.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/materials/migrations/0003_auto_20150430_1726.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/materials/migrations/0004_attributevalue_item.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/materials/migrations/0005_remove_attributevalue_item.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="fs.iws" />
@@ -59,8 +55,8 @@
       <file leaf-file-name="admin.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/materials/admin.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.63529414" vertical-offset="54" max-vertical-offset="2412">
-              <caret line="9" column="15" selection-start-line="9" selection-start-column="15" selection-end-line="9" selection-end-column="15" />
+            <state vertical-scroll-proportion="0.7411765" vertical-offset="54" max-vertical-offset="2412">
+              <caret line="10" column="41" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -476,7 +472,13 @@
       <option name="project" value="LOCAL" />
       <updated>1431016165079</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="admin add summary attribute for item">
+      <created>1431016290208</created>
+      <option name="number" value="00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1431016290208</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -967,8 +969,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/materials/admin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.63529414" vertical-offset="54" max-vertical-offset="2412">
-          <caret line="9" column="15" selection-start-line="9" selection-start-column="15" selection-end-line="9" selection-end-column="15" />
+        <state vertical-scroll-proportion="0.7411765" vertical-offset="54" max-vertical-offset="2412">
+          <caret line="10" column="41" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
           </folding>
