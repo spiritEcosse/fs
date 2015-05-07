@@ -14,8 +14,8 @@ class ItemAttributeRelationshipForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ItemAttributeRelationshipForm, self).__init__(*args, **kwargs)
 
-        if self.initial.get('attribute', None):
-            self.fields['attribute_values'].queryset = AttributeValue.objects.filter(attribute_id=self.initial['attribute'])
+        # if self.initial.get('attribute', None):
+        #     self.fields['attribute_values'].queryset = AttributeValue.objects.filter(attribute_id=self.initial['attribute'])
 
     # def clean(self):
     #     cleaned_data = super(AttributeForm, self).clean()
