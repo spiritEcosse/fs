@@ -55,7 +55,8 @@ class Item(models.Model):
         return self.title
 
     def attribute_summary(self):
-        attributes = ['%s' % attribute.item_attributes.all() for attribute in self.attributes.all()]
+        item_attr_relate = ItemAttributeRelationship.objects.filter(item=self, attribute=self.attributes.all())
+        attributes = ['%s: %s' % (value, ', '.join([attr_value.title for attr_value in value.attribute_values.all()])) for value in item_attr_relate]
         return '; '.join(attributes)
 
 class Attribute(models.Model):
@@ -90,11 +91,7 @@ class ItemAttributeRelationship(models.Model):
     attribute_values = models.ManyToManyField('AttributeValue')
 
     def __unicode__(self):
-        return self.get()
-
-    def get_a(self):
-        item_attribute_values = [value.title for value in self.attribute_values.all()]
-        return '%s:  %s' % (self.attribute.title, ', '.join(item_attribute_values))
+        return '%s' % self.attribute.title
 
 # class Group(models.Model):
 #     name = models.CharField(max_length=100)

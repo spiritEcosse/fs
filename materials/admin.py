@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.db import models
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.utils.translation import ugettext_lazy as _
-from django.forms.models import BaseInlineFormSet
+from django.forms.models import BaseInlineFormSet, BaseModelFormSet
 from django.core.exceptions import ValidationError
 
 class ItemAttributeRelationshipForm(BaseInlineFormSet):
@@ -13,14 +13,9 @@ class ItemAttributeRelationshipForm(BaseInlineFormSet):
         model = ItemAttributeRelationship
         fields = ['attribute', 'attribute_values']
 
-    def __init__(self, *args, **kwargs):
-        super(ItemAttributeRelationshipForm, self).__init__(*args, **kwargs)
-
-        # if self.initial.get('attribute', None):
-        #     self.fields['attribute_values'].queryset = AttributeValue.objects.filter(attribute_id=self.initial['attribute'])
-
-
     def clean(self):
+        super(ItemAttributeRelationshipForm, self).clean()
+
         if self.instance.item_class:
             attr_form = set()
 
@@ -42,11 +37,15 @@ class ItemAttributeRelationshipForm(BaseInlineFormSet):
 
 class ItemAttributeRelationshipInline(admin.TabularInline):
     model = ItemAttributeRelationship
-    extra = 3
+    extra = 0
     formset = ItemAttributeRelationshipForm
 
+    # def get_formset(self, request, obj=None, **kwargs):
+    #     formset = super(ItemAttributeRelationshipInline, self).get_formset(request, obj=None, **kwargs)
+    #     raise Exception(formset)
+
     # def get_queryset(self, request):
-        # raise Exception(dir(self))
+    #     raise Exception(self)
         # queryset = super(AttributeInline, self).get_queryset(request)
         # queryset = Attribute.objects.none()
         # queryset = Attribute.objects.filter(Q(item_classes=1) | Q(items=5))
@@ -57,8 +56,8 @@ class ItemAttributeRelationshipInline(admin.TabularInline):
         # return queryset
 
     # def get_formset(self, request, obj=None, **kwargs):
-    #     formset = super(AttributeInline, self).get_formset(request, obj=None, **kwargs)
-    #     raise Exception(self.formset)
+    #     super(ItemAttributeRelationshipInline, self).get_formset(request, obj=None, **kwargs)
+        # raise Exception(self.formset.__dict__)
     #     return formset
 
         # raise Exception(self.get_queryset(request))
