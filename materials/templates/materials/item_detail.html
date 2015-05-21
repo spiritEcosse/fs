@@ -1,0 +1,286 @@
+{% extends "base.html" %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block main %}
+    <div class="main item-desc">
+        <div class="wrapp item-detail">
+            <div class="row">
+                <div class="col-md-5">
+                    <a href="#" class="thumbnail"><img class="img-responsive shadow" src="{{ object.main_image.url }}" title="" alt=""></a>
+                    <div class="wrapp-btn">
+                        <a href="#" class="btn btn-primary btn-sm">Добавить в избранное</a>
+                        <a href="#" class="btn btn-primary btn-sm">Добавить в избранное</a>
+                    </div>
+                </div>
+                <div class="col-md-14">
+                    <h1>{{ object.title|capfirst }}<br/>
+                        <small>{{ object.origin_title }}</small>
+                    </h1>
+
+                    {% for attr, attr_values in attributes %}
+                        <div class="row">
+                            <div class=" col-md-7">
+                                <span>{{ attr }}:</span>
+                            </div>
+                            <div class="col-md-17">
+                                {% for values in attr_values %}
+                                    <a class="btn btn-primary btn-xs">{{ values }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    <div class="row">
+                        <div class=" col-md-7">
+                            <span>Год:</span>
+                        </div>
+                        <div class="col-md-17">
+                            <a class="btn btn-primary btn-xs">2013</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class=" col-md-7">
+                            <span>Страна:</span>
+                        </div>
+                        <div class="col-md-17">
+                            <a class="btn btn-primary btn-xs">
+                                <span class="flag-icon flag-icon-gr"></span>
+                                США
+                            </a>
+                            <a class="btn btn-primary btn-xs">
+                                <span class="flag-icon flag-icon-ad"></span>
+                                Канада
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class=" col-md-7">
+                            <span>Режиссёр:</span>
+                        </div>
+                        <div class="col-md-17">
+                            <a class="btn btn-primary btn-xs">Зак Снайдер</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class=" col-md-7">
+                            <span>В ролях:</span>
+                        </div>
+                        <div class="col-md-17">
+                            <a class="btn btn-primary btn-xs">Генри Кевилл</a>
+                            <a class="btn btn-primary btn-xs">Эми Адамс</a>
+                            <a class="btn btn-primary btn-xs">Майкл Шеннон</a>
+                            <a class="btn btn-primary btn-xs" id="btn-more" onclick="$('#btn-more').addClass('none'); $('#more-desc').removeClass('none'); $('#more-desc').addClass('block'); ">еще</a>
+                            <div class="more-desc none" id="more-desc">
+                                <a class="btn btn-primary btn-xs">Майкл Шеннон</a>
+                                <a class="btn btn-primary btn-xs">Майкл Шеннон</a>
+                                <a class="btn btn-primary btn-xs">Майкл Шеннон</a>
+                                <a class="btn btn-primary btn-xs">Майкл Шеннон</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row vertical-offset-md">
+                        {% for item_image in object.images.all %}
+                            <div class="col-md-4 wrapp-block">
+                                <a href="{{ item_image.pk }}" >
+                                    <img alt="{{ item_image.title }}" title="{{ item_image.title }}" src="{{ item_image.image.url }}" class="img-responsive">
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="row rating">
+                        <div class="col-md-9">
+                            <span>Оценки пользователей</span>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success" style="width: 75%">
+                                    <span class="sr-only">75% Complete (success)</span>
+                                </div>
+                                <div class="progress-bar progress-bar-danger" style="width: 25%">
+                                    <span class="sr-only">25% Complete (danger)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 section">
+                            <div class="like pull-left"><span>144</span></div>
+                            <div class="not-like pull-left"><span>1223</span></div>
+                        </div>
+                        <div class="col-md-9 section">
+                            <a class="btn btn-danger btn-xs">Не нравиться</a>
+                            <a class="btn btn-success btn-xs">Нравиться</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <span>Трейлер</span>
+                </div>
+            </div>
+
+            <div class="row share-net">
+                <div class="col-md-12">
+                    <span>Понравился фильм? Поделись с друзьями!</span>
+                </div>
+                <div class="col-md-12">
+                </div>
+            </div>
+
+            <div class="row description">
+                <div class="col-xs-24">
+                    Кларк Кент/Кал-Эл — молодой человек, который чувствует себя чужаком из-за своей невероятной силы. Много лет назад он был отправлен на Землю с развитой планеты Криптон, и теперь задается вопросом: зачем?
+                    <br/>
+                    <br/>
+                    Воспитанный приемными родителями Мартой и Джонатаном Кентами, Кларк знает: обладать сверхспособностями — значит принимать сложные решения. Но когда человечество более всего нуждается в стабильности, оно подвергается нападению. Сможет ли герой восстановить мир, или воспользуется своей силой для того, чтобы окончательно его разрушить?
+                </div>
+            </div>
+
+            <div class="row related">
+                <h3>Похожие материалы</h3>
+
+                <div class="col-md-3">
+                    <a href="#" class="item">
+                        <img class="img-responsive shadow img-rounded" src="images/00352348.jpg">
+                        <div class="title">simpsons</div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#" class="item">
+                        <img class="img-responsive shadow img-rounded" src="images/00352348.jpg">
+                        <div class="title">simpsons</div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#" class="item">
+                        <img class="img-responsive shadow img-rounded" src="images/00352348.jpg">
+                        <div class="title">simpsons</div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#" class="item">
+                        <img class="img-responsive shadow img-rounded" src="images/00352348.jpg">
+                        <div class="title">simpsons</div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#" class="item">
+                        <img class="img-responsive shadow img-rounded" src="images/00352348.jpg">
+                        <div class="title">simpsons</div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#" class="item">
+                        <img class="img-responsive shadow img-rounded" src="images/00352348.jpg">
+                        <div class="title">simpsons</div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#" class="item">
+                        <img class="img-responsive shadow img-rounded" src="images/00352348.jpg">
+                        <div class="title">simpsons</div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#" class="item">
+                        <img class="img-responsive shadow img-rounded" src="images/00352348.jpg">
+                        <div class="title">simpsons</div>
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="row comments">
+                <div class="col-md-24">
+                    <h3>Лучшие отзывы</h3>
+                </div>
+
+                <div class="col-md-24 comment positive">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <a href="#">
+                                <img class="img-responsive img-rounded" src="images/user-img.jpg">
+                            </a>
+                        </div>
+                        <div class="col-md-22">
+                            <div class="name pull-left"><a href="#">Pepsi777</a></div>
+                            <div class="date pull-left"><span>21 июня 2013 в 11:36</span></div>
+                            <div class="help-comment pull-right">
+                                <span>Отзыв был полезен?</span>
+                                <a href="#" class="btn btn-default btn-xs">Да<span class="pos-number">54</span></a>
+                                <a href="#" class="btn btn-default btn-xs">Нет<span class="negat-number">54</span></a>
+                            </div>
+                            <div class="comment-text">
+                                <p>Фильм невероятно крут , все предыдущие части были полным трешем , а это действительно хороша , начало слегка затянуто , можно было урезать минут этак 20 , ну не чего и тай прикольно !Рекомендую к просмотру. СМОТРЕТЬ ТОЛЬКО В КИНО или В 1080p , не смотрите в camrip'e</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-24 comment negative">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <a href="#">
+                                <img class="img-responsive img-rounded" src="images/user-img.jpg">
+                            </a>
+                        </div>
+                        <div class="col-md-22">
+                            <div class="name pull-left"><a href="#">Pepsi777</a></div>
+                            <div class="date pull-left"><span>21 июня 2013 в 11:36</span></div>
+                            <div class="help-comment pull-right">
+                                <span>Отзыв был полезен?</span>
+                                <a href="#" class="btn btn-default btn-xs">Да<span class="pos-number">54</span></a>
+                                <a href="#" class="btn btn-default btn-xs">Нет<span class="negat-number">54</span></a>
+                            </div>
+                            <div class="comment-text">
+                                <p>Фильм невероятно крут , все предыдущие части были полным трешем , а это действительно хороша , начало слегка затянуто , можно было урезать минут этак 20 , ну не чего и тай прикольно !Рекомендую к просмотру. СМОТРЕТЬ ТОЛЬКО В КИНО или В 1080p , не смотрите в camrip'e</p>
+                                <p>Фильм невероятно крут , все предыдущие части были полным трешем , а это действительно хороша , начало слегка затянуто , можно было урезать минут этак 20 , ну не чего и тай прикольно !Рекомендую к просмотру. СМОТРЕТЬ ТОЛЬКО В КИНО или В 1080p , не смотрите в camrip'e</p>
+                                <p>Фильм невероятно крут , все предыдущие части были полным трешем , а это действительно хороша , начало слегка затянуто , можно было урезать минут этак 20 , ну не чего и тай прикольно !Рекомендую к просмотру. СМОТРЕТЬ ТОЛЬКО В КИНО или В 1080p , не смотрите в camrip'e</p>
+                                <p>Фильм невероятно крут , все предыдущие части были полным трешем , а это действительно хороша , начало слегка затянуто , можно было урезать минут этак 20 , ну не чего и тай прикольно !Рекомендую к просмотру. СМОТРЕТЬ ТОЛЬКО В КИНО или В 1080p , не смотрите в camrip'e</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-24 comment positive">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <a href="#">
+                                <img class="img-responsive img-rounded" src="images/user-img.jpg">
+                            </a>
+                        </div>
+                        <div class="col-md-22">
+                            <div class="name pull-left"><a href="#">Pepsi777</a></div>
+                            <div class="date pull-left"><span>21 июня 2013 в 11:36</span></div>
+                            <div class="help-comment pull-right">
+                                <span>Отзыв был полезен?</span>
+                                <a href="#" class="btn btn-default btn-xs">Да<span class="pos-number">54</span></a>
+                                <a href="#" class="btn btn-default btn-xs">Нет<span class="negat-number">54</span></a>
+                            </div>
+                            <div class="comment-text">
+                                <p>Фильм невероятно крут , все предыдущие части были полным трешем , а это действительно хороша , начало слегка затянуто , можно было урезать минут этак 20 , ну не чего и тай прикольно !Рекомендую к просмотру. СМОТРЕТЬ ТОЛЬКО В КИНО или В 1080p , не смотрите в camrip'e</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-24 comment negative">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <a href="#">
+                                <img class="img-responsive img-rounded" src="images/user-img.jpg">
+                            </a>
+                        </div>
+                        <div class="col-md-22">
+                            <div class="name pull-left"><a href="#">Pepsi777</a></div>
+                            <div class="date pull-left"><span>21 июня 2013 в 11:36</span></div>
+                            <div class="help-comment pull-right">
+                                <span>Отзыв был полезен?</span>
+                                <a href="#" class="btn btn-default btn-xs">Да<span class="pos-number">54</span></a>
+                                <a href="#" class="btn btn-default btn-xs">Нет<span class="negat-number">54</span></a>
+                            </div>
+                            <div class="comment-text">
+                                <p>Фильм невероятно крут , все предыдущие части были полным трешем , а это действительно хороша , начало слегка затянуто , можно было урезать минут этак 20 , ну не чего и тай прикольно !Рекомендую к просмотру. СМОТРЕТЬ ТОЛЬКО В КИНО или В 1080p , не смотрите в camrip'e</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="rasparovka"></div>
+    </div>
+{% endblock %}
