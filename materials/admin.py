@@ -3,18 +3,33 @@ from .models import Item, ItemClass, Attribute, AttributeValue, ItemAttributeRel
 from django.utils.translation import ugettext_lazy as _
 from django.forms.models import BaseInlineFormSet
 from django.core.exceptions import ValidationError
+from django.db.models import When, Case
+
+def change_status(modeladmin, request, queryset):
+    queryset.update(
+        enable=Case(
+            When(enable=True, then=False),
+            When(enable=False, then=True)
+        )
+    )
+change_status.short_description = _("Change status")
 
 class ItemAttributeRelationshipForm(BaseInlineFormSet):
     class Meta:
         model = ItemAttributeRelationship
         fields = ['attribute', 'attribute_values']
 
-    # def __init__(self, *args, **kwargs):
-    #     super(ItemAttributeRelationshipForm, self).__init__(*args, **kwargs)
-    #     self.initial_extra = [{'attribute': 2}, {'attribute': 3}, {'attribute': 2}]
+    def __init__(self, *args, **kwargs):
+        super(ItemAttributeRelationshipForm, self).__init__(*args, **kwargs)
 
-        # if 'attribute' in self.initial:
-        #     self.fields['attribute_values'].queryset = AttributeValue.objects.filter(attribute_id=self.initial['attribute'])
+        # raise Exception(self.forms)
+        # self.initial_extra = [{'attribute': 1, 'attribute_values': [2, 4, 6]}]
+
+        # if getattr(self.initial, 'attribute', None):
+        #     raise Exception(self.initial['attribute'])
+        #
+        #     self.fields['attribute_values'].queryset = AttributeValue.objects.\
+        #         filter(attribute_id=self.initial['attribute'])
 
     def clean(self):
         super(ItemAttributeRelationshipForm, self).clean()
@@ -47,25 +62,36 @@ class ItemImagesInline(admin.TabularInline):
     model = ItemImages
 
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('title', 'origin_title', 'attribute_summary', 'date_create', 'item_class', 'enable')
+    list_display = ('title', 'main_group', 'origin_title', 'creator', 'attribute_summary', 'date_create', 'item_class', 'enable')
     inlines = [ItemAttributeRelationshipInline, ItemImagesInline]
     prepopulated_fields = {"slug": ("title", )}
+    actions = [change_status]
+
+    def save_model(self, request, obj, form, change):
+        obj.creator = request.user
+        obj.save()
 
     def get_queryset(self, request):
         qs = super(ItemAdmin, self).get_queryset(request)
+        # qs.prefetch_related('attributes', 'attributes__attribute_values')
+        # raise Exception(qs[8].attributes.all()[0].attribute_values.all())
+
         return qs\
             .select_related('item_class')\
             .prefetch_related('attributes', 'attributes__attribute_values', 'recommend_item')
 
 class AttributeAdmin(admin.ModelAdmin):
+    list_display = ('title', 'enable')
     prepopulated_fields = {"slug": ("title", )}
+    actions = [change_status]
 
 class AttributeValueAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title", )}
 
 class GroupAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title", )}
-    list_display = ('title', 'parent')
+    list_display = ('title', 'parent', 'slug', 'sort', 'enable')
+    actions = [change_status]
 
 admin.site.register(Item, ItemAdmin)
 admin.site.register(Group, GroupAdmin)

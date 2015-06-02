@@ -4,638 +4,159 @@
 
 {% block main %}
     <div class="wrapp category">
-                <div class="row">
-                    <div class="col-xs-24">
-                        <h1>Фильмы</h1>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="heading">
-                            <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
-                            Настроение
-                        </div>
-                        <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Веселые</span></a>
-                        <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Веселые</span></a>
-                        <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Веселые</span></a>
-                        <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Веселые</span></a>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="heading">
-                            <span class="glyphicon glyphicon glyphicon-book" aria-hidden="true"></span>
-                            Производство
-                        </div>
-                        <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Наши</span></a>
-                        <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="heading">
-                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
-                            Производство
-                        </div>
-                        <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Наши</span></a>
-                        <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="heading">
-                            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-                            Производство
-                        </div>
-                        <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Наши</span></a>
-                        <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
-                        <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
-                        <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="heading">
-                            <span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>
-                            Качество
-                        </div>
-                        <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Наши</span></a>
-                        <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="heading">
-                            <span class="glyphicon glyphicon-headphones" aria-hidden="true"></span>
-                            Перевод
-                        </div>
-                        <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Наши</span></a>
-                        <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
-                        <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
-                        <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
-                    </div>
-                </div>
+        <div class="row">
+            <div class="col-xs-24">
+                <h1>{{ object.title|capfirst }}</h1>
             </div>
 
+            <div class="col-md-4">
+                <div class="heading">
+                    <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
+                    Настроение
+                </div>
+                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Веселые</span></a>
+                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Веселые</span></a>
+                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Веселые</span></a>
+                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Веселые</span></a>
+            </div>
+            <div class="col-md-4">
+                <div class="heading">
+                    <span class="glyphicon glyphicon glyphicon-book" aria-hidden="true"></span>
+                    Производство
+                </div>
+                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Наши</span></a>
+                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
+            </div>
+            <div class="col-md-4">
+                <div class="heading">
+                    <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
+                    Производство
+                </div>
+                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Наши</span></a>
+                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
+            </div>
+            <div class="col-md-4">
+                <div class="heading">
+                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                    Производство
+                </div>
+                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Наши</span></a>
+                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
+                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
+                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
+            </div>
+            <div class="col-md-4">
+                <div class="heading">
+                    <span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>
+                    Качество
+                </div>
+                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Наши</span></a>
+                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
+            </div>
+            <div class="col-md-4">
+                <div class="heading">
+                    <span class="glyphicon glyphicon-headphones" aria-hidden="true"></span>
+                    Перевод
+                </div>
+                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Наши</span></a>
+                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
+                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
+                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
+            </div>
+        </div>
+    </div>
+
+    {% if items_popular %}
     <div class="menu">
-                <div class="row wrapp now">
-                    <div class="col-xs-24">
-                        <h3>
-                            Самое просматриваемое прямо сейчас
-                        </h3>
-                    </div>
-                    <div class="col-md-3 col-sm-4 col-xs-6">
-                        <a href="#">
-                            <img class="img-responsive shadow" src="images/00354376.jpg">
-                            <div class="title">simpsons</div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 col-sm-4 col-xs-6">
-                        <a href="#">
-                            <img class="img-responsive shadow" src="images/00354376.jpg">
-                            <div class="title">simpsons</div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 col-sm-4 col-xs-6">
-                        <a href="#">
-                            <img class="img-responsive shadow" src="images/00354376.jpg">
-                            <div class="title">simpsons</div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 col-sm-4 col-xs-6">
-                        <a href="#">
-                            <img class="img-responsive shadow" src="images/00354376.jpg">
-                            <div class="title">simpsons</div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 col-sm-4 col-xs-6">
-                        <a href="#">
-                            <img class="img-responsive shadow" src="images/00354376.jpg">
-                            <div class="title">simpsons</div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 col-sm-4 col-xs-6">
-                        <a href="#">
-                            <img class="img-responsive shadow" src="images/00354376.jpg">
-                            <div class="title">simpsons</div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 col-sm-4 col-xs-6">
-                        <a href="#">
-                            <img class="img-responsive shadow" src="images/00354376.jpg">
-                            <div class="title">simpsons</div>
-                        </a>
-                    </div>
-                    <div class="col-md-3 col-sm-4 col-xs-6">
-                        <a href="#">
-                            <img class="img-responsive shadow" src="images/00354376.jpg">
-                            <div class="title">simpsons</div>
-                        </a>
-                    </div>
-                </div>
+        <div class="row wrapp now">
+            <div class="col-xs-24">
+                <h3>
+                    Самое просматриваемое прямо сейчас
+                </h3>
             </div>
+
+            {% for item in items_popular %}
+                <div class="col-md-3 col-sm-4 col-xs-6">
+                    <a href="{{ item.get_absolute_url }}">
+                        {% if item.main_image %}
+                            <img title="{{ item.title }}" alt="{{ item.title }}" class="img-responsive shadow" src="{{ item.main_image.url }}">
+                        {% endif %}
+                        <div class="title">{{ item.title|truncatechars:12 }}</div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
 
     <div class="wrapp list-item">
+        <div class="row">
+            <div class="col-md-12">
+            {% block breadcrumbs %}
+                <ol class="breadcrumb">
+                {% for group in breadcrumbs %}
+                    <li><a href="{{ group.get_absolute_url }}">{{ group.title|capfirst }}</a></li>
+                {% endfor %}
+                    <li class="active"><a>{{ object.title|capfirst }}</a></li>
+                </ol>
+            {% endblock %}
+            </div>
+            <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-12">
-                        <ol class="breadcrumb">
-                            <li><a href="#">Видео</a></li>
-                            <li class="active"><a href="#">Фильмы</a></li>
-                        </ol>
+                    <div class="col-md-8">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                в тренде <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                        в тренде <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">Action</a></li>
-                                        <li><a href="#">Another action</a></li>
-                                        <li><a href="#">Something else here</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">Separated link</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-md-8 col-md-offset-8 text-right">
-                                <button class="btn btn-default active"><span class="glyphicon glyphicon-th"></span></button>
-                                <button class="btn btn-default"><span class="glyphicon glyphicon-th-list"></span></button>
+                    <div class="col-md-8 col-md-offset-8 text-right">
+                        <button class="btn btn-default active"><span class="glyphicon glyphicon-th"></span></button>
+                        <button class="btn btn-default"><span class="glyphicon glyphicon-th-list"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if items %}
+        <div class="row group">
+            {% for item in items %}
+            <div class="col-md-4 item">
+                <a href="{{ item.get_absolute_url }}">
+                    <img class="img-responsive shadow-item" src="{{ item.main_image.url }}">
+                    <div class="empty"></div>
+                    <div class="short_title">
+                        <span>{{ item.title|truncatechars:33 }}</span>
+                    </div>
+                    <div class="full_title">
+                        <div class="title"><span>{{ item.title|truncatechars:50 }}</span></div>
+                        <div class="short_desc">
+                            <span>2001</span>
+                            <span></span>
+                            <span>США, Великобритания, Ямайка</span>
+                        </div>
+                        <div class="bottom">
+                            <div class="like pull-left">144</div>
+                            <div class="not-like pull-left">1223</div>
+                            <div class="quality pull-right text-right">
+                                <span class="hd"></span>
+                                <span class="hq"></span>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="row group">
-                    <div class="col-md-4 item">
-                        <a href="#">
-                            <img class="img-responsive shadow-item" src="images/00336116.jpg">
-                            <div class="empty"></div>
-                            <div class="short_title">
-                                <span>Голодные игры: Сойка-пересмешница...</span>
-                            </div>
-                            <div class="full_title">
-                                <div class="title"><span>Голодные игры: Сойка-пересмешница. Часть 1333.</span></div>
-                                <div class="short_desc">
-                                    <span>2001</span>
-                                    <span></span>
-                                    <span>США, Великобритания, Ямайка</span>
-                                </div>
-                                <div class="bottom">
-                                    <div class="like pull-left">144</div>
-                                    <div class="not-like pull-left">1223</div>
-                                    <div class="quality pull-right text-right">
-                                        <span class="hd"></span>
-                                        <span class="hq"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="col-md-4 item">
-                        <a href="#">
-                            <img class="img-responsive shadow-item" src="images/00336116.jpg">
-                            <div class="empty"></div>
-                            <div class="short_title">
-                                <span>Голодные игры: Сойка-пересмешница...</span>
-                            </div>
-                            <div class="full_title">
-                                <div class="title"><span>Голодные игры: Сойка-пересмешница. Часть 1333.</span></div>
-                                <div class="short_desc">
-                                    <span>2001</span>
-                                    <span></span>
-                                    <span>США, Великобритания, Ямайка</span>
-                                </div>
-                                <div class="bottom">
-                                    <div class="like pull-left">144</div>
-                                    <div class="not-like pull-left">1223</div>
-                                    <div class="quality pull-right text-right">
-                                        <span class="hd"></span>
-                                        <span class="hq"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4 item">
-                        <a href="#">
-                            <img class="img-responsive shadow-item" src="images/00336116.jpg">
-                            <div class="empty"></div>
-                            <div class="short_title">
-                                <span>Голодные игры: Сойка-пересмешница...</span>
-                            </div>
-                            <div class="full_title">
-                                <div class="title"><span>Голодные игры: Сойка-пересмешница. Часть 1333.</span></div>
-                                <div class="short_desc">
-                                    <span>2001</span>
-                                    <span></span>
-                                    <span>США, Великобритания, Ямайка</span>
-                                </div>
-                                <div class="bottom">
-                                    <div class="like pull-left">144</div>
-                                    <div class="not-like pull-left">1223</div>
-                                    <div class="quality pull-right text-right">
-                                        <span class="hd"></span>
-                                        <span class="hq"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4 item">
-                        <a href="#">
-                            <img class="img-responsive shadow-item" src="images/00336116.jpg">
-                            <div class="empty"></div>
-                            <div class="short_title">
-                                <span>Голодные игры: Сойка-пересмешница...</span>
-                            </div>
-                            <div class="full_title">
-                                <div class="title"><span>Голодные игры: Сойка-пересмешница. Часть 1333.</span></div>
-                                <div class="short_desc">
-                                    <span>2001</span>
-                                    <span></span>
-                                    <span>США, Великобритания, Ямайка</span>
-                                </div>
-                                <div class="bottom">
-                                    <div class="like pull-left">144</div>
-                                    <div class="not-like pull-left">1223</div>
-                                    <div class="quality pull-right text-right">
-                                        <span class="hd"></span>
-                                        <span class="hq"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4 item">
-                        <a href="#">
-                            <img class="img-responsive shadow-item" src="images/00336116.jpg">
-                            <div class="empty"></div>
-                            <div class="short_title">
-                                <span>Голодные игры: Сойка-пересмешница...</span>
-                            </div>
-                            <div class="full_title">
-                                <div class="title"><span>Голодные игры: Сойка-пересмешница. Часть 1333.</span></div>
-                                <div class="short_desc">
-                                    <span>2001</span>
-                                    <span></span>
-                                    <span>США, Великобритания, Ямайка</span>
-                                </div>
-                                <div class="bottom">
-                                    <div class="like pull-left">144</div>
-                                    <div class="not-like pull-left">1223</div>
-                                    <div class="quality pull-right text-right">
-                                        <span class="hd"></span>
-                                        <span class="hq"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4 item">
-                        <a href="#">
-                            <img class="img-responsive shadow-item" src="images/00336116.jpg">
-                            <div class="empty"></div>
-                            <div class="short_title">
-                                <span>Голодные игры: Сойка-пересмешница...</span>
-                            </div>
-                            <div class="full_title">
-                                <div class="title"><span>Голодные игры: Сойка-пересмешница. Часть 1333.</span></div>
-                                <div class="short_desc">
-                                    <span>2001</span>
-                                    <span></span>
-                                    <span>США, Великобритания, Ямайка</span>
-                                </div>
-                                <div class="bottom">
-                                    <div class="like pull-left">144</div>
-                                    <div class="not-like pull-left">1223</div>
-                                    <div class="quality pull-right text-right">
-                                        <span class="hd"></span>
-                                        <span class="hq"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4 item">
-                        <a href="#">
-                            <img class="img-responsive shadow-item" src="images/00336116.jpg">
-                            <div class="empty"></div>
-                            <div class="short_title">
-                                <span>Голодные игры: Сойка-пересмешница...</span>
-                            </div>
-                            <div class="full_title">
-                                <div class="title"><span>Голодные игры: Сойка-пересмешница. Часть 1333.</span></div>
-                                <div class="short_desc">
-                                    <span>2001</span>
-                                    <span></span>
-                                    <span>США, Великобритания, Ямайка</span>
-                                </div>
-                                <div class="bottom">
-                                    <div class="like pull-left">144</div>
-                                    <div class="not-like pull-left">1223</div>
-                                    <div class="quality pull-right text-right">
-                                        <span class="hd"></span>
-                                        <span class="hq"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4 item">
-                        <a href="#">
-                            <img class="img-responsive shadow-item" src="images/00336116.jpg">
-                            <div class="empty"></div>
-                            <div class="short_title">
-                                <span>Голодные игры: Сойка-пересмешница...</span>
-                            </div>
-                            <div class="full_title">
-                                <div class="title"><span>Голодные игры: Сойка-пересмешница. Часть 1333.</span></div>
-                                <div class="short_desc">
-                                    <span>2001</span>
-                                    <span></span>
-                                    <span>США, Великобритания, Ямайка</span>
-                                </div>
-                                <div class="bottom">
-                                    <div class="like pull-left">144</div>
-                                    <div class="not-like pull-left">1223</div>
-                                    <div class="quality pull-right text-right">
-                                        <span class="hd"></span>
-                                        <span class="hq"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4 item">
-                        <a href="#">
-                            <img class="img-responsive shadow-item" src="images/00336116.jpg">
-                            <div class="empty"></div>
-                            <div class="short_title">
-                                <span>Голодные игры: Сойка-пересмешница...</span>
-                            </div>
-                            <div class="full_title">
-                                <div class="title"><span>Голодные игры: Сойка-пересмешница. Часть 1333.</span></div>
-                                <div class="short_desc">
-                                    <span>2001</span>
-                                    <span></span>
-                                    <span>США, Великобритания, Ямайка</span>
-                                </div>
-                                <div class="bottom">
-                                    <div class="like pull-left">144</div>
-                                    <div class="not-like pull-left">1223</div>
-                                    <div class="quality pull-right text-right">
-                                        <span class="hd"></span>
-                                        <span class="hq"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4 item">
-                        <a href="#">
-                            <img class="img-responsive shadow-item" src="images/00336116.jpg">
-                            <div class="empty"></div>
-                            <div class="short_title">
-                                <span>Голодные игры: Сойка-пересмешница...</span>
-                            </div>
-                            <div class="full_title">
-                                <div class="title"><span>Голодные игры: Сойка-пересмешница. Часть 1333.</span></div>
-                                <div class="short_desc">
-                                    <span>2001</span>
-                                    <span></span>
-                                    <span>США, Великобритания, Ямайка</span>
-                                </div>
-                                <div class="bottom">
-                                    <div class="like pull-left">144</div>
-                                    <div class="not-like pull-left">1223</div>
-                                    <div class="quality pull-right text-right">
-                                        <span class="hd"></span>
-                                        <span class="hq"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4 item">
-                        <a href="#">
-                            <img class="img-responsive shadow-item" src="images/00336116.jpg">
-                            <div class="empty"></div>
-                            <div class="short_title">
-                                <span>Голодные игры: Сойка-пересмешница...</span>
-                            </div>
-                            <div class="full_title">
-                                <div class="title"><span>Голодные игры: Сойка-пересмешница. Часть 1333.</span></div>
-                                <div class="short_desc">
-                                    <span>2001</span>
-                                    <span></span>
-                                    <span>США, Великобритания, Ямайка</span>
-                                </div>
-                                <div class="bottom">
-                                    <div class="like pull-left">144</div>
-                                    <div class="not-like pull-left">1223</div>
-                                    <div class="quality pull-right text-right">
-                                        <span class="hd"></span>
-                                        <span class="hq"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4 item">
-                        <a href="#">
-                            <img class="img-responsive shadow-item" src="images/00336116.jpg">
-                            <div class="empty"></div>
-                            <div class="short_title">
-                                <span>Голодные игры: Сойка-пересмешница...</span>
-                            </div>
-                            <div class="full_title">
-                                <div class="title"><span>Голодные игры: Сойка-пересмешница. Часть 1333.</span></div>
-                                <div class="short_desc">
-                                    <span>2001</span>
-                                    <span></span>
-                                    <span>США, Великобритания, Ямайка</span>
-                                </div>
-                                <div class="bottom">
-                                    <div class="like pull-left">144</div>
-                                    <div class="not-like pull-left">1223</div>
-                                    <div class="quality pull-right text-right">
-                                        <span class="hd"></span>
-                                        <span class="hq"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4 item">
-                        <a href="#">
-                            <img class="img-responsive shadow-item" src="images/00336116.jpg">
-                            <div class="empty"></div>
-                            <div class="short_title">
-                                <span>Голодные игры: Сойка-пересмешница...</span>
-                            </div>
-                            <div class="full_title">
-                                <div class="title"><span>Голодные игры: Сойка-пересмешница. Часть 1333.</span></div>
-                                <div class="short_desc">
-                                    <span>2001</span>
-                                    <span></span>
-                                    <span>США, Великобритания, Ямайка</span>
-                                </div>
-                                <div class="bottom">
-                                    <div class="like pull-left">144</div>
-                                    <div class="not-like pull-left">1223</div>
-                                    <div class="quality pull-right text-right">
-                                        <span class="hd"></span>
-                                        <span class="hq"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4 item">
-                        <a href="#">
-                            <img class="img-responsive shadow-item" src="images/00336116.jpg">
-                            <div class="empty"></div>
-                            <div class="short_title">
-                                <span>Голодные игры: Сойка-пересмешница...</span>
-                            </div>
-                            <div class="full_title">
-                                <div class="title"><span>Голодные игры: Сойка-пересмешница. Часть 1333.</span></div>
-                                <div class="short_desc">
-                                    <span>2001</span>
-                                    <span></span>
-                                    <span>США, Великобритания, Ямайка</span>
-                                </div>
-                                <div class="bottom">
-                                    <div class="like pull-left">144</div>
-                                    <div class="not-like pull-left">1223</div>
-                                    <div class="quality pull-right text-right">
-                                        <span class="hd"></span>
-                                        <span class="hq"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4 item">
-                        <a href="#">
-                            <img class="img-responsive shadow-item" src="images/00336116.jpg">
-                            <div class="empty"></div>
-                            <div class="short_title">
-                                <span>Голодные игры: Сойка-пересмешница...</span>
-                            </div>
-                            <div class="full_title">
-                                <div class="title"><span>Голодные игры: Сойка-пересмешница. Часть 1333.</span></div>
-                                <div class="short_desc">
-                                    <span>2001</span>
-                                    <span></span>
-                                    <span>США, Великобритания, Ямайка</span>
-                                </div>
-                                <div class="bottom">
-                                    <div class="like pull-left">144</div>
-                                    <div class="not-like pull-left">1223</div>
-                                    <div class="quality pull-right text-right">
-                                        <span class="hd"></span>
-                                        <span class="hq"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4 item">
-                        <a href="#">
-                            <img class="img-responsive shadow-item" src="images/00336116.jpg">
-                            <div class="empty"></div>
-                            <div class="short_title">
-                                <span>Голодные игры: Сойка-пересмешница...</span>
-                            </div>
-                            <div class="full_title">
-                                <div class="title"><span>Голодные игры: Сойка-пересмешница. Часть 1333.</span></div>
-                                <div class="short_desc">
-                                    <span>2001</span>
-                                    <span></span>
-                                    <span>США, Великобритания, Ямайка</span>
-                                </div>
-                                <div class="bottom">
-                                    <div class="like pull-left">144</div>
-                                    <div class="not-like pull-left">1223</div>
-                                    <div class="quality pull-right text-right">
-                                        <span class="hd"></span>
-                                        <span class="hq"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4 item">
-                        <a href="#">
-                            <img class="img-responsive shadow-item" src="images/00336116.jpg">
-                            <div class="empty"></div>
-                            <div class="short_title">
-                                <span>Голодные игры: Сойка-пересмешница...</span>
-                            </div>
-                            <div class="full_title">
-                                <div class="title"><span>Голодные игры: Сойка-пересмешница. Часть 1333.</span></div>
-                                <div class="short_desc">
-                                    <span>2001</span>
-                                    <span></span>
-                                    <span>США, Великобритания, Ямайка</span>
-                                </div>
-                                <div class="bottom">
-                                    <div class="like pull-left">144</div>
-                                    <div class="not-like pull-left">1223</div>
-                                    <div class="quality pull-right text-right">
-                                        <span class="hd"></span>
-                                        <span class="hq"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4 item">
-                        <a href="#">
-                            <img class="img-responsive shadow-item" src="images/00336116.jpg">
-                            <div class="empty"></div>
-                            <div class="short_title">
-                                <span>Голодные игры: Сойка-пересмешница...</span>
-                            </div>
-                            <div class="full_title">
-                                <div class="title"><span>Голодные игры: Сойка-пересмешница. Часть 1333.</span></div>
-                                <div class="short_desc">
-                                    <span>2001</span>
-                                    <span></span>
-                                    <span>США, Великобритания, Ямайка</span>
-                                </div>
-                                <div class="bottom">
-                                    <div class="like pull-left">144</div>
-                                    <div class="not-like pull-left">1223</div>
-                                    <div class="quality pull-right text-right">
-                                        <span class="hd"></span>
-                                        <span class="hq"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4 item">
-                        <a href="#">
-                            <img class="img-responsive shadow-item" src="images/00336116.jpg">
-                            <div class="empty"></div>
-                            <div class="short_title">
-                                <span>Голодные игры: Сойка-пересмешница...</span>
-                            </div>
-                            <div class="full_title">
-                                <div class="title"><span>Голодные игры: Сойка-пересмешница. Часть 1333.</span></div>
-                                <div class="short_desc">
-                                    <span>2001</span>
-                                    <span></span>
-                                    <span>США, Великобритания, Ямайка</span>
-                                </div>
-                                <div class="bottom">
-                                    <div class="like pull-left">144</div>
-                                    <div class="not-like pull-left">1223</div>
-                                    <div class="quality pull-right text-right">
-                                        <span class="hd"></span>
-                                        <span class="hq"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                </div>
-            <div class="rasparovka"></div>
+                </a>
+            </div>
+            {% endfor %}
         </div>
+        {% endif %}
+        <div class="rasparovka"></div>
+    </div>
 {% endblock %}
 

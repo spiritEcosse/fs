@@ -1,16 +1,16 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
-from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
-from fs import settings
+from django.contrib.auth.models import User
 
 class Group(models.Model):
     title = models.CharField(max_length=200, verbose_name=_('Title'))
     slug = models.SlugField(_('Slug'), max_length=200, unique=True)
     parent = models.ForeignKey('self', verbose_name=_('Parent'), related_name='groups', blank=True, null=True)
-    sort = models.IntegerField(verbose_name=_('Sort'), blank=True, null=True)
+    sort = models.IntegerField(verbose_name=_('Sort'), blank=True, default=0)
+    enable = models.BooleanField(_('Enable'), default=True)
 
     class Meta:
         ordering = ['title']
@@ -28,6 +28,21 @@ class Group(models.Model):
 
         if self.parent in self.groups.all():
             raise ValidationError({'parent': _('Object can not refer to objects that reference it')})
+
+    def get_absolute_url(self):
+        return reverse('materials:detail_group', kwargs={'slug': self.slug_to_string()})
+
+    def slug_to_string(self):
+        slug = [group.slug for group in self.get_tree_group([])]
+        slug.append(self.slug)
+        return '/'.join(slug)
+
+    def get_tree_group(self, branch):
+        if self.parent:
+            branch.append(self.parent)
+            self.parent.get_tree_group(branch)
+
+        return reversed(branch)
 
     def is_root(self):
         return self.groups.exists()
@@ -56,22 +71,33 @@ class ItemClass(models.Model):
     def __unicode__(self):
         return self.title
 
+def get_current_user(request):
+    return request.user
+
 class Item(models.Model):
     title = models.CharField(_('Title'), max_length=200)
     origin_title = models.CharField(_('Origin title'), max_length=200, blank=True)
     slug = models.SlugField(_('Slug'), max_length=200, unique=True)
-    attributes = models.ManyToManyField('Attribute', verbose_name=_('Attributes'), through='ItemAttributeRelationship', related_name='items')
-    groups = models.ManyToManyField('Group', verbose_name=_('Group'), related_name='items', blank=True, null=True)
+    attributes = models.ManyToManyField('Attribute', verbose_name=_('Attributes'),
+                                        through='ItemAttributeRelationship', related_name='items')
+    groups = models.ManyToManyField('Group', verbose_name=_('Group'), related_name='items', blank=True)
     main_group = models.ForeignKey('Group', verbose_name=_('Main Group'))
     enable = models.BooleanField(_('Enable'), default=True)
     recommend_item = models.ManyToManyField('self', verbose_name=_('Recommended item'), blank=True)
-    main_image = models.ImageField(_('Main Image'), upload_to='images/materials/%Y/%m/', blank=True, null=True)
+    main_image = models.ImageField(_('Main Image'), upload_to='images/materials/%Y/%m/')
     tags = ArrayField(models.CharField(max_length=200), blank=True, verbose_name=_('Tags'))
     date_create = models.DateTimeField(auto_now_add=True)
     date_last_modified = models.DateTimeField(auto_now=True)
     item_class = models.ForeignKey('ItemClass', blank=True, null=True)
     popular = models.BigIntegerField(_('Popular'), editable=False, blank=True, default=0)
     description = models.TextField(verbose_name=_('Description'))
+    creator = models.ForeignKey(User, editable=False)
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+
+        super(Item, self).save(force_insert=False, force_update=False, using=None,
+             update_fields=None)
 
     class Meta:
         ordering = ['-date_create']
@@ -82,11 +108,19 @@ class Item(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('detail_item', kwargs={'slug': self.slug, 'group': self.main_group})
+        return reverse('materials:detail_item',
+                       kwargs={'slug': self.slug, 'group_slug': self.main_group.slug_to_string()})
 
     def attribute_summary(self):
-        item_attr_relate = ItemAttributeRelationship.objects.filter(item=self, attribute=self.attributes.all())
-        attributes = ['%s: %s' % (value, ', '.join([attr_value.title for attr_value in value.attribute_values.all()])) for value in item_attr_relate]
+        attributes = []
+
+        for value in self.item_attr.all():
+            attr_values = []
+
+            for attr_value in value.attribute_values.all():
+                attr_values.append(attr_value.title)
+
+            attributes.append('%s: %s' % (value.attribute, ', '.join(attr_values)))
         return '; '.join(attributes)
 
 class ItemImages(models.Model):
@@ -121,7 +155,7 @@ class AttributeValue(models.Model):
         return self.title
 
 class ItemAttributeRelationship(models.Model):
-    item = models.ForeignKey('Item')
+    item = models.ForeignKey('Item', related_name='item_attr')
     attribute = models.ForeignKey('Attribute', related_name='item_attributes')
     attribute_values = models.ManyToManyField('AttributeValue')
 

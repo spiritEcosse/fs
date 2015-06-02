@@ -18,67 +18,27 @@
                         <small>{{ object.origin_title }}</small>
                     </h1>
 
-                    {% for attr, attr_values in attributes %}
+                    {% for attr, attr_values, attr_values_ex in attributes %}
                         <div class="row">
                             <div class=" col-md-7">
                                 <span>{{ attr }}:</span>
                             </div>
                             <div class="col-md-17">
-                                {% for values in attr_values %}
-                                    <a class="btn btn-primary btn-xs">{{ values }}</a>
+                                {% for value in attr_values %}
+                                    <a class="btn btn-primary btn-xs">{{ value }}</a>
                                 {% endfor %}
+
+                                {% if attr_values_ex %}
+                                    <a class="btn btn-primary btn-xs" id="btn-more-{{ forloop.counter }}" onclick="$('#btn-more-{{ forloop.counter }}').addClass('none'); $('#more-desc-{{ forloop.counter }}').removeClass('none'); $('#more-desc-{{ forloop.counter }}').addClass('block'); ">еще</a>
+                                    <div class="more-desc none" id="more-desc-{{ forloop.counter }}">
+                                        {% for value in attr_values_ex %}
+                                            <a class="btn btn-primary btn-xs">{{ value }}</a>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
                     {% endfor %}
-
-                    <div class="row">
-                        <div class=" col-md-7">
-                            <span>Год:</span>
-                        </div>
-                        <div class="col-md-17">
-                            <a class="btn btn-primary btn-xs">2013</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class=" col-md-7">
-                            <span>Страна:</span>
-                        </div>
-                        <div class="col-md-17">
-                            <a class="btn btn-primary btn-xs">
-                                <span class="flag-icon flag-icon-gr"></span>
-                                США
-                            </a>
-                            <a class="btn btn-primary btn-xs">
-                                <span class="flag-icon flag-icon-ad"></span>
-                                Канада
-                            </a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class=" col-md-7">
-                            <span>Режиссёр:</span>
-                        </div>
-                        <div class="col-md-17">
-                            <a class="btn btn-primary btn-xs">Зак Снайдер</a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class=" col-md-7">
-                            <span>В ролях:</span>
-                        </div>
-                        <div class="col-md-17">
-                            <a class="btn btn-primary btn-xs">Генри Кевилл</a>
-                            <a class="btn btn-primary btn-xs">Эми Адамс</a>
-                            <a class="btn btn-primary btn-xs">Майкл Шеннон</a>
-                            <a class="btn btn-primary btn-xs" id="btn-more" onclick="$('#btn-more').addClass('none'); $('#more-desc').removeClass('none'); $('#more-desc').addClass('block'); ">еще</a>
-                            <div class="more-desc none" id="more-desc">
-                                <a class="btn btn-primary btn-xs">Майкл Шеннон</a>
-                                <a class="btn btn-primary btn-xs">Майкл Шеннон</a>
-                                <a class="btn btn-primary btn-xs">Майкл Шеннон</a>
-                                <a class="btn btn-primary btn-xs">Майкл Шеннон</a>
-                            </div>
-                        </div>
-                    </div>
                     <div class="row vertical-offset-md">
                         {% for item_image in object.images.all %}
                             <div class="col-md-4 wrapp-block">
@@ -125,66 +85,32 @@
 
             <div class="row description">
                 <div class="col-xs-24">
-                    Кларк Кент/Кал-Эл — молодой человек, который чувствует себя чужаком из-за своей невероятной силы. Много лет назад он был отправлен на Землю с развитой планеты Криптон, и теперь задается вопросом: зачем?
-                    <br/>
-                    <br/>
-                    Воспитанный приемными родителями Мартой и Джонатаном Кентами, Кларк знает: обладать сверхспособностями — значит принимать сложные решения. Но когда человечество более всего нуждается в стабильности, оно подвергается нападению. Сможет ли герой восстановить мир, или воспользуется своей силой для того, чтобы окончательно его разрушить?
+                    {{ object.description }}
                 </div>
             </div>
 
-            <div class="row related">
-                <h3>Похожие материалы</h3>
+            {% if object.tags %}
+                <ul>
+                    {% for tag in object.tags %}
+                        <li>{{ tag }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
 
-                <div class="col-md-3">
-                    <a href="#" class="item">
-                        <img class="img-responsive shadow img-rounded" src="images/00352348.jpg">
-                        <div class="title">simpsons</div>
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <a href="#" class="item">
-                        <img class="img-responsive shadow img-rounded" src="images/00352348.jpg">
-                        <div class="title">simpsons</div>
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <a href="#" class="item">
-                        <img class="img-responsive shadow img-rounded" src="images/00352348.jpg">
-                        <div class="title">simpsons</div>
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <a href="#" class="item">
-                        <img class="img-responsive shadow img-rounded" src="images/00352348.jpg">
-                        <div class="title">simpsons</div>
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <a href="#" class="item">
-                        <img class="img-responsive shadow img-rounded" src="images/00352348.jpg">
-                        <div class="title">simpsons</div>
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <a href="#" class="item">
-                        <img class="img-responsive shadow img-rounded" src="images/00352348.jpg">
-                        <div class="title">simpsons</div>
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <a href="#" class="item">
-                        <img class="img-responsive shadow img-rounded" src="images/00352348.jpg">
-                        <div class="title">simpsons</div>
-                    </a>
-                </div>
-                <div class="col-md-3">
-                    <a href="#" class="item">
-                        <img class="img-responsive shadow img-rounded" src="images/00352348.jpg">
-                        <div class="title">simpsons</div>
-                    </a>
-                </div>
+            {% if recommend_item %}
+                <div class="row related">
+                    <h3>Похожие материалы</h3>
 
-            </div>
+                    {% for item in recommend_item %}
+                        <div class="col-md-3">
+                            <a href="{{ item.get_absolute_url }}" class="item">
+                                <img class="img-responsive shadow img-rounded" src="{{ item.main_image.url }}">
+                                <div class="title">{{ item.title|truncatechars:20 }}</div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
 
             <div class="row comments">
                 <div class="col-md-24">

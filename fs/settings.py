@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = (
@@ -39,6 +38,11 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'materials',
     'debug_toolbar',
+    'urlbreadcrumbs',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.request',
 )
 
 MIDDLEWARE_CLASSES = (
