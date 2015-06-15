@@ -62,7 +62,7 @@ class ItemImagesInline(admin.TabularInline):
     model = ItemImages
 
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('title', 'main_group', 'origin_title', 'creator', 'attribute_summary', 'date_create', 'item_class', 'enable')
+    list_display = ('title', 'image_preview', 'main_group', 'origin_title', 'creator', 'attribute_summary', 'date_create', 'item_class', 'enable')
     inlines = [ItemAttributeRelationshipInline, ItemImagesInline]
     prepopulated_fields = {"slug": ("title", )}
     actions = [change_status]
@@ -73,12 +73,10 @@ class ItemAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(ItemAdmin, self).get_queryset(request)
-        # qs.prefetch_related('attributes', 'attributes__attribute_values')
-        # raise Exception(qs[8].attributes.all()[0].attribute_values.all())
 
         return qs\
-            .select_related('item_class')\
-            .prefetch_related('attributes', 'attributes__attribute_values', 'recommend_item')
+            .select_related('item_class', 'creator')\
+            .prefetch_related('item_attr', 'item_attr__attribute_values', 'recommend_item')
 
 class AttributeAdmin(admin.ModelAdmin):
     list_display = ('title', 'enable')

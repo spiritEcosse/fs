@@ -18,24 +18,31 @@
                         <small>{{ object.origin_title }}</small>
                     </h1>
 
-                    {% for attr, attr_values, attr_values_ex in attributes %}
+                    {% for attr in object.item_attr.all %}
                         <div class="row">
                             <div class=" col-md-7">
-                                <span>{{ attr }}:</span>
+                                <span>{{ attr.attribute }}:</span>
                             </div>
                             <div class="col-md-17">
-                                {% for value in attr_values %}
+                                {% for value in attr.attribute_values.all|slice:":3" %}
                                     <a class="btn btn-primary btn-xs">{{ value }}</a>
                                 {% endfor %}
 
-                                {% if attr_values_ex %}
-                                    <a class="btn btn-primary btn-xs" id="btn-more-{{ forloop.counter }}" onclick="$('#btn-more-{{ forloop.counter }}').addClass('none'); $('#more-desc-{{ forloop.counter }}').removeClass('none'); $('#more-desc-{{ forloop.counter }}').addClass('block'); ">еще</a>
-                                    <div class="more-desc none" id="more-desc-{{ forloop.counter }}">
-                                        {% for value in attr_values_ex %}
-                                            <a class="btn btn-primary btn-xs">{{ value }}</a>
-                                        {% endfor %}
-                                    </div>
-                                {% endif %}
+                                {% with attribute_values=attr.attribute_values.all|slice:"3:" %}
+                                    {% if attribute_values %}
+                                        <a class="btn btn-primary btn-xs" id="btn-more-{{ forloop.counter }}"
+                                           onclick="$('#btn-more-{{ forloop.counter }}').addClass('none');
+                                                   $('#more-desc-{{ forloop.counter }}').removeClass('none');
+                                                   $('#more-desc-{{ forloop.counter }}').addClass('block'); ">
+                                            еще
+                                        </a>
+                                        <div class="more-desc none" id="more-desc-{{ forloop.counter }}">
+                                            {% for value in attribute_values %}
+                                                <a class="btn btn-primary btn-xs">{{ value }}</a>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                {% endwith %}
                             </div>
                         </div>
                     {% endfor %}
@@ -112,97 +119,66 @@
                 </div>
             {% endif %}
 
+            <div class="new_comment">
+                {% if comment_success_save %}
+                    <div class="alert alert-success" role="alert">{{ comment_success_save }}</div>
+                {% endif %}
+
+                <form action="{{ object.get_absolute_url }}" method="post">
+                    {% csrf_token %}
+                    <ul>
+                        {{ form_comment.as_ul }}
+                    </ul>
+                    <div class="pull-left">
+                        {{ user }}
+                    </div>
+                    <div class="pull-right">
+                        <input type="submit" value="Submit"/>
+                    </div>
+                </form>
+            </div>
+
             <div class="row comments">
                 <div class="col-md-24">
                     <h3>Лучшие отзывы</h3>
+                    <div class="">
+                        {{ count_comments }}
+                    </div>
                 </div>
 
-                <div class="col-md-24 comment positive">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <a href="#">
-                                <img class="img-responsive img-rounded" src="images/user-img.jpg">
-                            </a>
-                        </div>
-                        <div class="col-md-22">
-                            <div class="name pull-left"><a href="#">Pepsi777</a></div>
-                            <div class="date pull-left"><span>21 июня 2013 в 11:36</span></div>
-                            <div class="help-comment pull-right">
-                                <span>Отзыв был полезен?</span>
-                                <a href="#" class="btn btn-default btn-xs">Да<span class="pos-number">54</span></a>
-                                <a href="#" class="btn btn-default btn-xs">Нет<span class="negat-number">54</span></a>
+                {% for comment in object.comments.all %}
+                    <div class="col-md-24 comment
+                        {% if comment.like_object %}
+                            positive
+                        {% else %}
+                            negative
+                        {% endif %}">
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <a href="#">
+                                    <img class="img-responsive img-rounded" src="images/user-img.jpg">
+                                </a>
                             </div>
-                            <div class="comment-text">
-                                <p>Фильм невероятно крут , все предыдущие части были полным трешем , а это действительно хороша , начало слегка затянуто , можно было урезать минут этак 20 , ну не чего и тай прикольно !Рекомендую к просмотру. СМОТРЕТЬ ТОЛЬКО В КИНО или В 1080p , не смотрите в camrip'e</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-24 comment negative">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <a href="#">
-                                <img class="img-responsive img-rounded" src="images/user-img.jpg">
-                            </a>
-                        </div>
-                        <div class="col-md-22">
-                            <div class="name pull-left"><a href="#">Pepsi777</a></div>
-                            <div class="date pull-left"><span>21 июня 2013 в 11:36</span></div>
-                            <div class="help-comment pull-right">
-                                <span>Отзыв был полезен?</span>
-                                <a href="#" class="btn btn-default btn-xs">Да<span class="pos-number">54</span></a>
-                                <a href="#" class="btn btn-default btn-xs">Нет<span class="negat-number">54</span></a>
-                            </div>
-                            <div class="comment-text">
-                                <p>Фильм невероятно крут , все предыдущие части были полным трешем , а это действительно хороша , начало слегка затянуто , можно было урезать минут этак 20 , ну не чего и тай прикольно !Рекомендую к просмотру. СМОТРЕТЬ ТОЛЬКО В КИНО или В 1080p , не смотрите в camrip'e</p>
-                                <p>Фильм невероятно крут , все предыдущие части были полным трешем , а это действительно хороша , начало слегка затянуто , можно было урезать минут этак 20 , ну не чего и тай прикольно !Рекомендую к просмотру. СМОТРЕТЬ ТОЛЬКО В КИНО или В 1080p , не смотрите в camrip'e</p>
-                                <p>Фильм невероятно крут , все предыдущие части были полным трешем , а это действительно хороша , начало слегка затянуто , можно было урезать минут этак 20 , ну не чего и тай прикольно !Рекомендую к просмотру. СМОТРЕТЬ ТОЛЬКО В КИНО или В 1080p , не смотрите в camrip'e</p>
-                                <p>Фильм невероятно крут , все предыдущие части были полным трешем , а это действительно хороша , начало слегка затянуто , можно было урезать минут этак 20 , ну не чего и тай прикольно !Рекомендую к просмотру. СМОТРЕТЬ ТОЛЬКО В КИНО или В 1080p , не смотрите в camrip'e</p>
+                            <div class="col-md-22">
+                                <div class="name pull-left"><a href="">{{ comment.user }}</a></div>
+                                <div class="date pull-left"><span>{{ comment.date_create }}</span></div>
+                                <div class="help-comment pull-right">
+                                    <span>Отзыв был полезен?</span>
+                                    <a href="#" class="btn btn-default btn-xs">
+                                        Да<span class="pos-number">{{ comment.like }}</span>
+                                    </a>
+                                    <a href="#" class="btn btn-default btn-xs">
+                                        Нет<span class="negat-number">{{ comment.not_like }}</span>
+                                    </a>
+                                </div>
+                                <div class="comment-text">
+                                    <p>{{ comment.text }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-24 comment positive">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <a href="#">
-                                <img class="img-responsive img-rounded" src="images/user-img.jpg">
-                            </a>
-                        </div>
-                        <div class="col-md-22">
-                            <div class="name pull-left"><a href="#">Pepsi777</a></div>
-                            <div class="date pull-left"><span>21 июня 2013 в 11:36</span></div>
-                            <div class="help-comment pull-right">
-                                <span>Отзыв был полезен?</span>
-                                <a href="#" class="btn btn-default btn-xs">Да<span class="pos-number">54</span></a>
-                                <a href="#" class="btn btn-default btn-xs">Нет<span class="negat-number">54</span></a>
-                            </div>
-                            <div class="comment-text">
-                                <p>Фильм невероятно крут , все предыдущие части были полным трешем , а это действительно хороша , начало слегка затянуто , можно было урезать минут этак 20 , ну не чего и тай прикольно !Рекомендую к просмотру. СМОТРЕТЬ ТОЛЬКО В КИНО или В 1080p , не смотрите в camrip'e</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-24 comment negative">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <a href="#">
-                                <img class="img-responsive img-rounded" src="images/user-img.jpg">
-                            </a>
-                        </div>
-                        <div class="col-md-22">
-                            <div class="name pull-left"><a href="#">Pepsi777</a></div>
-                            <div class="date pull-left"><span>21 июня 2013 в 11:36</span></div>
-                            <div class="help-comment pull-right">
-                                <span>Отзыв был полезен?</span>
-                                <a href="#" class="btn btn-default btn-xs">Да<span class="pos-number">54</span></a>
-                                <a href="#" class="btn btn-default btn-xs">Нет<span class="negat-number">54</span></a>
-                            </div>
-                            <div class="comment-text">
-                                <p>Фильм невероятно крут , все предыдущие части были полным трешем , а это действительно хороша , начало слегка затянуто , можно было урезать минут этак 20 , ну не чего и тай прикольно !Рекомендую к просмотру. СМОТРЕТЬ ТОЛЬКО В КИНО или В 1080p , не смотрите в camrip'e</p>
-                            </div>
-                        </div>
-                    </div>
+                {% endfor %}
                 </div>
             </div>
         </div>

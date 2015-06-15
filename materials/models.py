@@ -4,6 +4,9 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.contrib.contenttypes.fields import GenericRelation
+from comments.models import Comment
+
 
 class Group(models.Model):
     title = models.CharField(max_length=200, verbose_name=_('Title'))
@@ -92,12 +95,9 @@ class Item(models.Model):
     popular = models.BigIntegerField(_('Popular'), editable=False, blank=True, default=0)
     description = models.TextField(verbose_name=_('Description'))
     creator = models.ForeignKey(User, editable=False)
-
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
-
-        super(Item, self).save(force_insert=False, force_update=False, using=None,
-             update_fields=None)
+    comments = GenericRelation(Comment, related_query_name='item')
+    like = models.BigIntegerField(_('Like'), default=0)
+    not_like = models.BigIntegerField(_('Not like'), default=0)
 
     class Meta:
         ordering = ['-date_create']
@@ -109,7 +109,8 @@ class Item(models.Model):
 
     def get_absolute_url(self):
         return reverse('materials:detail_item',
-                       kwargs={'slug': self.slug, 'group_slug': self.main_group.slug_to_string()})
+                       kwargs={'slug': self.slug,
+                               'group_slug': self.main_group.slug_to_string()})
 
     def attribute_summary(self):
         attributes = []
@@ -122,6 +123,12 @@ class Item(models.Model):
 
             attributes.append('%s: %s' % (value.attribute, ', '.join(attr_values)))
         return '; '.join(attributes)
+
+    def image_preview(self):
+        return u'<img style="max-width:100px; max-height:100px" src="%s" />' % self.main_image.url
+    image_preview.short_description = 'Image'
+    image_preview.allow_tags = True
+
 
 class ItemImages(models.Model):
     image = models.ImageField(verbose_name=_('Image item'), upload_to='images/materials/%Y/%m/')
