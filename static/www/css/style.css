@@ -7884,6 +7884,10 @@ body .container .content .item-desc .item-detail .comments .comment {
   margin-bottom: 10px;
   border-radius: 5px;
 }
+body .container .content .item-desc .item-detail .comments .comment .img-user {
+  max-width: 50px;
+  max-height: 50px;
+}
 body .container .content .item-desc .item-detail .comments .comment span,
 body .container .content .item-desc .item-detail .comments .comment a {
   font-size: 10px;

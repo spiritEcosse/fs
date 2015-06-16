@@ -24,4 +24,4 @@ class Comment(models.Model):
         verbose_name_plural = _('Comments')
 
     def __unicode__(self):
-        return self.text[:50]
+        return self.text[:100]

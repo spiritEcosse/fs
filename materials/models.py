@@ -126,7 +126,7 @@ class Item(models.Model):
 
     def image_preview(self):
         return u'<img style="max-width:100px; max-height:100px" src="%s" />' % self.main_image.url
-    image_preview.short_description = 'Image'
+    image_preview.short_description = _('Image')
     image_preview.allow_tags = True
 
 

@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'comments',
     'debug_toolbar',
     'urlbreadcrumbs',
+    'ex_user',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

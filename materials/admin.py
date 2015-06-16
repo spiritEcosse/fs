@@ -78,13 +78,16 @@ class ItemAdmin(admin.ModelAdmin):
             .select_related('item_class', 'creator')\
             .prefetch_related('item_attr', 'item_attr__attribute_values', 'recommend_item')
 
+
 class AttributeAdmin(admin.ModelAdmin):
     list_display = ('title', 'enable')
     prepopulated_fields = {"slug": ("title", )}
     actions = [change_status]
 
+
 class AttributeValueAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title", )}
+
 
 class GroupAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title", )}

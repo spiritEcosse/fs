@@ -21,7 +21,6 @@
     <script src="{% static 'www/js/bx_slider/jquery.bxslider.min.js' %}"></script>
     <!-- bxSlider CSS file -->
     <link href="{% static 'www/js/bx_slider/jquery.bxslider.css' %}" rel="stylesheet" />
-
     <link href="{% static 'www/css/style.css' %}" rel="stylesheet" type="text/css">
 
     <script type="text/javascript"><!--
@@ -272,7 +271,7 @@
                                                 <div class="row">
                                                     <div class="col-xs-24 comment-text">
                                                         <span class="rating">{{ comment.id }}</span>
-                                                        {{ comment.text|truncatechars:100 }}
+                                                        {{ comment.text|truncatechars:88 }}
                                                     </div>
 
                                                     <div class="col-xs-24 author">
