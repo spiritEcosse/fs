@@ -7367,6 +7367,9 @@ body .container .content header nav .container .pull-right .navbar-form button {
 body .container .content header nav .container .pull-right form .input-group-btn button {
   background: url(../images/search.png) center no-repeat;
 }
+body .container .content header nav .container .pull-right .welcome {
+  float: left;
+}
 body .container .content header nav .container .pull-right a:first-child {
   margin-right: 5px;
 }

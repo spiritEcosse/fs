@@ -3,9 +3,10 @@ from fs.core import ex_view
 from django.db.models import Count
 from random import shuffle
 from django.contrib.contenttypes.models import ContentType
+from django.views.generic.base import TemplateView
 
 
-class IndexView(ex_view.ExtendView):
+class IndexView(TemplateView):
     template_name = 'base.html'
 
     def get_context_data(self, **kwargs):

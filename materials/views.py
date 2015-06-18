@@ -1,5 +1,4 @@
 from materials.models import Group, Item
-from fs.core import ex_view
 from django.db.models import Q, F
 from comments.models import Comment
 from django.utils.translation import ugettext_lazy as _
@@ -8,13 +7,13 @@ from django.forms import ModelForm, HiddenInput
 from django.views.generic import View
 from django.views.generic import FormView
 from django.views.generic.detail import SingleObjectMixin
-from django.core.urlresolvers import reverse
 from django.http import HttpResponseForbidden
 from django.views.generic.edit import FormMixin
 from django import forms
+from django.views import generic
 
 
-class DetailGroupView(ex_view.ExtendDetailView):
+class DetailGroupView(generic.DetailView):
     model = Group
 
     def get(self, request, *args, **kwargs):
@@ -26,6 +25,7 @@ class DetailGroupView(ex_view.ExtendDetailView):
 
     def get_context_data(self, **kwargs):
         context = super(DetailGroupView, self).get_context_data(**kwargs)
+        context.update(self.kwargs['extra_context'])
         queryset = Item.objects.filter(Q(main_group=self.object) | Q(groups=self.object), enable=1).\
             select_related('main_group')
         context['items_popular'] = queryset.order_by('-popular')[:8]
@@ -72,7 +72,6 @@ class ExtendContextDataItem(object):
     def get_context_data(self):
         return {
             'recommend_item': self.view.object.recommend_item.filter(enable=1)[:8],
-            'user': self.view.request.user,
             'count_comments': self.view.object.comments.count(),
         }
 
@@ -96,6 +95,7 @@ class CommentHandler(SingleObjectMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super(CommentHandler, self).get_context_data(**kwargs)
+        context.update(self.kwargs['extra_context'])
         context['form_comment'] = self.get_form()
         ex_context_data = ExtendContextDataItem(self)
         context.update(ex_context_data.get_context_data())
@@ -105,7 +105,7 @@ class CommentHandler(SingleObjectMixin, FormView):
         return self.object.get_absolute_url()
 
 
-class DetailItemView(FormMixin, ex_view.ExtendDetailView):
+class DetailItemView(FormMixin, generic.DetailView):
     model = Item
 
     def get_queryset(self):
@@ -127,10 +127,10 @@ class DetailItemView(FormMixin, ex_view.ExtendDetailView):
         self.model.objects.filter(pk=self.object.pk).update(popular=F('popular') + 1)
 
         context = super(DetailItemView, self).get_context_data(**kwargs)
+        context.update(self.kwargs['extra_context'])
         context['form_comment'] = CommentForm(initial={
             'object_id': self.object.pk,
             'content_type': ContentType.objects.get_for_model(self.model),
-            'user': self.request.user.pk,
         })
 
         ex_context_data = ExtendContextDataItem(self)

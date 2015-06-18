@@ -71,10 +71,6 @@
                         </ul>
 
                         <div class="pull-right">
-{#                            {% if form.errors %}#}
-{#                                <p>Your username and password didn't match. Please try again.</p>#}
-{#                            {% endif %}#}
-
                             <form class="navbar-form navbar-left" role="search" method="post">
                                 <div class="form-group">
                                     <input type="text" class="form-control" placeholder="Search">
@@ -82,8 +78,13 @@
                                 <button type="submit" class="btn btn-primary btn-sm">{% trans "Поиск" %}</button>
                             </form>
 
-                            <a href="#" class="btn btn-primary btn-sm" onclick="">{% trans "Вход" %}</a>
-                            <a href="" class="btn btn-primary btn-sm">{% trans "Регистрация" %}</a>
+                            {% if user.is_authenticated %}
+                                <div class="welcome">Welcome, <a href="{% url 'profile' %}">{{ user.username }}</a>.</div>
+                                <a href="{% url 'logout' %}" class="btn btn-primary btn-sm">Выйти</a>
+                            {% else %}
+                                <a href="{% url 'login' %}" class="btn btn-primary btn-sm" onclick="">{% trans "Вход" %}</a>
+                                <a href="" class="btn btn-primary btn-sm">{% trans "Регистрация" %}</a>
+                            {% endif %}
                         </div>
                     </div>
                 </nav>
