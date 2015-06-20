@@ -37,6 +37,22 @@
 <body>
 <div class="wrapper container">
     <div class="content">
+    <form action="{% url 'set_language' %}" method="post">
+        {% csrf_token %}
+        <input name="next" type="hidden" value="{{ redirect_to }}" />
+        <select name="language">
+            {% get_current_language as LANGUAGE_CODE %}
+            {% get_available_languages as LANGUAGES %}
+            {% get_language_info_list for LANGUAGES as languages %}
+            {% for language in languages %}
+                <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                    {{ language.name_local }} ({{ language.code }})
+                </option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Go" />
+    </form>
+
         {% block header %}
             <header>
                 <nav class="navbar navbar-default navbar-fixed-top">
@@ -64,7 +80,7 @@
                                     </li>
                                 {% else %}
                                     <li>
-                                        <a role="menuitem" href="{{ group.get_absolute_url }}">{{ group.title }}</a>
+                                        <a role="menuitem" href="{{ group.get_absolute_url }}">{% trans group.title %}</a>
                                     </li>
                                 {% endif %}
                             {% endfor %}
@@ -340,6 +356,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{% static 'www/js/bootstrap.min.js' %}"></script>
-</div></div>
+    <script src="{% static 'www/js/bootstrap.js' %}"></script>
+</div>
 </body>
 </html>

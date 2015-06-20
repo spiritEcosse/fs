@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block title %}{{ object.title }}{% endblock %}
 
@@ -67,39 +68,39 @@
     </div>
 
     {% if items_popular %}
-    <div class="menu">
-        <div class="row wrapp now">
-            <div class="col-xs-24">
-                <h3>
-                    Самое просматриваемое прямо сейчас
-                </h3>
-            </div>
-
-            {% for item in items_popular %}
-                <div class="col-md-3 col-sm-4 col-xs-6">
-                    <a href="{{ item.get_absolute_url }}">
-                        {% if item.main_image %}
-                            <img title="{{ item.title }}" alt="{{ item.title }}" class="img-responsive shadow" src="{{ item.main_image.url }}">
-                        {% endif %}
-                        <div class="title">{{ item.title|truncatechars:12 }}</div>
-                    </a>
+        <div class="menu">
+            <div class="row wrapp now">
+                <div class="col-xs-24">
+                    <h3>
+                        Самое просматриваемое прямо сейчас
+                    </h3>
                 </div>
-            {% endfor %}
+
+                {% for item in items_popular %}
+                    <div class="col-md-3 col-sm-4 col-xs-6">
+                        <a href="{{ item.get_absolute_url }}">
+                            {% if item.main_image %}
+                                <img title="{{ item.title }}" alt="{{ item.title }}" class="img-responsive shadow" src="{{ item.main_image.url }}">
+                            {% endif %}
+                            <div class="title">{{ item.title|truncatechars:12 }}</div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-    </div>
     {% endif %}
 
     <div class="wrapp list-item">
         <div class="row">
             <div class="col-md-12">
-            {% block breadcrumbs %}
-                <ol class="breadcrumb">
-                {% for group in breadcrumbs %}
-                    <li><a href="{{ group.get_absolute_url }}">{{ group.title|capfirst }}</a></li>
-                {% endfor %}
-                    <li class="active"><a>{{ object.title|capfirst }}</a></li>
-                </ol>
-            {% endblock %}
+                {% block breadcrumbs %}
+                    <ol class="breadcrumb">
+                        {% for group in breadcrumbs %}
+                            <li><a href="{{ group.get_absolute_url }}">{{ group.title|capfirst }}</a></li>
+                        {% endfor %}
+                        <li class="active"><a>{{ object.title|capfirst }}</a></li>
+                    </ol>
+                {% endblock %}
             </div>
             <div class="col-md-12">
                 <div class="row">
@@ -126,35 +127,61 @@
         </div>
 
         {% if items %}
-        <div class="row group">
-            {% for item in items %}
-            <div class="col-md-4 item">
-                <a href="{{ item.get_absolute_url }}">
-                    <img class="img-responsive shadow-item" src="{{ item.main_image.url }}">
-                    <div class="empty"></div>
-                    <div class="short_title">
-                        <span>{{ item.title|truncatechars:33 }}</span>
-                    </div>
-                    <div class="full_title">
-                        <div class="title"><span>{{ item.title|truncatechars:50 }}</span></div>
-                        <div class="short_desc">
-                            <span>2001</span>
-                            <span></span>
-                            <span>США, Великобритания, Ямайка</span>
-                        </div>
-                        <div class="bottom">
-                            <div class="like pull-left">144</div>
-                            <div class="not-like pull-left">1223</div>
-                            <div class="quality pull-right text-right">
-                                <span class="hd"></span>
-                                <span class="hq"></span>
+            <div class="row group">
+                {% for item in items %}
+                    <div class="col-md-4 item">
+                        <a href="{{ item.get_absolute_url }}">
+                            <img class="img-responsive shadow-item" src="{{ item.main_image.url }}">
+                            <div class="empty"></div>
+                            <div class="short_title">
+                                <span>{{ item.title|truncatechars:33 }}</span>
                             </div>
-                        </div>
+                            <div class="full_title">
+                                <div class="title"><span>{{ item.title|truncatechars:50 }}</span></div>
+                                <div class="short_desc">
+                                    <span>2001</span>
+                                    <span></span>
+                                    <span>США, Великобритания, Ямайка</span>
+                                </div>
+                                <div class="bottom">
+                                    <div class="like pull-left">144</div>
+                                    <div class="not-like pull-left">1223</div>
+                                    <div class="quality pull-right text-right">
+                                        <span class="hd"></span>
+                                        <span class="hq"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                </a>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
+
+            <nav>
+                <ul class="pagination pagination-lg">
+                    {% if items.has_previous %}
+                        <li>
+                            <a href="?page={{ items.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% for page in items.paginator.page_range  %}
+                        <li class="{% if page == items.number %}active{% endif %}">
+                            <a href="?page={{ page }}">{{ page }}</a>
+                        </li>
+                    {% endfor %}
+
+                    {% if items.has_next %}
+                        <li>
+                            <a href="?page={{ items.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
         {% endif %}
         <div class="rasparovka"></div>
     </div>

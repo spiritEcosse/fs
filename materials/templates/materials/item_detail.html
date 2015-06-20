@@ -1,6 +1,7 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}{{ object.title }}{% endblock %}
+{% block title %}{% trans object.title %}{% endblock %}
 
 {% block main %}
     <div class="main item-desc">

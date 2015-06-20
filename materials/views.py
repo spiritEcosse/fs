@@ -11,6 +11,7 @@ from django.http import HttpResponseForbidden
 from django.views.generic.edit import FormMixin
 from django import forms
 from django.views import generic
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 class DetailGroupView(generic.DetailView):
@@ -29,8 +30,19 @@ class DetailGroupView(generic.DetailView):
         queryset = Item.objects.filter(Q(main_group=self.object) | Q(groups=self.object), enable=1).\
             select_related('main_group')
         context['items_popular'] = queryset.order_by('-popular')[:8]
-        context['items'] = queryset
+        items = queryset.order_by()
         context['breadcrumbs'] = self.object.get_tree_group([])
+
+        paginator = Paginator(items, 24)
+        page = self.request.GET.get('page')
+
+        try:
+            context['items'] = paginator.page(page)
+        except PageNotAnInteger:
+            context['items'] = paginator.page(1)
+        except EmptyPage:
+            context['items'] = paginator.page(paginator.num_pages)
+
         return context
 
     def get_queryset(self):
@@ -56,7 +68,7 @@ class CommentForm(ModelForm):
             'text': forms.Textarea(attrs={'placeholder': _('You comment')})
         }
         labels = {
-            'text': _(''),
+            'text': '',
         }
         error_messages = {
             'text': {

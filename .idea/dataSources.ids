@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
   <data-source name="Django default" uuid="d9bc8728-da66-47a5-88ef-e06d9c075111">
-    <database-info product="PostgreSQL" version="9.4.2" jdbc-version="4.0" driver-name="PostgreSQL Native Driver" driver-version="PostgreSQL 9.4 JDBC4 (build 1201)">
+    <database-info product="PostgreSQL" version="9.4.3" jdbc-version="4.0" driver-name="PostgreSQL Native Driver" driver-version="PostgreSQL 9.4 JDBC4 (build 1201)">
       <identifier-quote-string>&quot;</identifier-quote-string>
     </database-info>
     <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact"/>
@@ -1654,6 +1654,7 @@
       <exported-key name="auth_user_user_permiss_user_id_7f0938558328534a_fk_auth_user_id" table="auth_user_user_permissions" schema="public" catalog="fs" columns="user_id"/>
       <exported-key name="comments_comment_user_id_567b32c2a9ccddf9_fk_auth_user_id" table="comments_comment" schema="public" catalog="fs" columns="user_id"/>
       <exported-key name="django_admin_log_user_id_52fdd58701c5f563_fk_auth_user_id" table="django_admin_log" schema="public" catalog="fs" columns="user_id"/>
+      <exported-key name="ex_user_exuser_user_id_4335618ff7718a35_fk_auth_user_id" table="ex_user_exuser" schema="public" catalog="fs" columns="user_id"/>
       <exported-key name="materials_item_creator_id_7449b45ab616d739_fk_auth_user_id" table="materials_item" schema="public" catalog="fs" columns="creator_id"/>
       <index name="auth_user_username_key" unique="true" columns="username"/>
       <index name="auth_user_username_51b3b110094b8aae_like" unique="false" columns="username"/>
@@ -1821,6 +1822,26 @@
       <primary-key name="django_session_pkey" columns="session_key"/>
       <index name="django_session_de54fa62" unique="false" columns="expire_date"/>
       <index name="django_session_session_key_461cfeaa630ca218_like" unique="false" columns="session_key"/>
+    </table>
+    <table name="ex_user_exuser" schema="public" catalog="fs" type="TABLE">
+      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnZXhfdXNlcl9leHVzZXJfaWRfc2VxJzo6cmVnY2xhc3Mp" autoIncrement="true"/>
+      <column name="img" sqlType="varchar" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="user_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="ex_user_exuser_pkey" columns="id"/>
+      <foreign-key name="ex_user_exuser_user_id_4335618ff7718a35_fk_auth_user_id" columns="user_id" ref-table="auth_user" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ex_user_exuser_user_id_key" unique="true" columns="user_id"/>
+    </table>
+    <table name="ex_user_exuser_id_seq" schema="public" catalog="fs" type="SEQUENCE">
+      <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="increment_by" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="max_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="min_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="cache_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="log_cnt" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
     </table>
     <table name="materials_attribute" schema="public" catalog="fs" type="TABLE">
       <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnbWF0ZXJpYWxzX2F0dHJpYnV0ZV9pZF9zZXEnOjpyZWdjbGFzcyk=" autoIncrement="true"/>

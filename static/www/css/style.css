@@ -1080,7 +1080,7 @@ a {
 }
 a:hover,
 a:focus {
-  color: #ffffff;
+  color: #b0cded;
   text-decoration: underline;
 }
 a:focus {
@@ -3869,7 +3869,7 @@ fieldset[disabled] .btn-link {
 }
 .btn-link:hover,
 .btn-link:focus {
-  color: #ffffff;
+  color: #b0cded;
   text-decoration: underline;
   background-color: transparent;
 }
@@ -5182,7 +5182,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination > li > span:hover,
 .pagination > li > a:focus,
 .pagination > li > span:focus {
-  color: #ffffff;
+  color: #b0cded;
   background-color: #eeeeee;
   border-color: #dddddd;
 }
@@ -7332,7 +7332,7 @@ body .container .content header nav .container > ul > li > a {
 body .container .content header nav .container > ul > li > a:hover,
 body .container .content header nav .container > ul > li > a:focus {
   background-color: #272727;
-  color: #ffffff;
+  color: #b0cded;
 }
 body .container .content header nav .container > ul > li .dropdown-menu a {
   position: relative;
@@ -7404,6 +7404,9 @@ body .container .content header:after {
 }
 body .container .content header:after {
   clear: both;
+}
+body .container .content .main a {
+  color: #508CC6;
 }
 body .container .content .main .wrapp {
   padding: 15px;
@@ -7788,6 +7791,9 @@ body .container .content .main .list-item .group a {
   font-size: 14px;
   line-height: 1.42857143;
   text-decoration: none;
+}
+body .container .content .main .list-item nav {
+  text-align: center;
 }
 body .container .content .main .rasparovka {
   height: 0px;

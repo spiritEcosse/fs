@@ -62,6 +62,7 @@ class Group(models.Model):
     def get_children_count(self):
         return self.groups.count()
 
+
 class ItemClass(models.Model):
     title = models.CharField(max_length=200)
     attributes = models.ManyToManyField('Attribute', related_name='item_classes')
@@ -74,8 +75,10 @@ class ItemClass(models.Model):
     def __unicode__(self):
         return self.title
 
+
 def get_current_user(request):
     return request.user
+
 
 class Item(models.Model):
     title = models.CharField(_('Title'), max_length=200)
@@ -101,6 +104,7 @@ class Item(models.Model):
 
     class Meta:
         ordering = ['-date_create']
+        app_label = 'materials'
         verbose_name = _('Item')
         verbose_name_plural = _('Items')
 
@@ -135,6 +139,7 @@ class ItemImages(models.Model):
     title = models.CharField(verbose_name=_('Title image'), blank=True, max_length=200)
     item = models.ForeignKey('Item', related_name='images')
 
+
 class Attribute(models.Model):
     title = models.CharField(_('Title'), max_length=200)
     slug = models.SlugField(_('Slug'), max_length=200, unique=True)
@@ -148,6 +153,7 @@ class Attribute(models.Model):
     def __unicode__(self):
         return self.title
 
+
 class AttributeValue(models.Model):
     title = models.CharField(_('Title'), max_length=200)
     slug = models.SlugField(_('Slug'), max_length=200, unique=True)
@@ -160,6 +166,7 @@ class AttributeValue(models.Model):
 
     def __unicode__(self):
         return self.title
+
 
 class ItemAttributeRelationship(models.Model):
     item = models.ForeignKey('Item', related_name='item_attr')
