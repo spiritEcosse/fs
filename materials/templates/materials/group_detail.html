@@ -10,60 +10,21 @@
                 <h1>{{ object.title|capfirst }}</h1>
             </div>
 
-            <div class="col-md-4">
-                <div class="heading">
-                    <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span>
-                    Настроение
+            {% for attribute in object.attributes.all %}
+                <div class="col-md-4">
+                    <div class="heading">
+                        {% if attribute.icon %}
+                            <span class="glyphicon glyphicon-{{ attribute.icon }}" aria-hidden="true"></span>
+                        {% endif %}
+                        {{ attribute.title }}
+                    </div>
+                    {% for children in attribute.children.all %}
+                        <a href="{{ children.link }}" class="{% if not children.active %}active {% endif %}btn btn-block btn-default btn-sm">
+                            <span class="block text-left">{{ children.title }}</span>
+                        </a>
+                    {% endfor %}
                 </div>
-                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Веселые</span></a>
-                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Веселые</span></a>
-                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Веселые</span></a>
-                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Веселые</span></a>
-            </div>
-            <div class="col-md-4">
-                <div class="heading">
-                    <span class="glyphicon glyphicon glyphicon-book" aria-hidden="true"></span>
-                    Производство
-                </div>
-                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Наши</span></a>
-                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
-            </div>
-            <div class="col-md-4">
-                <div class="heading">
-                    <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
-                    Производство
-                </div>
-                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Наши</span></a>
-                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
-            </div>
-            <div class="col-md-4">
-                <div class="heading">
-                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-                    Производство
-                </div>
-                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Наши</span></a>
-                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
-                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
-                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
-            </div>
-            <div class="col-md-4">
-                <div class="heading">
-                    <span class="glyphicon glyphicon-inbox" aria-hidden="true"></span>
-                    Качество
-                </div>
-                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Наши</span></a>
-                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
-            </div>
-            <div class="col-md-4">
-                <div class="heading">
-                    <span class="glyphicon glyphicon-headphones" aria-hidden="true"></span>
-                    Перевод
-                </div>
-                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Наши</span></a>
-                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
-                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
-                <a class="btn btn-block btn-default btn-sm"><span class="block text-left">Зарубежные</span></a>
-            </div>
+            {% endfor %}
         </div>
     </div>
 
@@ -161,21 +122,21 @@
                 <ul class="pagination pagination-lg">
                     {% if items.has_previous %}
                         <li>
-                            <a href="?page={{ items.previous_page_number }}" aria-label="Previous">
+                            <a href="?page={{ items.previous_page_number }}{{ items.paginator.link }}" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
                     {% endif %}
 
                     {% for page in items.paginator.page_range  %}
-                        <li class="{% if page == items.number %}active{% endif %}">
-                            <a href="?page={{ page }}">{{ page }}</a>
+                        <li {% if page == items.number %}class="active" onclick='return false;'{% endif %}>
+                            <a href="?page={{ page }}{{ items.paginator.link }}">{{ page }}</a>
                         </li>
                     {% endfor %}
 
                     {% if items.has_next %}
                         <li>
-                            <a href="?page={{ items.next_page_number }}" aria-label="Next">
+                            <a href="?page={{ items.next_page_number }}{{ items.paginator.link }}" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>

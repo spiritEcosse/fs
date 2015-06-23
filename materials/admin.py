@@ -80,7 +80,7 @@ class ItemAdmin(admin.ModelAdmin):
 
 
 class AttributeAdmin(admin.ModelAdmin):
-    list_display = ('title', 'enable')
+    list_display = ('title', 'on_item', 'enable')
     prepopulated_fields = {"slug": ("title", )}
     actions = [change_status]
 

@@ -32,9 +32,37 @@ class DetailGroupView(generic.DetailView):
         context['items_popular'] = queryset.order_by('-popular')[:8]
         items = queryset.order_by()
         context['breadcrumbs'] = self.object.get_tree_group([])
+        page = self.request.GET.get('page')
+        queryset_attribute = []
+
+        if self.request.GET.get('attribute', ()):
+            queryset_attribute = set(self.request.GET.get('attribute').split('__'))
+
+        link = '?'
+
+        if page:
+            link += 'page=' + page + '&'
+
+        for attribute in self.object.attributes.all():
+            for children in attribute.children.all():
+                children.active = False
+                attr_set = queryset_attribute.copy()
+
+                if children.slug not in queryset_attribute:
+                    attr_set.add(children.slug)
+                    children.active = True
+                else:
+                    attr_set.discard(children.slug)
+
+                children.link = link + 'attribute=' + '__'.join(attr_set)
+
+        link = '&'
+
+        if self.request.GET.get('attribute', ''):
+            link += 'attribute=' + self.request.GET.get('attribute')
 
         paginator = Paginator(items, 24)
-        page = self.request.GET.get('page')
+        paginator.link = link
 
         try:
             context['items'] = paginator.page(page)
@@ -49,7 +77,7 @@ class DetailGroupView(generic.DetailView):
         qs = super(DetailGroupView, self).get_queryset()
 
         return qs.\
-            filter(enable=1)
+            filter(enable=1).prefetch_related('attributes', 'attributes__children')
 
     def get_template_names(self):
         if self.object.parent:

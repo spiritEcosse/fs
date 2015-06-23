@@ -7405,9 +7405,6 @@ body .container .content header:after {
 body .container .content header:after {
   clear: both;
 }
-body .container .content .main a {
-  color: #508CC6;
-}
 body .container .content .main .wrapp {
   padding: 15px;
 }

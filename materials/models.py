@@ -141,9 +141,23 @@ class ItemImages(models.Model):
 
 
 class Attribute(models.Model):
+    ICON = (
+        ('asterisk', 'asterisk'),
+        ('music', 'music'),
+        ('th', 'th'),
+        ('th-list', 'th-list'),
+        ('ok', 'ok'),
+        ('star-empty', 'star-empty'),
+        ('film', 'film'),
+        ('user', 'user'),
+    )
     title = models.CharField(_('Title'), max_length=200)
     slug = models.SlugField(_('Slug'), max_length=200, unique=True)
     enable = models.BooleanField(_('Enable'), default=True)
+    on_item = models.BooleanField(_('Show on item'), default=False)
+    icon = models.CharField(max_length=100, choices=ICON, blank=True)
+    children = models.ManyToManyField('self', related_name='parents', verbose_name=_('Group attributes'), blank=True)
+    groups = models.ManyToManyField('Group', related_name='attributes', verbose_name=_('Group'), blank=True)
 
     class Meta:
         ordering = ['title']

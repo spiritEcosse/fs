@@ -128,7 +128,7 @@
                 <form action="{{ object.get_absolute_url }}" method="post">
                     {% csrf_token %}
                     <ul>
-                        {{ form_comment.as_ul }}
+                        {{ form_comment.as_p }}
                     </ul>
                     <div class="pull-left">
                         {{ user }}
