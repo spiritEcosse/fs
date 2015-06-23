@@ -33,15 +33,15 @@ class DetailGroupView(generic.DetailView):
         items = queryset.order_by()
         context['breadcrumbs'] = self.object.get_tree_group([])
         page = self.request.GET.get('page')
-        queryset_attribute = []
+        queryset_attribute = set()
 
         if self.request.GET.get('attribute', ()):
             queryset_attribute = set(self.request.GET.get('attribute').split('__'))
 
-        link = '?'
+        link = ''
 
         if page:
-            link += 'page=' + page + '&'
+            link += '?page=' + page
 
         for attribute in self.object.attributes.all():
             for children in attribute.children.all():
@@ -54,12 +54,19 @@ class DetailGroupView(generic.DetailView):
                 else:
                     attr_set.discard(children.slug)
 
-                children.link = link + 'attribute=' + '__'.join(attr_set)
+                children.link = self.object.get_absolute_url() + link
 
-        link = '&'
+                if attr_set:
+                    if not link:
+                        children.link += '?'
+                    else:
+                        children.link += '&'
+                    children.link += 'attribute=' + '__'.join(attr_set)
+
+        link = ''
 
         if self.request.GET.get('attribute', ''):
-            link += 'attribute=' + self.request.GET.get('attribute')
+            link = '&attribute=' + self.request.GET.get('attribute')
 
         paginator = Paginator(items, 24)
         paginator.link = link
