@@ -19,7 +19,7 @@
                         {{ attribute.title }}
                     </div>
                     {% for children in attribute.children.all %}
-                        <a href="{{ children.link }}" class="{% if not children.active %}active {% endif %}btn btn-block btn-default btn-sm">
+                        <a href="{{ children.link }}" class="{% if children.active %}active {% endif %}btn btn-block btn-default btn-sm">
                             <span class="block text-left">{{ children.title }}</span>
                         </a>
                     {% endfor %}
@@ -144,7 +144,6 @@
                 </ul>
             </nav>
         {% endif %}
-        <div class="rasparovka"></div>
     </div>
 {% endblock %}
 

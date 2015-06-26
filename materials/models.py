@@ -126,7 +126,7 @@ class Item(models.Model):
             for attr_value in value.attribute_values.all():
                 attr_values.append(attr_value.title)
 
-            attributes.append('%s: %s' % (value.attribute, ', '.join(attr_values)))
+            attributes.append('%s: %s' % (value.attribute.title, ', '.join(attr_values)))
         return '; '.join(attributes)
 
     def image_preview(self):
@@ -157,7 +157,7 @@ class Attribute(models.Model):
     enable = models.BooleanField(_('Enable'), default=True)
     on_item = models.BooleanField(_('Show on item'), default=False)
     icon = models.CharField(max_length=100, choices=ICON, blank=True)
-    children = models.ManyToManyField('self', related_name='parents', verbose_name=_('Group attributes'), blank=True)
+    parent = models.ForeignKey('self', related_name='children', verbose_name=_('Parent'), blank=True, null=True)
     groups = models.ManyToManyField('Group', related_name='attributes', verbose_name=_('Group'), blank=True)
 
     class Meta:
@@ -186,7 +186,7 @@ class AttributeValue(models.Model):
 class ItemAttributeRelationship(models.Model):
     item = models.ForeignKey('Item', related_name='item_attr')
     attribute = models.ForeignKey('Attribute', related_name='item_attributes')
-    attribute_values = models.ManyToManyField('AttributeValue')
+    attribute_values = models.ManyToManyField('AttributeValue', blank=True)
 
     def __unicode__(self):
         return self.attribute.title

@@ -1,4 +1,4 @@
-from materials.models import Group, Item
+from materials.models import Group, Item, Attribute
 from django.db.models import Q, F
 from comments.models import Comment
 from django.utils.translation import ugettext_lazy as _
@@ -12,15 +12,73 @@ from django.views.generic.edit import FormMixin
 from django import forms
 from django.views import generic
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404
+
+
+class AttributeDetailView(generic.DetailView):
+    model = Attribute
+
+    def get(self, request, *args, **kwargs):
+        self.kwargs.get('slug', False)
+        return super(AttributeDetailView, self).get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(AttributeDetailView, self).get_context_data(**kwargs)
+        context.update(self.kwargs['extra_context'])
+        group = get_object_or_404(Group, slug=self.kwargs['group_slug'])
+        queryset_attribute = self.request.GET.get('attribute', '')
+        queryset_attribute_value = set()
+
+        if self.request.GET.get('attribute_value', ()):
+            queryset_attribute_value = set(self.request.GET.get('attribute_value').split('__'))
+
+        link = ''
+
+        if queryset_attribute:
+            link += '?attribute=' + queryset_attribute
+
+        context['attribute_values'] = []
+
+        for value in self.object.attribute_values.all():
+            value_set = queryset_attribute_value.copy()
+
+            if value.slug not in queryset_attribute_value:
+                value_set.add(value.slug)
+            else:
+                value.active = True
+                value_set.discard(value.slug)
+
+            link_value = link
+
+            if value_set:
+                if link:
+                    link_value += '&'
+                else:
+                    link_value += '?'
+                link_value += 'attribute_value=' + '__'.join(value_set)
+
+            value.link = '%s%s' % \
+                         (reverse('materials:detail_group', kwargs={'slug': group.slug_to_string()}), link_value)
+            context['attribute_values'].append(value)
+
+        if self.request.GET.get('attribute_value', ()):
+            if link:
+                link += '&'
+            else:
+                link += '?'
+            link += 'attribute_value=' + self.request.GET.get('attribute_value')
+
+        context['back'] = '%s%s' % (reverse('materials:detail_group', kwargs={'slug': group.slug_to_string()}), link)
+        context['group'] = group
+        return context
 
 
 class DetailGroupView(generic.DetailView):
     model = Group
 
     def get(self, request, *args, **kwargs):
-        slug = self.kwargs.get('slug', None)
-
-        if slug is not None:
+        if self.kwargs.get('slug', False):
             self.kwargs['slug'] = self.kwargs['slug'].split('/').pop()
         return super(DetailGroupView, self).get(request, *args, **kwargs)
 
@@ -30,44 +88,71 @@ class DetailGroupView(generic.DetailView):
         queryset = Item.objects.filter(Q(main_group=self.object) | Q(groups=self.object), enable=1).\
             select_related('main_group')
         context['items_popular'] = queryset.order_by('-popular')[:8]
-        items = queryset.order_by()
         context['breadcrumbs'] = self.object.get_tree_group([])
         page = self.request.GET.get('page')
         queryset_attribute = set()
+        queryset_attribute_value = self.request.GET.get('attribute_value', '')
 
         if self.request.GET.get('attribute', ()):
             queryset_attribute = set(self.request.GET.get('attribute').split('__'))
+            queryset = queryset.prefetch_related('item_attr__attribute').\
+                filter(item_attr__attribute__slug__in=queryset_attribute)
+
+        if queryset_attribute_value:
+            attribute_value = set(self.request.GET.get('attribute_value').split('__'))
+            queryset = queryset.prefetch_related('item_attr__attribute_values').\
+                filter(item_attr__attribute_values__slug__in=attribute_value)
 
         link = ''
 
         if page:
-            link += '?page=' + page
+            link = '?page=' + page
 
         for attribute in self.object.attributes.all():
             for children in attribute.children.all():
-                children.active = False
                 attr_set = queryset_attribute.copy()
 
-                if children.slug not in queryset_attribute:
-                    attr_set.add(children.slug)
-                    children.active = True
-                else:
-                    attr_set.discard(children.slug)
-
-                children.link = self.object.get_absolute_url() + link
+                if not children.attribute_values.exists():
+                    if children.slug not in queryset_attribute:
+                        attr_set.add(children.slug)
+                    else:
+                        children.active = True
+                        attr_set.discard(children.slug)
+                attribute_link = link
 
                 if attr_set:
-                    if not link:
-                        children.link += '?'
+                    if attribute_link:
+                        attribute_link += '&'
                     else:
-                        children.link += '&'
-                    children.link += 'attribute=' + '__'.join(attr_set)
+                        attribute_link += '?'
+                    attribute_link += 'attribute=' + '__'.join(attr_set)
+
+                if queryset_attribute_value:
+                    children_attribute_value = {value.slug for value in children.attribute_values.all()}
+                    attribute_value_get = set(self.request.GET.get('attribute_value').split('__'))
+
+                    if children_attribute_value.intersection(attribute_value_get):
+                        children.active = True
+
+                    if attribute_link:
+                        attribute_link += '&'
+                    else:
+                        attribute_link += '?'
+                    attribute_link += 'attribute_value=' + queryset_attribute_value
+                children.link = self.object.get_absolute_url() + attribute_link
+
+                if children.attribute_values.exists():
+                    children.link = '%s%s' % (reverse('materials:attribute', kwargs={
+                        'slug': children.slug,
+                        'group_slug': self.object.slug
+                    }), attribute_link)
 
         link = ''
 
         if self.request.GET.get('attribute', ''):
             link = '&attribute=' + self.request.GET.get('attribute')
 
+        items = queryset.order_by()
         paginator = Paginator(items, 24)
         paginator.link = link
 

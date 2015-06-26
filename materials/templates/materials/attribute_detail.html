@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block main %}
+    <div class="wrapp category">
+        <h1>{{ object.title|capfirst }}</h1>
+        <a href="{{ back }}">Назад к {{ group }}</a>
+
+        <div class="row list-item">
+            {% for value in attribute_values %}
+                <div class="col-md-6">
+                    <div class="value">
+                        <a class="{% if value.active %}active {% endif %}btn btn-block btn-default btn-sm" href="{{ value.link }}">{{ value.title }}</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
