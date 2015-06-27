@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericRelation
 from comments.models import Comment
-from django.db.models import Count
+from django.utils import timezone
 
 
 class Group(models.Model):
@@ -89,19 +89,22 @@ class Item(models.Model):
                                         through='ItemAttributeRelationship', related_name='items')
     groups = models.ManyToManyField('Group', verbose_name=_('Group'), related_name='items', blank=True)
     main_group = models.ForeignKey('Group', verbose_name=_('Main Group'))
-    enable = models.BooleanField(_('Enable'), default=True)
     recommend_item = models.ManyToManyField('self', verbose_name=_('Recommended item'), blank=True)
     main_image = models.ImageField(_('Main Image'), upload_to='images/materials/%Y/%m/')
-    tags = ArrayField(models.CharField(max_length=200), blank=True, verbose_name=_('Tags'))
+    description = models.TextField(verbose_name=_('Description'))
+    year_release = models.DateField(verbose_name=_('Year release'), default=timezone.now())
     date_create = models.DateTimeField(auto_now_add=True)
     date_last_modified = models.DateTimeField(auto_now=True)
     item_class = models.ForeignKey('ItemClass', blank=True, null=True)
     popular = models.BigIntegerField(_('Popular'), editable=False, blank=True, default=0)
-    description = models.TextField(verbose_name=_('Description'))
     creator = models.ForeignKey(User, editable=False)
     comments = GenericRelation(Comment, related_query_name='item')
+    tags = ArrayField(models.CharField(max_length=200), blank=True, verbose_name=_('Tags'))
     like = models.BigIntegerField(_('Like'), default=0)
     not_like = models.BigIntegerField(_('Not like'), default=0)
+    countries = ArrayField(models.CharField(max_length=200), verbose_name=_('countries'))
+    sort = models.IntegerField(verbose_name=_('Sort'), blank=True, default=0)
+    enable = models.BooleanField(_('Enable'), default=True)
 
     class Meta:
         ordering = ['-date_create']

@@ -27,17 +27,13 @@ class AttributeDetailView(generic.DetailView):
         context = super(AttributeDetailView, self).get_context_data(**kwargs)
         context.update(self.kwargs['extra_context'])
         group = get_object_or_404(Group, slug=self.kwargs['group_slug'])
-        queryset_attribute = self.request.GET.get('attribute', '')
         queryset_attribute_value = set()
 
         if self.request.GET.get('attribute_value', ()):
             queryset_attribute_value = set(self.request.GET.get('attribute_value').split('__'))
 
-        link = ''
-
-        if queryset_attribute:
-            link += '?attribute=' + queryset_attribute
-
+        link = self.build_link_on_exist_data('', 'attribute')
+        link = self.build_link_on_exist_data(link, 'sort')
         context['attribute_values'] = []
 
         for value in self.object.attribute_values.all():
@@ -52,26 +48,24 @@ class AttributeDetailView(generic.DetailView):
             link_value = link
 
             if value_set:
-                if link:
-                    link_value += '&'
-                else:
-                    link_value += '?'
+                link_value += '&' if link else '?'
                 link_value += 'attribute_value=' + '__'.join(value_set)
 
             value.link = '%s%s' % \
                          (reverse('materials:detail_group', kwargs={'slug': group.slug_to_string()}), link_value)
             context['attribute_values'].append(value)
 
-        if self.request.GET.get('attribute_value', ()):
-            if link:
-                link += '&'
-            else:
-                link += '?'
-            link += 'attribute_value=' + self.request.GET.get('attribute_value')
-
+        link = self.build_link_on_exist_data(link, 'page')
+        link = self.build_link_on_exist_data(link, 'attribute_value')
         context['back'] = '%s%s' % (reverse('materials:detail_group', kwargs={'slug': group.slug_to_string()}), link)
         context['group'] = group
         return context
+
+    def build_link_on_exist_data(self, link, param):
+        if self.request.GET.get(param, ''):
+            link += '&' if link else '?'
+            link += '%s=%s' % (param, self.request.GET.get(param))
+        return link
 
 
 class DetailGroupView(generic.DetailView):
@@ -95,18 +89,15 @@ class DetailGroupView(generic.DetailView):
 
         if self.request.GET.get('attribute', ()):
             queryset_attribute = set(self.request.GET.get('attribute').split('__'))
-            queryset = queryset.prefetch_related('item_attr__attribute').\
-                filter(item_attr__attribute__slug__in=queryset_attribute)
+            queryset = queryset.filter(item_attr__attribute__slug__in=queryset_attribute)
 
         if queryset_attribute_value:
             attribute_value = set(self.request.GET.get('attribute_value').split('__'))
-            queryset = queryset.prefetch_related('item_attr__attribute_values').\
-                filter(item_attr__attribute_values__slug__in=attribute_value)
+            queryset = queryset.filter(item_attr__attribute_values__slug__in=attribute_value)
 
-        link = ''
-
-        if page:
-            link = '?page=' + page
+        link = self.build_link_on_exist_data('', 'page')
+        link = self.build_link_on_exist_data(link, 'sort')
+        link = self.build_link_on_exist_data(link, 'attribute_value')
 
         for attribute in self.object.attributes.all():
             for children in attribute.children.all():
@@ -121,10 +112,7 @@ class DetailGroupView(generic.DetailView):
                 attribute_link = link
 
                 if attr_set:
-                    if attribute_link:
-                        attribute_link += '&'
-                    else:
-                        attribute_link += '?'
+                    attribute_link += '&' if attribute_link else '?'
                     attribute_link += 'attribute=' + '__'.join(attr_set)
 
                 if queryset_attribute_value:
@@ -133,12 +121,6 @@ class DetailGroupView(generic.DetailView):
 
                     if children_attribute_value.intersection(attribute_value_get):
                         children.active = True
-
-                    if attribute_link:
-                        attribute_link += '&'
-                    else:
-                        attribute_link += '?'
-                    attribute_link += 'attribute_value=' + queryset_attribute_value
                 children.link = self.object.get_absolute_url() + attribute_link
 
                 if children.attribute_values.exists():
@@ -147,12 +129,31 @@ class DetailGroupView(generic.DetailView):
                         'group_slug': self.object.slug
                     }), attribute_link)
 
-        link = ''
+        link = self.build_link_on_exist_data('', 'page')
+        link_sort = self.build_link_on_exist_data(link, 'attribute')
+        link_sort = self.build_link_on_exist_data(link_sort, 'attribute_value')
 
-        if self.request.GET.get('attribute', ''):
-            link = '&attribute=' + self.request.GET.get('attribute')
+        keys = {'date_create': _('date added'),
+                'year_release': _('year release'),
+                'popular': _('popular'),
+                'sort': _('in trend'),
+                'like': _('by rating')}
+        context['link_sort'] = [(value, self.build_link(link_sort, 'sort', key)) for key, value in keys.items()]
 
-        items = queryset.order_by()
+        link = self.build_link_on_exist_data('', 'sort')
+        link = self.build_link_on_exist_data(link, 'attribute')
+        link = self.build_link_on_exist_data(link, 'attribute_value')
+
+        context['sort'] = keys.get(self.request.GET.get('sort'), 'date_create')
+
+        if self.request.GET.get('sort') == 'like':
+            queryset = queryset.annotate(diff_like=F('like')-F('not_like')).order_by('-diff_like')
+        elif self.request.GET.get('sort', ''):
+            queryset = queryset.order_by('-%s' % self.request.GET.get('sort'))
+        else:
+            queryset = queryset.order_by('sort')
+
+        items = queryset
         paginator = Paginator(items, 24)
         paginator.link = link
 
@@ -164,6 +165,17 @@ class DetailGroupView(generic.DetailView):
             context['items'] = paginator.page(paginator.num_pages)
 
         return context
+
+    def build_link(self, link, param, value):
+        link += '&' if link else '?'
+        link += '%s=%s' % (param, value)
+        return link
+
+    def build_link_on_exist_data(self, link, param):
+        if self.request.GET.get(param, ''):
+            link += '&' if link else '?'
+            link += '%s=%s' % (param, self.request.GET.get(param))
+        return link
 
     def get_queryset(self):
         qs = super(DetailGroupView, self).get_queryset()
