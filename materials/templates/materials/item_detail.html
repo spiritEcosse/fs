@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load filter_extra %}
 
 {% block title %}{% trans object.title %}{% endblock %}
 
@@ -10,8 +11,22 @@
                 <div class="col-md-5">
                     <a href="#" class="thumbnail"><img class="img-responsive shadow" src="{{ object.main_image.url }}" title="" alt=""></a>
                     <div class="wrapp-btn">
-                        <a href="#" class="btn btn-primary btn-sm">Добавить в избранное</a>
-                        <a href="#" class="btn btn-primary btn-sm">Добавить в избранное</a>
+                        <a  href="#" role="button" class="btn btn-primary btn-sm btn-block
+                        {% if user_like %}user_del_item{% else %}user_add_item{% endif %}" data-btn-type="0" data-pk="{{ object.pk }}">
+                            {% if user_like %}
+                                {% trans "Favoured" %}
+                            {% else %}
+                                {% trans "Add to favorites" %}
+                            {% endif %}
+                        </a>
+                        <a  href="#" role="button" class="btn btn-primary btn-sm btn-block
+                        {% if user_defer %}user_del_item{% else %}user_add_item{% endif %}" data-btn-type="1" data-pk="{{ object.pk }}">
+                            {% if user_defer %}
+                                {% trans "For the future" %}
+                            {% else %}
+                                {% trans "Add for the future" %}
+                            {% endif %}
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-14">
@@ -58,34 +73,54 @@
                     </div>
                     <div class="row rating">
                         <div class="col-md-9">
-                            <span>Оценки пользователей</span>
+                            <span>{% trans "Оценки пользователей" %}</span>
                             <div class="progress">
-                                <div class="progress-bar progress-bar-success" style="width: 75%">
-                                    <span class="sr-only">75% Complete (success)</span>
-                                </div>
-                                <div class="progress-bar progress-bar-danger" style="width: 25%">
-                                    <span class="sr-only">25% Complete (danger)</span>
-                                </div>
+                                {% with sum_like=object.like|add:object.not_like %}
+                                    {% with percent_like=object.like|percent:sum_like %}
+                                        <div class="progress-bar progress-bar-success" style="width: {{ percent_like }}%">
+                                            <span class="sr-only">{{ percent_like }}% Complete (success)</span>
+                                        </div>
+                                        {% with percent_not_like=100|sub:percent_like %}
+                                            <div class="progress-bar progress-bar-danger" style="width: {{ percent_not_like }}%">
+                                                <span class="sr-only">{{ percent_not_like }}% Complete (danger)</span>
+                                            </div>
+                                        {% endwith %}
+                                    {% endwith %}
+                                {% endwith %}
                             </div>
                         </div>
-                        <div class="col-md-6 section">
-                            <div class="like pull-left"><span>144</span></div>
-                            <div class="not-like pull-left"><span>1223</span></div>
+                        <div class="col-md-6 section text-center">
+                            <div class="text-center display-inline-block">
+                                <div class="like pull-left" id="like"><span>{{ object.like }}</span></div>
+                                <div class="not-like pull-left" id="not_like"><span>{{ object.not_like }}</span></div>
+                            </div>
                         </div>
-                        <div class="col-md-9 section">
-                            <a class="btn btn-danger btn-xs">Не нравиться</a>
-                            <a class="btn btn-success btn-xs">Нравиться</a>
+                        <div class="col-md-9 section text-center">
+                            {% if object in request.user.ex_user.like_item.all %}
+                                <div class="cancel_vote green">
+                                    {% trans 'Ваша оценка +1' %}
+                                    <a data-pk="{{ object.pk }}"  href="#" role="button"  data-type-btn="1" id="cancel_vote">{% trans 'отмена' %}</a>
+                                </div>
+                            {% elif object in request.user.ex_user.not_like_item.all %}
+                                <div class="cancel_vote red">
+                                    {% trans 'Ваша оценка -1' %}
+                                    <a data-pk="{{ object.pk }}"  href="#" role="button" data-type-btn="0" id="cancel_vote">{% trans 'отмена' %}</a>
+                                </div>
+                            {% else %}
+                                <a class="btn btn-success btn-xs" id="vote" data-type-btn="1" data-pk="{{ object.pk }}">{% trans "Нравиться" %}</a>
+                                <a class="btn btn-danger btn-xs" id="vote" data-type-btn="0" data-pk="{{ object.pk }}">{% trans "Не нравиться" %}</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
                 <div class="col-md-5">
-                    <span>Трейлер</span>
+                    <span>{% trans "Трейлер" %}</span>
                 </div>
             </div>
 
             <div class="row share-net">
                 <div class="col-md-12">
-                    <span>Понравился фильм? Поделись с друзьями!</span>
+                    <span>{% trans "Понравился фильм? Поделись с друзьями!" %}</span>
                 </div>
                 <div class="col-md-12">
                 </div>
@@ -107,7 +142,7 @@
 
             {% if recommend_item %}
                 <div class="row related">
-                    <h3>Похожие материалы</h3>
+                    <h3>{% trans "Похожие материалы" %}</h3>
 
                     {% for item in recommend_item %}
                         <div class="col-md-3">
@@ -149,7 +184,6 @@
 
                 {% for comment in object.comments.all %}
                     <div class="col-md-24 comment {% if comment.like_object %}positive{% else %}negative{% endif %}">
-
                         <div class="row">
                             <div class="col-md-2">
                                 <a href="#">
@@ -160,7 +194,7 @@
                                 <div class="name pull-left"><a href="">{{ comment.user }}</a></div>
                                 <div class="date pull-left"><span>{{ comment.date_create }}</span></div>
                                 <div class="help-comment pull-right">
-                                    <span>Отзыв был полезен?</span>
+                                    <span>{% trans "Отзыв был полезен?" %}</span>
                                     <a href="#" class="btn btn-default btn-xs">
                                         Да<span class="pos-number">{{ comment.like }}</span>
                                     </a>
@@ -175,10 +209,7 @@
                         </div>
                     </div>
                 {% endfor %}
-                </div>
             </div>
         </div>
-
-        <div class="rasparovka"></div>
     </div>
 {% endblock %}

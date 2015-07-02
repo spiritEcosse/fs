@@ -5,6 +5,7 @@ from django.forms.models import BaseInlineFormSet
 from django.core.exceptions import ValidationError
 from django.db.models import When, Case
 
+
 def change_status(modeladmin, request, queryset):
     queryset.update(
         enable=Case(
@@ -13,6 +14,7 @@ def change_status(modeladmin, request, queryset):
         )
     )
 change_status.short_description = _("Change status")
+
 
 class ItemAttributeRelationshipForm(BaseInlineFormSet):
     class Meta:

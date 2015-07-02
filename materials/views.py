@@ -14,6 +14,10 @@ from django.views import generic
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
+from django.views.decorators.http import require_POST
+from django.http import HttpResponse
+import json
+from django.views.decorators.csrf import csrf_exempt
 
 
 class AttributeDetailView(generic.DetailView):
@@ -217,6 +221,8 @@ class ExtendContextDataItem(object):
         return {
             'recommend_item': self.view.object.recommend_item.filter(enable=1)[:8],
             'count_comments': self.view.object.comments.count(),
+            'user_like': self.view.object.users_liked.filter(user=self.view.request.user),
+            'user_defer': self.view.object.users_defer.filter(user=self.view.request.user),
         }
 
 
@@ -290,3 +296,99 @@ class ItemDetail(View):
     def post(self, request, *args, **kwargs):
         view = CommentHandler.as_view()
         return view(request, *args, **kwargs)
+
+
+@csrf_exempt
+@require_POST
+def put_item(request, **kwargs):
+    pk = request.POST.get('item_pk')
+    item = get_object_or_404(Item, pk=pk)
+    data = {}
+
+    if request.POST.get('type_btn') == '0':
+        data['text'] = unicode(_('Favoured'))
+        request.user.ex_user.liked.add(item)
+    elif request.POST.get('type_btn') == '1':
+        data['text'] = unicode(_('For the future'))
+        request.user.ex_user.defer.add(item)
+    else:
+        raise Exception('type_btn is not valid')
+
+    data['success'] = True
+    data = json.dumps(data)
+    return HttpResponse(data, content_type="application/json; charset=utf8")
+
+
+@csrf_exempt
+@require_POST
+def del_item(request, **kwargs):
+    pk = request.POST.get('item_pk')
+    item = get_object_or_404(Item, pk=pk)
+    data = {}
+
+    if request.POST.get('type_btn') == '0':
+        data['text'] = unicode(_('Add to favorites'))
+        request.user.ex_user.liked.remove(item)
+    elif request.POST.get('type_btn') == '1':
+        data['text'] = unicode(_('Add for the future'))
+        request.user.ex_user.defer.remove(item)
+    else:
+        raise Exception('type_btn is not valid')
+
+    data['success'] = True
+    data = json.dumps(data)
+    return HttpResponse(data, content_type="application/json; charset=utf8")
+
+
+@csrf_exempt
+@require_POST
+def vote(request, **kwargs):
+    pk = request.POST.get('item_pk')
+    item = get_object_or_404(Item, pk=pk)
+    data = {}
+
+    if request.POST.get('type_btn') == '0':
+        item.not_like += 1
+        item.save()
+        request.user.ex_user.not_like_item.add(item)
+        request.user.ex_user.save()
+        data['number'] = item.not_like
+    elif request.POST.get('type_btn') == '1':
+        item.like += 1
+        item.save()
+        request.user.ex_user.like_item.add(item)
+        request.user.ex_user.save()
+        data['number'] = item.like
+    else:
+        raise Exception('type_btn is not valid')
+
+    data['success'] = True
+    data = json.dumps(data)
+    return HttpResponse(data, content_type="application/json; charset=utf8")
+
+
+@csrf_exempt
+@require_POST
+def cancel_vote(request, **kwargs):
+    pk = request.POST.get('item_pk')
+    item = get_object_or_404(Item, pk=pk)
+    data = {}
+
+    if request.POST.get('type_btn') == '0':
+        item.not_like -= 1
+        item.save()
+        data['number'] = item.not_like
+        request.user.ex_user.not_like_item.remove(item)
+        request.user.ex_user.save()
+    elif request.POST.get('type_btn') == '1':
+        item.like -= 1
+        item.save()
+        data['number'] = item.like
+        request.user.ex_user.like_item.remove(item)
+        request.user.ex_user.save()
+    else:
+        raise Exception('type_btn is not valid')
+
+    data['success'] = True
+    data = json.dumps(data)
+    return HttpResponse(data, content_type='application/json; charset=utf8')

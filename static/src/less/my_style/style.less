@@ -86,7 +86,12 @@ p {
     color: @link-primary;
   }
 }
-
+.green {
+  background: #62b56d;
+}
+.red {
+  background: #c33e43;
+}
 html {
   height: 100%;
 }
@@ -115,6 +120,9 @@ html {
 }
 .block {
   display:block;
+}
+.display-inline-block {
+  display: inline-block
 }
 .shadow {
   box-shadow: 4px 1px 2px #000;
@@ -758,6 +766,23 @@ body {
         .item-detail {
           .wrapp-btn {
             text-align:center;
+          }
+
+          .cancel_vote {
+            color: #ffffff;
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 5px;
+
+            a {
+              margin-left: 10px;
+              color: #cdedd8;
+              border-bottom: 1px dashed;
+
+              &:hover {
+                text-decoration: none;
+              }
+            }
           }
 
           .vertical-offset-md {

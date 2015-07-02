@@ -7,4 +7,8 @@ urlpatterns = [
         views.ItemDetail.as_view(), name='detail_item'),
     url(r'^group/(?P<slug>[\w-]+(/[\w-]+)*)/$',
         views.DetailGroupView.as_view(), name='detail_group'),
+    url(r'^put_item/$', views.put_item, name='put_item'),
+    url(r'^del_item/$', views.del_item, name='del_item'),
+    url(r'^vote/$', views.vote, name='vote'),
+    url(r'^cancel_vote/', views.cancel_vote, name='cancel_vote')
 ]

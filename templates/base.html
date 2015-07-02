@@ -22,17 +22,6 @@
     <!-- bxSlider CSS file -->
     <link href="{% static 'www/js/bx_slider/jquery.bxslider.css' %}" rel="stylesheet" />
     <link href="{% static 'www/css/style.css' %}" rel="stylesheet" type="text/css">
-
-    <script type="text/javascript"><!--
-        $(document).ready(function(){
-            $('.bxslider').bxSlider({
-                minSlides: 4,
-                maxSlides: 4,
-                slideWidth: 240,
-                controls: false
-            });
-        });
-    --></script>
 </head>
 <body>
 <div class="wrapper container">
@@ -95,7 +84,7 @@
                             </form>
 
                             {% if user.is_authenticated %}
-                                <div class="welcome">Welcome, <a href="{% url 'profile' %}">{{ user.username }}</a>.</div>
+                                <div class="welcome">Welcome, <a href="{% url 'ex_user:profile' %}">{{ user.username }}</a>.</div>
                                 <a href="{% url 'logout' %}" class="btn btn-primary btn-sm">Выйти</a>
                             {% else %}
                                 <a href="{% url 'login' %}" class="btn btn-primary btn-sm" onclick="">{% trans "Вход" %}</a>
@@ -357,6 +346,8 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{% static 'www/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'www/js/bootstrap.js' %}"></script>
+    <script src="{% static 'www/js/custom.js' %}"></script>
+    <script src="{% static 'www/js/jquery.cookie.js' %}"></script>
 </div>
 </body>
 </html>

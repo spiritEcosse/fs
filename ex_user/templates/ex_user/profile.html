@@ -6,8 +6,92 @@
 {% block main %}
     <div class="wrapp">
         <h1>Welcome, {{ user }}</h1>
-        <div class="password_change">
-            <a href="{% url 'password_change' %}">password change</a>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="image">
+                    <img class="img-user img-responsive img-rounded" src="{{ user.ex_user.img.url }}">
+                </div>
+                <div class="password_change">
+                    <a href="{% url 'password_change' %}">password change</a>
+                </div>
+            </div>
+            <div class="col-md-19" >
+                <div id="userTabs">
+                    <ul class="nav nav-tabs nav-justified">
+                        <li role="presentation" class="active"><a href="#like">Избранное</a></li>
+                        <li role="presentation"><a href="#defer">На будущее</a></li>
+                    </ul>
+                </div>
+
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="like">
+                        <div class="list-item">
+                            <div class="row group">
+                                {% for item in user.ex_user.liked.all %}
+                                    <div class="col-xs-4 item">
+                                        <a href="{{ item.get_absolute_url }}">
+                                            <img class="img-responsive shadow-item" src="{{ item.main_image.url }}">
+                                            <div class="empty"></div>
+                                            <div class="short_title">
+                                                <span>{{ item.title|truncatechars:33 }}</span>
+                                            </div>
+                                            <div class="full_title">
+                                                <div class="title"><span>{{ item.title|truncatechars:50 }}</span></div>
+                                                <div class="short_desc">
+                                                    <span>{{ item.year_release|date:'Y' }}</span>
+                                                    <span></span>
+                                                    <span>США, Великобритания, Ямайка</span>
+                                                </div>
+                                                <div class="bottom">
+                                                    <div class="like pull-left">{{ item.like }}</div>
+                                                    <div class="not-like pull-left">{{ item.not_like }}</div>
+                                                    <div class="quality pull-right text-right">
+                                                        <span class="hd"></span>
+                                                        <span class="hq"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="defer">
+                        <div class="list-item">
+                            <div class="row group">
+                                {% for item in user.ex_user.defer.all %}
+                                    <div class="col-xs-4 item">
+                                        <a href="{{ item.get_absolute_url }}">
+                                            <img class="img-responsive shadow-item" src="{{ item.main_image.url }}">
+                                            <div class="empty"></div>
+                                            <div class="short_title">
+                                                <span>{{ item.title|truncatechars:33 }}</span>
+                                            </div>
+                                            <div class="full_title">
+                                                <div class="title"><span>{{ item.title|truncatechars:50 }}</span></div>
+                                                <div class="short_desc">
+                                                    <span>{{ item.year_release|date:'Y' }}</span>
+                                                    <span></span>
+                                                    <span>США, Великобритания, Ямайка</span>
+                                                </div>
+                                                <div class="bottom">
+                                                    <div class="like pull-left">{{ item.like }}</div>
+                                                    <div class="not-like pull-left">{{ item.not_like }}</div>
+                                                    <div class="quality pull-right text-right">
+                                                        <span class="hd"></span>
+                                                        <span class="hq"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
