@@ -5,7 +5,6 @@ from django.conf.urls.static import static
 from fs.views import IndexView
 from django.contrib.auth import views as auth_views
 from fs.core.ex_view import ExView
-from ex_user.views import Account
 
 urlpatterns = [
     url(r'^$', IndexView.as_view(), ExView.extra_context_data(), name='home'),

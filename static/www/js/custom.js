@@ -13,7 +13,7 @@ $(document).ready(function(){
 
     $(document).on('click', '.user_add_item', function(e) {
         e.preventDefault();
-        el = $(this);
+        var el = $(this);
 
         $.ajax({
             url: '/materials/put_item/',
@@ -32,7 +32,7 @@ $(document).ready(function(){
 
     $(document).on('click', '.user_del_item', function(e) {
         e.preventDefault();
-        el = $(this);
+        var el = $(this);
 
         $.ajax({
             url: '/materials/del_item/',
@@ -51,7 +51,7 @@ $(document).ready(function(){
 
     $(document).on('click', '#cancel_vote', function(e){
         e.preventDefault();
-        el = $(this);
+        var el = $(this);
 
         $.ajax({
             url: '/materials/cancel_vote/',
@@ -76,7 +76,7 @@ $(document).ready(function(){
 
     $(document).on('click', '#vote', function (e) {
         e.preventDefault();
-        el = $(this);
+        var el = $(this);
 
         $.ajax({
             url: '/materials/vote/',

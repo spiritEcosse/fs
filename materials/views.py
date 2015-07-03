@@ -6,6 +6,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.forms import ModelForm, HiddenInput
 from django.views.generic import View
 from django.views.generic import FormView
+from django.views.generic.base import ContextMixin
 from django.views.generic.detail import SingleObjectMixin
 from django.http import HttpResponseForbidden
 from django.views.generic.edit import FormMixin
@@ -18,6 +19,7 @@ from django.views.decorators.http import require_POST
 from django.http import HttpResponse
 import json
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 
 
 class AttributeDetailView(generic.DetailView):
@@ -231,17 +233,15 @@ class CommentHandler(SingleObjectMixin, FormView):
     template_name = 'materials/item_detail.html'
     form_class = CommentForm
 
+    @login_required
     def post(self, request, *args, **kwargs):
-        if not request.user.is_authenticated():
-            return HttpResponseForbidden()
         self.object = self.get_object()
 
         form = self.get_form()
         if form.is_valid():
             form.save()
             return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
+        return self.form_invalid(form)
 
     def get_context_data(self, **kwargs):
         context = super(CommentHandler, self).get_context_data(**kwargs)

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% with title="Registration" %}
+    {% block title %}{% trans title %}{% endblock %}
+
+    {% block main %}
+        <div class="wrapp">
+            <h1>{{ title }}</h1>
+            <form enctype="multipart/form-data" action="{% url 'ex_user:registration' %}" method="post">
+                {% csrf_token %}
+                {{ form_user.as_p }}
+                {{ form_ex_user.as_p }}
+
+                <div class="pull-right">
+                    <input type="submit" value="Submit"/>
+                </div>
+            </form>
+        </div>
+    {% endblock %}
+{% endwith %}

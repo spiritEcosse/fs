@@ -1829,9 +1829,105 @@
       <column name="user_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <primary-key name="ex_user_exuser_pkey" columns="id"/>
       <foreign-key name="ex_user_exuser_user_id_4335618ff7718a35_fk_auth_user_id" columns="user_id" ref-table="auth_user" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <exported-key name="ex_user_exuser__exuser_id_66a078c2e9c7b7b1_fk_ex_user_exuser_id" table="ex_user_exuser_defer" schema="public" catalog="fs" columns="exuser_id"/>
+      <exported-key name="ex_user_exuser__exuser_id_74c4758c1a4ca23e_fk_ex_user_exuser_id" table="ex_user_exuser_like_item" schema="public" catalog="fs" columns="exuser_id"/>
+      <exported-key name="ex_user_exuser__exuser_id_33982bc6545151a8_fk_ex_user_exuser_id" table="ex_user_exuser_liked" schema="public" catalog="fs" columns="exuser_id"/>
+      <exported-key name="ex_user_exuser__exuser_id_2532ea6df5d52ecc_fk_ex_user_exuser_id" table="ex_user_exuser_not_like_item" schema="public" catalog="fs" columns="exuser_id"/>
       <index name="ex_user_exuser_user_id_key" unique="true" columns="user_id"/>
     </table>
+    <table name="ex_user_exuser_defer" schema="public" catalog="fs" type="TABLE">
+      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnZXhfdXNlcl9leHVzZXJfZGVmZXJfaWRfc2VxJzo6cmVnY2xhc3Mp" autoIncrement="true"/>
+      <column name="exuser_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="item_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="ex_user_exuser_defer_pkey" columns="id"/>
+      <foreign-key name="ex_user_exuser__exuser_id_66a078c2e9c7b7b1_fk_ex_user_exuser_id" columns="exuser_id" ref-table="ex_user_exuser" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="ex_user_exuser_de_item_id_5c86dc2f339a515a_fk_materials_item_id" columns="item_id" ref-table="materials_item" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ex_user_exuser_defer_exuser_id_item_id_key" unique="true" columns="exuser_id,item_id"/>
+      <index name="ex_user_exuser_defer_7c1821f4" unique="false" columns="exuser_id"/>
+      <index name="ex_user_exuser_defer_82bfda79" unique="false" columns="item_id"/>
+    </table>
+    <table name="ex_user_exuser_defer_id_seq" schema="public" catalog="fs" type="SEQUENCE">
+      <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="increment_by" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="max_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="min_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="cache_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="log_cnt" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+    </table>
     <table name="ex_user_exuser_id_seq" schema="public" catalog="fs" type="SEQUENCE">
+      <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="increment_by" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="max_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="min_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="cache_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="log_cnt" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+    </table>
+    <table name="ex_user_exuser_like_item" schema="public" catalog="fs" type="TABLE">
+      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnZXhfdXNlcl9leHVzZXJfbGlrZV9pdGVtX2lkX3NlcSc6OnJlZ2NsYXNzKQ==" autoIncrement="true"/>
+      <column name="exuser_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="item_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="ex_user_exuser_like_item_pkey" columns="id"/>
+      <foreign-key name="ex_user_exuser__exuser_id_74c4758c1a4ca23e_fk_ex_user_exuser_id" columns="exuser_id" ref-table="ex_user_exuser" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="ex_user_exuser_li_item_id_3041b2cc575385cb_fk_materials_item_id" columns="item_id" ref-table="materials_item" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ex_user_exuser_like_item_exuser_id_item_id_key" unique="true" columns="exuser_id,item_id"/>
+      <index name="ex_user_exuser_like_item_7c1821f4" unique="false" columns="exuser_id"/>
+      <index name="ex_user_exuser_like_item_82bfda79" unique="false" columns="item_id"/>
+    </table>
+    <table name="ex_user_exuser_like_item_id_seq" schema="public" catalog="fs" type="SEQUENCE">
+      <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="increment_by" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="max_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="min_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="cache_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="log_cnt" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+    </table>
+    <table name="ex_user_exuser_liked" schema="public" catalog="fs" type="TABLE">
+      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnZXhfdXNlcl9leHVzZXJfbGlrZWRfaWRfc2VxJzo6cmVnY2xhc3Mp" autoIncrement="true"/>
+      <column name="exuser_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="item_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="ex_user_exuser_liked_pkey" columns="id"/>
+      <foreign-key name="ex_user_exuser__exuser_id_33982bc6545151a8_fk_ex_user_exuser_id" columns="exuser_id" ref-table="ex_user_exuser" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="ex_user_exuser_li_item_id_170f0399c4ced661_fk_materials_item_id" columns="item_id" ref-table="materials_item" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ex_user_exuser_liked_exuser_id_item_id_key" unique="true" columns="exuser_id,item_id"/>
+      <index name="ex_user_exuser_liked_7c1821f4" unique="false" columns="exuser_id"/>
+      <index name="ex_user_exuser_liked_82bfda79" unique="false" columns="item_id"/>
+    </table>
+    <table name="ex_user_exuser_liked_id_seq" schema="public" catalog="fs" type="SEQUENCE">
+      <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="increment_by" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="max_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="min_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="cache_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="log_cnt" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+    </table>
+    <table name="ex_user_exuser_not_like_item" schema="public" catalog="fs" type="TABLE">
+      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnZXhfdXNlcl9leHVzZXJfbm90X2xpa2VfaXRlbV9pZF9zZXEnOjpyZWdjbGFzcyk=" autoIncrement="true"/>
+      <column name="exuser_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="item_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="ex_user_exuser_not_like_item_pkey" columns="id"/>
+      <foreign-key name="ex_user_exuser__exuser_id_2532ea6df5d52ecc_fk_ex_user_exuser_id" columns="exuser_id" ref-table="ex_user_exuser" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="ex_user_exuser_no_item_id_56bc6e7d1f5298cb_fk_materials_item_id" columns="item_id" ref-table="materials_item" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="ex_user_exuser_not_like_item_exuser_id_item_id_key" unique="true" columns="exuser_id,item_id"/>
+      <index name="ex_user_exuser_not_like_item_7c1821f4" unique="false" columns="exuser_id"/>
+      <index name="ex_user_exuser_not_like_item_82bfda79" unique="false" columns="item_id"/>
+    </table>
+    <table name="ex_user_exuser_not_like_item_id_seq" schema="public" catalog="fs" type="SEQUENCE">
       <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
       <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
@@ -1992,10 +2088,17 @@
       <column name="creator_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="like" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="not_like" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="sort" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="year_release" sqlType="date" precision="13" scale="0" nullable="false" jdbcType="91"/>
+      <column name="countries" sqlType="_varchar" precision="200" scale="0" nullable="false" jdbcType="2003"/>
       <primary-key name="materials_item_pkey" columns="id"/>
       <foreign-key name="materials_item_creator_id_7449b45ab616d739_fk_auth_user_id" columns="creator_id" ref-table="auth_user" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="materials__main_group_id_49d518f2f6983cb9_fk_materials_group_id" columns="main_group_id" ref-table="materials_group" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="materi_item_class_id_4afcee6e4934c7ce_fk_materials_itemclass_id" columns="item_class_id" ref-table="materials_itemclass" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <exported-key name="ex_user_exuser_de_item_id_5c86dc2f339a515a_fk_materials_item_id" table="ex_user_exuser_defer" schema="public" catalog="fs" columns="item_id"/>
+      <exported-key name="ex_user_exuser_li_item_id_3041b2cc575385cb_fk_materials_item_id" table="ex_user_exuser_like_item" schema="public" catalog="fs" columns="item_id"/>
+      <exported-key name="ex_user_exuser_li_item_id_170f0399c4ced661_fk_materials_item_id" table="ex_user_exuser_liked" schema="public" catalog="fs" columns="item_id"/>
+      <exported-key name="ex_user_exuser_no_item_id_56bc6e7d1f5298cb_fk_materials_item_id" table="ex_user_exuser_not_like_item" schema="public" catalog="fs" columns="item_id"/>
       <exported-key name="materials_item_gr_item_id_495acd4a1d200e5d_fk_materials_item_id" table="materials_item_groups" schema="public" catalog="fs" columns="item_id"/>
       <exported-key name="materials_it_from_item_id_2595d56566fcf7b9_fk_materials_item_id" table="materials_item_recommend_item" schema="public" catalog="fs" columns="from_item_id"/>
       <exported-key name="materials_item_to_item_id_54e6365397041aac_fk_materials_item_id" table="materials_item_recommend_item" schema="public" catalog="fs" columns="to_item_id"/>
