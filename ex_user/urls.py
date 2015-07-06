@@ -7,6 +7,6 @@ from fs.core.ex_view import ExView
 
 
 urlpatterns = [
-    url(r'^$', ExUser.profile, name='profile'),
+    url(r'^$', ExUser.as_view(), name='profile'),
     url(r'^registration/$', ExUserRegistrationFormView.as_view(), name='registration'),
 ]

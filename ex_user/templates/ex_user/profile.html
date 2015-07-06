@@ -8,9 +8,11 @@
         <h1>Welcome, {{ user }}</h1>
         <div class="row">
             <div class="col-md-5">
-                <div class="image">
-                    <img class="img-user img-responsive img-rounded" src="{{ user.ex_user.img.url }}">
-                </div>
+                {% if user.ex_user.img %}
+                    <div class="image">
+                        <img class="img-user img-responsive img-rounded" src="{{ user.ex_user.img.url }}">
+                    </div>
+                {% endif %}
                 <div class="password_change">
                     <a href="{% url 'password_change' %}">password change</a>
                 </div>

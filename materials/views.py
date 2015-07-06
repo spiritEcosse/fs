@@ -223,8 +223,8 @@ class ExtendContextDataItem(object):
         return {
             'recommend_item': self.view.object.recommend_item.filter(enable=1)[:8],
             'count_comments': self.view.object.comments.count(),
-            'user_like': self.view.object.users_liked.filter(user=self.view.request.user),
-            'user_defer': self.view.object.users_defer.filter(user=self.view.request.user),
+            'user_like': self.view.object.users_liked.filter(user=self.view.request.user.id),
+            'user_defer': self.view.object.users_defer.filter(user=self.view.request.user.id),
         }
 
 

@@ -186,9 +186,11 @@
                     <div class="col-md-24 comment {% if comment.like_object %}positive{% else %}negative{% endif %}">
                         <div class="row">
                             <div class="col-md-2">
-                                <a href="#">
-                                    <img class="img-user img-responsive img-rounded" src="{{ comment.user.ex_user.img.url }}">
-                                </a>
+                                {% if comment.user.ex_user.img.url %}
+                                    <a href="#">
+                                        <img class="img-user img-responsive img-rounded" src="{{ comment.user.ex_user.img.url }}">
+                                    </a>
+                                {% endif %}
                             </div>
                             <div class="col-md-22">
                                 <div class="name pull-left"><a href="">{{ comment.user }}</a></div>
