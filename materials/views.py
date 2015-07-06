@@ -1,16 +1,11 @@
 from materials.models import Group, Item, Attribute
 from django.db.models import Q, F
-from comments.models import Comment
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
-from django.forms import ModelForm, HiddenInput
 from django.views.generic import View
 from django.views.generic import FormView
-from django.views.generic.base import ContextMixin
 from django.views.generic.detail import SingleObjectMixin
-from django.http import HttpResponseForbidden
 from django.views.generic.edit import FormMixin
-from django import forms
 from django.views import generic
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
@@ -19,7 +14,8 @@ from django.views.decorators.http import require_POST
 from django.http import HttpResponse
 import json
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.decorators import login_required
+from materials.forms import CommentForm
+from django.shortcuts import redirect
 
 
 class AttributeDetailView(generic.DetailView):
@@ -195,26 +191,6 @@ class DetailGroupView(generic.DetailView):
         return ['materials/main_group_detail.html']
 
 
-class CommentForm(ModelForm):
-    class Meta:
-        model = Comment
-        fields = ['user', 'text', 'object_id', 'content_type', 'like_object']
-        widgets = {
-            'object_id': HiddenInput(),
-            'content_type': HiddenInput(),
-            'user': HiddenInput(),
-            'text': forms.Textarea(attrs={'placeholder': _('You comment')})
-        }
-        labels = {
-            'text': '',
-        }
-        error_messages = {
-            'text': {
-                'require': _("This field required."),
-            },
-        }
-
-
 class ExtendContextDataItem(object):
     def __init__(self, view):
         self.view = view
@@ -233,13 +209,18 @@ class CommentHandler(SingleObjectMixin, FormView):
     template_name = 'materials/item_detail.html'
     form_class = CommentForm
 
-    @login_required
     def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated():
+            return redirect(reverse('login'))
         self.object = self.get_object()
 
         form = self.get_form()
         if form.is_valid():
-            form.save()
+            comment = form.save(commit=False)
+            comment.object_id = self.object.pk
+            comment.content_type = ContentType.objects.get_for_model(self.model)
+            comment.user = request.user
+            comment.save()
             return self.form_valid(form)
         return self.form_invalid(form)
 
@@ -278,11 +259,7 @@ class DetailItemView(FormMixin, generic.DetailView):
 
         context = super(DetailItemView, self).get_context_data(**kwargs)
         context.update(self.kwargs['extra_context'])
-        context['form_comment'] = CommentForm(initial={
-            'object_id': self.object.pk,
-            'content_type': ContentType.objects.get_for_model(self.model),
-        })
-
+        context['form_comment'] = CommentForm
         ex_context_data = ExtendContextDataItem(self)
         context.update(ex_context_data.get_context_data())
         return context
