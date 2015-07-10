@@ -1947,8 +1947,10 @@
       <column name="on_item" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
       <column name="icon" sqlType="varchar" precision="100" scale="0" nullable="false" jdbcType="12"/>
       <column name="parent_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="icon_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="materials_attribute_pkey" columns="id"/>
       <foreign-key name="materials__parent_id_4207af1ffad2c0a0_fk_materials_attribute_id" columns="parent_id" ref-table="materials_attribute" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="materials_attribut_icon_id_16e05608b98d9a5_fk_materials_icon_id" columns="icon_id" ref-table="materials_icon" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <exported-key name="materials__parent_id_4207af1ffad2c0a0_fk_materials_attribute_id" table="materials_attribute" schema="public" catalog="fs" columns="parent_id"/>
       <exported-key name="ma_from_attribute_id_5b5ab6051015cf5a_fk_materials_attribute_id" table="materials_attribute_children" schema="public" catalog="fs" columns="from_attribute_id"/>
       <exported-key name="mate_to_attribute_id_3a2f3b20e62be39f_fk_materials_attribute_id" table="materials_attribute_children" schema="public" catalog="fs" columns="to_attribute_id"/>
@@ -1958,6 +1960,7 @@
       <exported-key name="materia_attribute_id_7da0f2f515be2de9_fk_materials_attribute_id" table="materials_itemclass_attributes" schema="public" catalog="fs" columns="attribute_id"/>
       <index name="materials_attribute_slug_key" unique="true" columns="slug"/>
       <index name="materials_attribute_6be37982" unique="false" columns="parent_id"/>
+      <index name="materials_attribute_fe6647e8" unique="false" columns="icon_id"/>
       <index name="materials_attribute_slug_98df46e272da08c_like" unique="false" columns="slug"/>
     </table>
     <table name="materials_attribute_children" schema="public" catalog="fs" type="TABLE">
@@ -2042,6 +2045,24 @@
       <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
       <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
     </table>
+    <table name="materials_genre" schema="public" catalog="fs" type="TABLE">
+      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnbWF0ZXJpYWxzX2dlbnJlX2lkX3NlcSc6OnJlZ2NsYXNzKQ==" autoIncrement="true"/>
+      <column name="title" sqlType="varchar" precision="300" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="materials_genre_pkey" columns="id"/>
+      <exported-key name="materials_item_g_genre_id_5e00b172c5e389e_fk_materials_genre_id" table="materials_item_genre" schema="public" catalog="fs" columns="genre_id"/>
+    </table>
+    <table name="materials_genre_id_seq" schema="public" catalog="fs" type="SEQUENCE">
+      <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="increment_by" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="max_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="min_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="cache_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="log_cnt" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+    </table>
     <table name="materials_group" schema="public" catalog="fs" type="TABLE">
       <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnbWF0ZXJpYWxzX2dyb3VwX2lkX3NlcSc6OnJlZ2NsYXNzKQ==" autoIncrement="true"/>
       <column name="title" sqlType="varchar" precision="200" scale="0" nullable="false" jdbcType="12"/>
@@ -2049,17 +2070,40 @@
       <column name="sort" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="parent_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="enable" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="icon_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="materials_group_pkey" columns="id"/>
       <foreign-key name="materials_grou_parent_id_783792bd232a8f83_fk_materials_group_id" columns="parent_id" ref-table="materials_group" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="materials_group_icon_id_41a5c1b080d02e78_fk_materials_icon_id" columns="icon_id" ref-table="materials_icon" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <exported-key name="materials_attri_group_id_389c66b341715ab6_fk_materials_group_id" table="materials_attribute_groups" schema="public" catalog="fs" columns="group_id"/>
       <exported-key name="materials_grou_parent_id_783792bd232a8f83_fk_materials_group_id" table="materials_group" schema="public" catalog="fs" columns="parent_id"/>
       <exported-key name="materials__main_group_id_49d518f2f6983cb9_fk_materials_group_id" table="materials_item" schema="public" catalog="fs" columns="main_group_id"/>
       <exported-key name="materials_item__group_id_65ff5662d47797e0_fk_materials_group_id" table="materials_item_groups" schema="public" catalog="fs" columns="group_id"/>
       <index name="materials_group_slug_key" unique="true" columns="slug"/>
       <index name="materials_group_6be37982" unique="false" columns="parent_id"/>
+      <index name="materials_group_fe6647e8" unique="false" columns="icon_id"/>
       <index name="materials_group_slug_7cd9dd5d6711cb57_like" unique="false" columns="slug"/>
     </table>
     <table name="materials_group_id_seq" schema="public" catalog="fs" type="SEQUENCE">
+      <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="increment_by" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="max_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="min_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="cache_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="log_cnt" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+    </table>
+    <table name="materials_icon" schema="public" catalog="fs" type="TABLE">
+      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnbWF0ZXJpYWxzX2ljb25faWRfc2VxJzo6cmVnY2xhc3Mp" autoIncrement="true"/>
+      <column name="title" sqlType="varchar" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="img" sqlType="varchar" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="materials_icon_pkey" columns="id"/>
+      <exported-key name="materials_attribut_icon_id_16e05608b98d9a5_fk_materials_icon_id" table="materials_attribute" schema="public" catalog="fs" columns="icon_id"/>
+      <exported-key name="materials_group_icon_id_41a5c1b080d02e78_fk_materials_icon_id" table="materials_group" schema="public" catalog="fs" columns="icon_id"/>
+    </table>
+    <table name="materials_icon_id_seq" schema="public" catalog="fs" type="SEQUENCE">
       <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
       <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
@@ -2090,7 +2134,9 @@
       <column name="not_like" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
       <column name="sort" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="year_release" sqlType="date" precision="13" scale="0" nullable="false" jdbcType="91"/>
-      <column name="countries" sqlType="_varchar" precision="200" scale="0" nullable="false" jdbcType="2003"/>
+      <column name="video" sqlType="text" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="country" sqlType="varchar" precision="2" scale="0" nullable="false" jdbcType="12"/>
+      <column name="countries" sqlType="varchar" precision="746" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="materials_item_pkey" columns="id"/>
       <foreign-key name="materials_item_creator_id_7449b45ab616d739_fk_auth_user_id" columns="creator_id" ref-table="auth_user" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
       <foreign-key name="materials__main_group_id_49d518f2f6983cb9_fk_materials_group_id" columns="main_group_id" ref-table="materials_group" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
@@ -2099,6 +2145,7 @@
       <exported-key name="ex_user_exuser_li_item_id_3041b2cc575385cb_fk_materials_item_id" table="ex_user_exuser_like_item" schema="public" catalog="fs" columns="item_id"/>
       <exported-key name="ex_user_exuser_li_item_id_170f0399c4ced661_fk_materials_item_id" table="ex_user_exuser_liked" schema="public" catalog="fs" columns="item_id"/>
       <exported-key name="ex_user_exuser_no_item_id_56bc6e7d1f5298cb_fk_materials_item_id" table="ex_user_exuser_not_like_item" schema="public" catalog="fs" columns="item_id"/>
+      <exported-key name="materials_item_ge_item_id_10a268d23f44ffcd_fk_materials_item_id" table="materials_item_genre" schema="public" catalog="fs" columns="item_id"/>
       <exported-key name="materials_item_gr_item_id_495acd4a1d200e5d_fk_materials_item_id" table="materials_item_groups" schema="public" catalog="fs" columns="item_id"/>
       <exported-key name="materials_it_from_item_id_2595d56566fcf7b9_fk_materials_item_id" table="materials_item_recommend_item" schema="public" catalog="fs" columns="from_item_id"/>
       <exported-key name="materials_item_to_item_id_54e6365397041aac_fk_materials_item_id" table="materials_item_recommend_item" schema="public" catalog="fs" columns="to_item_id"/>
@@ -2109,6 +2156,29 @@
       <index name="materials_item_d5c360c0" unique="false" columns="main_group_id"/>
       <index name="materials_item_ea69b478" unique="false" columns="item_class_id"/>
       <index name="materials_item_slug_31ff58922f9817a2_like" unique="false" columns="slug"/>
+    </table>
+    <table name="materials_item_genre" schema="public" catalog="fs" type="TABLE">
+      <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnbWF0ZXJpYWxzX2l0ZW1fZ2VucmVfaWRfc2VxJzo6cmVnY2xhc3Mp" autoIncrement="true"/>
+      <column name="item_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="genre_id" sqlType="int4" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="materials_item_genre_pkey" columns="id"/>
+      <foreign-key name="materials_item_g_genre_id_5e00b172c5e389e_fk_materials_genre_id" columns="genre_id" ref-table="materials_genre" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <foreign-key name="materials_item_ge_item_id_10a268d23f44ffcd_fk_materials_item_id" columns="item_id" ref-table="materials_item" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="3" delete-rule="3" deferrability="1"/>
+      <index name="materials_item_genre_item_id_genre_id_key" unique="true" columns="item_id,genre_id"/>
+      <index name="materials_item_genre_080a38f3" unique="false" columns="genre_id"/>
+      <index name="materials_item_genre_82bfda79" unique="false" columns="item_id"/>
+    </table>
+    <table name="materials_item_genre_id_seq" schema="public" catalog="fs" type="SEQUENCE">
+      <column name="sequence_name" sqlType="name" precision="2147483647" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="start_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="increment_by" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="max_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="min_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="cache_value" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="log_cnt" sqlType="int8" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="is_cycled" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="is_called" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
     </table>
     <table name="materials_item_groups" schema="public" catalog="fs" type="TABLE">
       <column name="id" sqlType="serial" precision="10" scale="0" nullable="false" jdbcType="4" def="bmV4dHZhbCgnbWF0ZXJpYWxzX2l0ZW1fZ3JvdXBzX2lkX3NlcSc6OnJlZ2NsYXNzKQ==" autoIncrement="true"/>

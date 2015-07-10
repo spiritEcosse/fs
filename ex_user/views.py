@@ -5,6 +5,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 
 
 class ExUser(TemplateView):
@@ -12,13 +13,8 @@ class ExUser(TemplateView):
 
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated():
-            return redirect(reverse('login'))
+            return redirect('/login/?next=%s' % request.path)
         return super(ExUser, self).get(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super(ExUser, self).get_context_data(**kwargs)
-        context.update(self.kwargs['extra_context'])
-        return context
 
 
 class ExUserRegistrationFormView(FormView, TemplateView):
@@ -67,7 +63,6 @@ class ExUserRegistrationFormView(FormView, TemplateView):
         context = dict()
         context['form_user'] = self.get_form()
         context['form_ex_user'] = self.ex_user_form(prefix=self.prefix_form_ex_user)
-        context.update(self.kwargs['extra_context'])
         context.update(super(ExUserRegistrationFormView, self).get_context_data(**kwargs))
         return context
 

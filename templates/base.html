@@ -26,21 +26,21 @@
 <body>
 <div class="wrapper container">
     <div class="content">
-{#    <form action="{% url 'set_language' %}" method="post">#}
-{#        {% csrf_token %}#}
-{#        <input name="next" type="hidden" value="{{ redirect_to }}" />#}
-{#        <select name="language">#}
-{#            {% get_current_language as LANGUAGE_CODE %}#}
-{#            {% get_available_languages as LANGUAGES %}#}
-{#            {% get_language_info_list for LANGUAGES as languages %}#}
-{#            {% for language in languages %}#}
-{#                <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>#}
-{#                    {{ language.name_local }} ({{ language.code }})#}
-{#                </option>#}
-{#            {% endfor %}#}
-{#        </select>#}
-{#        <input type="submit" value="Go" />#}
-{#    </form>#}
+        {#    <form action="{% url 'set_language' %}" method="post">#}
+        {#        {% csrf_token %}#}
+        {#        <input name="next" type="hidden" value="{{ redirect_to }}" />#}
+        {#        <select name="language">#}
+        {#            {% get_current_language as LANGUAGE_CODE %}#}
+        {#            {% get_available_languages as LANGUAGES %}#}
+        {#            {% get_language_info_list for LANGUAGES as languages %}#}
+        {#            {% for language in languages %}#}
+        {#                <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>#}
+        {#                    {{ language.name_local }} ({{ language.code }})#}
+        {#                </option>#}
+        {#            {% endfor %}#}
+        {#        </select>#}
+        {#        <input type="submit" value="Go" />#}
+        {#    </form>#}
 
         {% block header %}
             <header>
@@ -76,11 +76,15 @@
                         </ul>
 
                         <div class="pull-right">
-                            <form class="navbar-form navbar-left" role="search" method="post">
+                            <form class="navbar-form navbar-left autocomplete-me" action="{% url 'search:index' %}" method="get">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Search">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default search" type="button">
+                                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                        </button>
+                                    </span>
+                                    <input name="q" class="form-control" type="search" placeholder="{% trans 'Поиск' %}">
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-sm">{% trans "Поиск" %}</button>
                             </form>
 
                             {% if user.is_authenticated %}
@@ -99,241 +103,264 @@
         <div class="main">
             {% block main %}
                 {% if items_popular %}
-                <div class="wrapp">
-                    <div class="row popular">
-                        <div class="col-md-24">
-                            <h2>{% trans "Самые популярные материалы" %}</h2>
-                        </div>
-
-                        {% for item in items_popular %}
-                            <div class="col-md-3 col-sm-4 col-xs-6">
-                                <a href="{{ item.get_absolute_url }}">
-                                    {% if item.main_image %}
-                                        <img title="{{ item.title }}" alt="{{ item.title }}" class="img-responsive shadow" src="{{ item.main_image.url }}">
-                                    {% endif %}
-                                    <div class="title">{{ item.title|truncatechars:12 }}</div>
-                                </a>
+                    <div class="wrapp">
+                        <div class="row popular">
+                            <div class="col-md-24">
+                                <h2>{% trans "Самые популярные материалы" %}</h2>
                             </div>
-                        {% endfor %}
+
+                            {% for item in items_popular %}
+                                <div class="col-md-3 col-sm-4 col-xs-6">
+                                    <a href="{{ item.get_absolute_url }}">
+                                        {% if item.main_image %}
+                                            <img title="{{ item.title }}" alt="{{ item.title }}" class="img-responsive shadow" src="{{ item.main_image.url }}">
+                                        {% endif %}
+                                        <div class="title">{{ item.title|truncatechars:12 }}</div>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
                     </div>
-                </div>
                 {% endif %}
 
                 {% if groups %}
-                <div class="menu">
-                    <div class="row wrapp">
-                        <div class="video col-md-9">
-                            <h3><a href="{{ video.get_absolute_url }}">{{ video|capfirst }}</a></h3>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <a href="#" class="btn btn-default btn-md">
-                                        <span class="film" aria-hidden="true"></span>
-                                        Фильмы
-                                    </a>
-                                </div>
+                    <div class="menu">
+                        <div class="row wrapp">
+                            <div class="video col-md-9">
+                                <h3><a href="{{ video.get_absolute_url }}">{{ video|capfirst }}</a></h3>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <a href="#" class="btn btn-default btn-md">
+                                            <span class="film" aria-hidden="true"></span>
+                                            Фильмы
+                                        </a>
+                                    </div>
 
-                                <div class="col-sm-12">
-                                    <a href="#" class="btn btn-default btn-md">
-                                        <span class="film" aria-hidden="true"></span>
-                                        Сериалы
-                                    </a>
-                                </div>
+                                    <div class="col-sm-12">
+                                        <a href="#" class="btn btn-default btn-md">
+                                            <span class="film" aria-hidden="true"></span>
+                                            Сериалы
+                                        </a>
+                                    </div>
 
-                                <div class="col-sm-12">
-                                    <a href="#" class="btn btn-default btn-md">
-                                        <span class="film" aria-hidden="true"></span>
-                                        Фильмы
-                                    </a>
-                                </div>
+                                    <div class="col-sm-12">
+                                        <a href="#" class="btn btn-default btn-md">
+                                            <span class="film" aria-hidden="true"></span>
+                                            Фильмы
+                                        </a>
+                                    </div>
 
-                                <div class="col-sm-12">
-                                    <a href="#" class="btn btn-default btn-md">
-                                        <span class="film" aria-hidden="true"></span>
-                                        Сериалы
-                                    </a>
-                                </div>
+                                    <div class="col-sm-12">
+                                        <a href="#" class="btn btn-default btn-md">
+                                            <span class="film" aria-hidden="true"></span>
+                                            Сериалы
+                                        </a>
+                                    </div>
 
-                                <div class=" col-sm-8">
-                                    <a href="#" class="btn btn-default btn-sm">Телередачи</a>
-                                </div>
+                                    <div class=" col-sm-8">
+                                        <a href="#" class="btn btn-default btn-sm">Телередачи</a>
+                                    </div>
 
-                                <div class=" col-sm-6 col-sm-offset-1">
-                                    <a href="#" class="btn btn-default btn-sm">Клипы</a>
-                                </div>
+                                    <div class=" col-sm-6 col-sm-offset-1">
+                                        <a href="#" class="btn btn-default btn-sm">Клипы</a>
+                                    </div>
 
-                                <div class=" col-sm-8 col-sm-offset-1">
-                                    <a href="#" class="btn btn-default btn-sm">Коцерты</a>
+                                    <div class=" col-sm-8 col-sm-offset-1">
+                                        <a href="#" class="btn btn-default btn-sm">Коцерты</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="audio col-md-5">
-                            <h3><a href="{{ audio.get_absolute_url }}">{{ audio|capfirst }}</a></h3>
+                            <div class="audio col-md-5">
+                                <h3><a href="{{ audio.get_absolute_url }}">{{ audio|capfirst }}</a></h3>
 
-                            <div class="menu-item">
-                                <div class="btn-item pull-left">
-                                    <a href="#" class="btn btn-default btn-md">
-                                        <span class="music" aria-hidden="true"></span>
-                                        Альбомы
-                                    </a>
-                                </div>
+                                <div class="menu-item">
+                                    <div class="btn-item pull-left">
+                                        <a href="#" class="btn btn-default btn-md">
+                                            <span class="music" aria-hidden="true"></span>
+                                            Альбомы
+                                        </a>
+                                    </div>
 
-                                <div class="btn-item pull-right">
-                                    <a href="#" class="btn btn-default btn-md">
-                                        <span class="music" aria-hidden="true"></span>
-                                        Альбомы
-                                    </a>
-                                </div>
+                                    <div class="btn-item pull-right">
+                                        <a href="#" class="btn btn-default btn-md">
+                                            <span class="music" aria-hidden="true"></span>
+                                            Альбомы
+                                        </a>
+                                    </div>
 
-                                <div class="btn-item pull-left">
-                                    <a href="#" class="btn btn-default btn-sm">Сборники</a>
-                                </div>
+                                    <div class="btn-item pull-left">
+                                        <a href="#" class="btn btn-default btn-sm">Сборники</a>
+                                    </div>
 
-                                <div class="btn-item pull-right">
-                                    <a href="#" class="btn btn-default btn-sm">Саундтреки</a>
+                                    <div class="btn-item pull-right">
+                                        <a href="#" class="btn btn-default btn-sm">Саундтреки</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="games col-md-5">
-                            <h3><a href="{{ igry.get_absolute_url }}">{{ igry|capfirst }}</a></h3>
+                            <div class="games col-md-5">
+                                <h3><a href="{{ igry.get_absolute_url }}">{{ igry|capfirst }}</a></h3>
 
-                            <div class="menu-item">
-                                <div class="btn-item">
-                                    <a href="#" class="btn btn-default btn-lg">
-                                        <span class="tradition" aria-hidden="true"></span>
-                                        Традиционные
-                                    </a>
-                                </div>
-                                <div class="btn-item pull-left">
-                                    <a href="#" class="btn btn-default btn-sm">Онлайн</a>
-                                </div>
-                                <div class="btn-item pull-right">
-                                    <a href="#" class="btn btn-default btn-sm">Казуальные</a>
+                                <div class="menu-item">
+                                    <div class="btn-item">
+                                        <a href="#" class="btn btn-default btn-lg">
+                                            <span class="tradition" aria-hidden="true"></span>
+                                            Традиционные
+                                        </a>
+                                    </div>
+                                    <div class="btn-item pull-left">
+                                        <a href="#" class="btn btn-default btn-sm">Онлайн</a>
+                                    </div>
+                                    <div class="btn-item pull-right">
+                                        <a href="#" class="btn btn-default btn-sm">Казуальные</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="lit col-md-5">
-                            <h3><a href="{{ literatura.get_absolute_url }}">{{ literatura|capfirst }}</a></h3>
+                            <div class="lit col-md-5">
+                                <h3><a href="{{ literatura.get_absolute_url }}">{{ literatura|capfirst }}</a></h3>
 
-                            <div class="menu-item">
-                                <div class="btn-item-full">
-                                    <a href="#" class="btn btn-default btn-md">
-                                        <span class="film" aria-hidden="true"></span>
-                                        Фильмы
-                                    </a>
-                                </div>
+                                <div class="menu-item">
+                                    <div class="btn-item-full">
+                                        <a href="#" class="btn btn-default btn-md">
+                                            <span class="film" aria-hidden="true"></span>
+                                            Фильмы
+                                        </a>
+                                    </div>
 
-                                <div class="btn-item-full">
-                                    <a class="btn btn-default btn-md" href="#">Прикладная</a>
-                                </div>
+                                    <div class="btn-item-full">
+                                        <a class="btn btn-default btn-md" href="#">Прикладная</a>
+                                    </div>
 
-                                <div class="btn-item pull-left">
-                                    <a href="#" class="btn btn-default btn-sm">Онлайн</a>
-                                </div>
-                                <div class="btn-item pull-right">
-                                    <a href="#" class="btn btn-default btn-sm">Казуальные</a>
+                                    <div class="btn-item pull-left">
+                                        <a href="#" class="btn btn-default btn-sm">Онлайн</a>
+                                    </div>
+                                    <div class="btn-item pull-right">
+                                        <a href="#" class="btn btn-default btn-sm">Казуальные</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 {% endif %}
 
                 <div class="wrapp">
-                {% if items_comment  %}
-                    <div class="materials">
-                        <h2>Обсуждаемые материалы</h2>
-                        <div class="row bxslider">
-                            {% for item in items_comment %}
-                                <a href="{{ item.get_absolute_url }}">
-                                    <div class="item">
-                                        <div class="title">{{ item.title|truncatechars:26 }}</div>
+                    {% if items_comment  %}
+                        <div class="materials">
+                            <h2>{% trans "Обсуждаемые материалы" %}</h2>
+                            <div class="row bxslider">
+                                {% for item in items_comment %}
+                                    <a href="{{ item.get_absolute_url }}">
+                                        <div class="item">
+                                            <div class="title">{{ item.title|truncatechars:26 }}</div>
 
-                                        <div class="row detail">
-                                            {% if item.main_image %}
-                                            <div class="col-xs-12">
-                                                <img src="{{ item.main_image.url }}" class="img-responsive shadow">
-                                            </div>
-                                            {% endif %}
+                                            <div class="row detail">
+                                                {% if item.main_image %}
+                                                    <div class="col-xs-13">
+                                                        <img src="{{ item.main_image.url }}" class="img-responsive shadow">
+                                                    </div>
+                                                {% endif %}
 
-                                            <div class="col-xs-12">
-                                                <span class="label label-default">{{ item.main_group }}</span>
-                                                <div class="short-desc">
-                                                    <div class="option pull-left">2001&mdash;2015</div>
-                                                    <div class="option pull-right">США</div>
-                                                    <div class="option">Приключения</div>
-                                                    <div class="text">Брайан Питер, Брайан Питер</div>
-                                                    <div class="text">Джейк Эйбел, Кэндис, Джейк Эйбел</div>
+                                                <div class="col-xs-11 reset-padding">
+                                                    <span class="label label-primary">{{ item.main_group }}</span>
+                                                    <div class="short-desc">
+                                                        <div class="option">
+                                                            <span>2001&mdash;2015</span>
+                                                            <span>
+                                                                {% with countries=item.countries.all|join:', ' %}
+                                                                    {% if countries %}
+                                                                        &bull; {{ countries|truncatechars:"50" }}
+                                                                    {% endif %}
+                                                                {% endwith %}
+                                                            </span>
+                                                        </div>
+                                                        <div class="option">
+                                                            {% for genre in item.genres.all %}
+                                                                <span class="label label-default">{{ genre.title }}</span>
+                                                            {% endfor %}
+                                                        </div>
+                                                        <div class="text">Джейк Эйбел, Кэндис, Джейк Эйбел</div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        {% for comment in item.comments.all|slice:":2" %}
-                                            <div class="col-xs-24 comment
+                                            {% for comment in item.comments.all|slice:":2" %}
+                                                <div class="col-xs-24 comment
                                                 {% if comment.like_object %}
                                                     comment-like
                                                 {% else %}
                                                     comment-not-like
                                                 {% endif %}">
-                                                <div class="row">
-                                                    <div class="col-xs-24 comment-text">
-                                                        <span class="rating">{{ comment.id }}</span>
-                                                        {{ comment.text|truncatechars:88 }}
-                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-24 comment-text">
+                                                            <span class="rating">{{ comment.id }}</span>
+                                                            {{ comment.text|truncatechars:88 }}
+                                                        </div>
 
-                                                    <div class="col-xs-24 author">
-                                                        <span class="icon"></span>
-                                                        <span class="name">{{ comment.user }}</span>
+                                                        <div class="col-xs-24 author">
+                                                            <span class="icon"></span>
+                                                            <span class="name">{{ comment.user }}</span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        {% endfor %}
-                                    </div>
-                                </a>
-                            {% endfor %}
+                                            {% endfor %}
+                                        </div>
+                                    </a>
+                                {% endfor %}
+                            </div>
                         </div>
-                    </div>
-                {% endif %}
+                    {% endif %}
                 </div>
 
                 {% if items_new %}
-                <div class="wrapp">
-                    <div class="new">
-                        <h2>Новое на сайте</h2>
+                    <div class="wrapp">
+                        <div class="new">
+                            <h2>{% trans 'Новое на сайте' %}</h2>
 
-                        <div class="row">
-                            {% for item in items_new %}
-                                <a href="{{ item.get_absolute_url }}" class="col-sm-12 link-item">
-                                    <div class="item">
-                                        <div class="row">
-                                            <div class="img col-xs-6 col-xs-offset-1">
-                                                <img class="img-responsive shadow" title="{{ item.title }}" alt="{{ item.title }}" src="{{ item.main_image.url }}">
-                                            </div>
-
-                                            <div class="col-xs-17">
-                                                <div class="title">
-                                                    <span class="label label-default">{{ item.main_group }}</span>
-                                                    {{ item.title|truncatechars:30 }}
-                                                </div>
-                                                <div class="category">дом, семья, развлечения <span class="country">США</span></div>
-                                                <div class="short_desc">
-                                                    {{ item.description|truncatechars:220 }}
-                                                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="bottom">
+                            <div class="row">
+                                {% for item in items_new %}
+                                    <a href="{{ item.get_absolute_url }}" class="col-sm-12 link-item">
+                                        <div class="item">
                                             <div class="row">
-                                                <div class="col-xs-5 author">{{ item.creator }}</div>
-                                                <div class="col-xs-5 col-xs-offset-14 date">{{ item.date_create|date:"m.d.Y" }}</div>
+                                                <div class="img col-xs-6 col-xs-offset-1">
+                                                    <img class="img-responsive shadow" title="{{ item.title }}" alt="{{ item.title }}" src="{{ item.main_image.url }}">
+                                                </div>
+
+                                                <div class="col-xs-17">
+                                                    <div class="title">
+                                                        <span class="label label-primary">{{ item.main_group }}</span>
+                                                        {{ item.title|truncatechars:30 }}
+                                                    </div>
+                                                    <div class="category">
+                                                        {% with genres=item.genres.all|join:', ' %}
+                                                            <span>{{ genres }}</span>
+                                                        {% endwith %}
+
+                                                        <span class="country">
+                                                            {% with countries=item.countries.all|join:', ' %}
+                                                                {% if countries %}
+                                                                    &bull; {{ countries|truncatechars:"100" }}
+                                                                {% endif %}
+                                                            {% endwith %}
+                                                        </span>
+                                                    </div>
+                                                    <div class="short_desc">
+                                                        {{ item.description|truncatechars:220 }}
+                                                        <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="bottom">
+                                                <div class="row">
+                                                    <div class="col-xs-5 author">{{ item.creator }}</div>
+                                                    <div class="col-xs-5 col-xs-offset-14 date">{{ item.date_create|date:"m.d.Y" }}</div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
-                            {% endfor %}
+                                    </a>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
-                </div>
                 {% endif %}
 
             {% endblock %}

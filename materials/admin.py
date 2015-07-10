@@ -1,9 +1,13 @@
 from django.contrib import admin
-from .models import Item, ItemClass, Attribute, AttributeValue, ItemAttributeRelationship, Group, ItemImages
+from materials.models import Item, ItemClass, Attribute, AttributeValue, ItemAttributeRelationship, \
+    Group, ItemImages, Icon, Genre
 from django.utils.translation import ugettext_lazy as _
 from django.forms.models import BaseInlineFormSet
 from django.core.exceptions import ValidationError
 from django.db.models import When, Case
+from django.forms import SelectMultiple
+from django.db import models
+from multiselectfield import MultiSelectField
 
 
 def change_status(modeladmin, request, queryset):
@@ -55,19 +59,27 @@ class ItemAttributeRelationshipForm(BaseInlineFormSet):
                 if validate_error:
                     raise ValidationError(validate_error)
 
+
 class ItemAttributeRelationshipInline(admin.TabularInline):
     model = ItemAttributeRelationship
     extra = 5
     formset = ItemAttributeRelationshipForm
 
+
 class ItemImagesInline(admin.TabularInline):
     model = ItemImages
 
+
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('title', 'image_preview', 'main_group', 'origin_title', 'creator', 'attribute_summary', 'date_create', 'item_class', 'enable')
+    list_display = ('title', 'image_preview', 'genres_to_string', 'main_group', 'slug', 'origin_title', 'creator',
+                    'attribute_summary', 'date_create', 'item_class', 'enable')
     inlines = [ItemAttributeRelationshipInline, ItemImagesInline]
     prepopulated_fields = {"slug": ("title", )}
     actions = [change_status]
+    formfield_overrides = {
+        models.ManyToManyField: {'widget': SelectMultiple(attrs={'size': '10'})},
+    }
+    list_filter = ['date_create', 'creator', 'enable', 'genres', 'main_group', 'item_class', 'title']
 
     def save_model(self, request, obj, form, change):
         obj.creator = request.user
@@ -96,8 +108,18 @@ class GroupAdmin(admin.ModelAdmin):
     list_display = ('title', 'parent', 'slug', 'sort', 'enable')
     actions = [change_status]
 
+
+class IconAdmin(admin.ModelAdmin):
+    list_display = ('title', 'image_preview', )
+
+
+class GenreAdmin(admin.ModelAdmin):
+    list_display = ('title', )
+
 admin.site.register(Item, ItemAdmin)
 admin.site.register(Group, GroupAdmin)
 admin.site.register(ItemClass)
 admin.site.register(Attribute, AttributeAdmin)
 admin.site.register(AttributeValue, AttributeValueAdmin)
+admin.site.register(Icon, IconAdmin)
+admin.site.register(Genre, GenreAdmin)

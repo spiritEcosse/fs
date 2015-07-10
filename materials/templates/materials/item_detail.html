@@ -34,6 +34,17 @@
                         <small>{{ object.origin_title }}</small>
                     </h1>
 
+                    <div class="row">
+                        {% for country in object.countries.all %}
+                            <div class=" col-md-7">
+                                <a class="btn btn-primary btn-xs">
+                                    <img src="/static/flags/{{ country.code|lower }}.gif">
+                                    {{ country|truncatechars:"50" }}
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+
                     {% for attr in object.item_attr.all %}
                         <div class="row">
                             <div class=" col-md-7">
@@ -62,6 +73,7 @@
                             </div>
                         </div>
                     {% endfor %}
+
                     <div class="row vertical-offset-md">
                         {% for item_image in object.images.all %}
                             <div class="col-md-4 wrapp-block">
@@ -140,6 +152,22 @@
                 </ul>
             {% endif %}
 
+            <div class="row text-center">
+                <div class="col-md-8">
+                    <a role="button" href="#">
+                        {% trans 'Файлы и папки' %}
+                    </a>
+                </div>
+                <div class="col-md-8">
+                    <a role="button" href="{{ object.get_play_url }}" class="btn btn-primary btn-sm">Смотреть онлайн</a>
+                </div>
+                <div class="col-md-8">
+                    <a role="button" href="#">
+                        {% trans 'Управление файлами' %}
+                    </a>
+                </div>
+            </div>
+
             {% if recommend_item %}
                 <div class="row related">
                     <h3>{% trans "Похожие материалы" %}</h3>
@@ -166,7 +194,7 @@
                         {{ form_comment.as_p }}
                     </ul>
                     <div class="pull-right">
-                        <input type="submit" value="Submit"/>
+                        <input type="submit" class="btn btn-primary btn-group-lg" value="{% trans 'Отправить' %}"/>
                     </div>
                 </form>
             </div>

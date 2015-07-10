@@ -36,15 +36,27 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'haystack',
     'materials',
     'comments',
+    'search',
     'debug_toolbar',
-    'urlbreadcrumbs',
+    'multiselectfield',
+    'django.contrib.gis',
+    'cities',
     'ex_user',
 )
 
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'haystack',
+    },
+}
+
 TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.core.context_processors.request',
+    'django.template.context_processors.request',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -77,6 +89,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'fs.template.context_processors.context_data',
             ],
         },
     },
@@ -100,7 +113,8 @@ LOGIN_REDIRECT_URL = '/profile/'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'fs',
         'USER': 'fs',
         'PASSWORD': '1',

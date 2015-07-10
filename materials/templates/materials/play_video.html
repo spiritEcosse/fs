@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans object.title %}{% endblock %}
+
+{% block main %}
+    {% autoescape off %}
+        {{ object.video }}
+    {% endautoescape %}
+{% endblock %}

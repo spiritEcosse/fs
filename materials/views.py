@@ -27,7 +27,6 @@ class AttributeDetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(AttributeDetailView, self).get_context_data(**kwargs)
-        context.update(self.kwargs['extra_context'])
         group = get_object_or_404(Group, slug=self.kwargs['group_slug'])
         queryset_attribute_value = set()
 
@@ -80,7 +79,6 @@ class DetailGroupView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(DetailGroupView, self).get_context_data(**kwargs)
-        context.update(self.kwargs['extra_context'])
         queryset = Item.objects.filter(Q(main_group=self.object) | Q(groups=self.object), enable=1).\
             select_related('main_group')
         context['items_popular'] = queryset.order_by('-popular')[:8]
@@ -211,7 +209,7 @@ class CommentHandler(SingleObjectMixin, FormView):
 
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated():
-            return redirect(reverse('login'))
+            return redirect('/login/?next=%s' % request.path)
         self.object = self.get_object()
 
         form = self.get_form()
@@ -226,7 +224,6 @@ class CommentHandler(SingleObjectMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super(CommentHandler, self).get_context_data(**kwargs)
-        context.update(self.kwargs['extra_context'])
         context['form_comment'] = self.get_form()
         ex_context_data = ExtendContextDataItem(self)
         context.update(ex_context_data.get_context_data())
@@ -256,9 +253,7 @@ class DetailItemView(FormMixin, generic.DetailView):
 
     def get_context_data(self, **kwargs):
         self.model.objects.filter(pk=self.object.pk).update(popular=F('popular') + 1)
-
         context = super(DetailItemView, self).get_context_data(**kwargs)
-        context.update(self.kwargs['extra_context'])
         context['form_comment'] = CommentForm
         ex_context_data = ExtendContextDataItem(self)
         context.update(ex_context_data.get_context_data())
@@ -273,6 +268,18 @@ class ItemDetail(View):
     def post(self, request, *args, **kwargs):
         view = CommentHandler.as_view()
         return view(request, *args, **kwargs)
+
+
+class PlayVideo(generic.DetailView):
+    template_name = 'materials/play_video.html'
+    model = Item
+
+    def get(self, request, *args, **kwargs):
+        slug = self.kwargs.get('slug', None)
+
+        if slug is not None:
+            self.kwargs['slug'] = self.kwargs['slug'].split('/').pop()
+        return super(PlayVideo, self).get(request, *args, **kwargs)
 
 
 @csrf_exempt

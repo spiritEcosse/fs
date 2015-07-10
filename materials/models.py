@@ -7,6 +7,38 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericRelation
 from comments.models import Comment
 from django.utils import timezone
+from multiselectfield import MultiSelectField
+from cities.models import Country
+
+
+class Genre(models.Model):
+    title = models.CharField(max_length=300, verbose_name=_('Title genre'))
+
+    class Meta:
+        ordering = ['title']
+        verbose_name = _('Genre')
+        verbose_name_plural = _('Genres')
+
+    def __unicode__(self):
+        return self.title
+
+
+class Icon(models.Model):
+    title = models.CharField(max_length=100)
+    img = models.ImageField(verbose_name=_('Image icon'), upload_to='images/materials/icon/%Y/%m/', blank=True)
+
+    class Meta:
+        ordering = ['title']
+        verbose_name = _('Icon')
+        verbose_name_plural = _('Icons')
+
+    def __unicode__(self):
+        return self.title
+
+    def image_preview(self):
+        return u'<img style="max-width:100px; max-height:100px" src="%s" />' % self.img.url
+    image_preview.short_description = _('Image')
+    image_preview.allow_tags = True
 
 
 class Group(models.Model):
@@ -14,6 +46,7 @@ class Group(models.Model):
     slug = models.SlugField(_('Slug'), max_length=200, unique=True)
     parent = models.ForeignKey('self', verbose_name=_('Parent'), related_name='groups', blank=True, null=True)
     sort = models.IntegerField(verbose_name=_('Sort'), blank=True, default=0)
+    icon = models.ForeignKey(Icon, blank=True, null=True)
     enable = models.BooleanField(_('Enable'), default=True)
 
     class Meta:
@@ -77,10 +110,6 @@ class ItemClass(models.Model):
         return self.title
 
 
-def get_current_user(request):
-    return request.user
-
-
 class Item(models.Model):
     title = models.CharField(_('Title'), max_length=200)
     origin_title = models.CharField(_('Origin title'), max_length=200, blank=True)
@@ -88,7 +117,9 @@ class Item(models.Model):
     attributes = models.ManyToManyField('Attribute', verbose_name=_('Attributes'),
                                         through='ItemAttributeRelationship', related_name='items')
     groups = models.ManyToManyField('Group', verbose_name=_('Group'), related_name='items', blank=True)
-    main_group = models.ForeignKey('Group', verbose_name=_('Main Group'))
+    main_group = models.ForeignKey('Group', verbose_name=_('Main Group'), related_name='items_main_group')
+    genres = models.ManyToManyField('Genre', verbose_name=_('Genre'), related_name='items', blank=True)
+    countries = models.ManyToManyField(Country, verbose_name=_('Countries production'))
     recommend_item = models.ManyToManyField('self', verbose_name=_('Recommended item'), blank=True)
     main_image = models.ImageField(_('Main Image'), upload_to='images/materials/%Y/%m/')
     description = models.TextField(verbose_name=_('Description'))
@@ -102,9 +133,9 @@ class Item(models.Model):
     tags = ArrayField(models.CharField(max_length=200), blank=True, verbose_name=_('Tags'))
     like = models.BigIntegerField(_('Like'), default=0)
     not_like = models.BigIntegerField(_('Not like'), default=0)
-    countries = ArrayField(models.CharField(max_length=200), verbose_name=_('countries'))
     sort = models.IntegerField(verbose_name=_('Sort'), blank=True, default=0)
     enable = models.BooleanField(_('Enable'), default=True)
+    video = models.TextField(verbose_name='Video')
 
     class Meta:
         ordering = ['-date_create']
@@ -117,8 +148,11 @@ class Item(models.Model):
 
     def get_absolute_url(self):
         return reverse('materials:detail_item',
-                       kwargs={'slug': self.slug,
-                               'group_slug': self.main_group.slug_to_string()})
+                       kwargs={'slug': self.slug, 'group_slug': self.main_group.slug_to_string()})
+
+    def get_play_url(self):
+        return reverse('materials:play_video',
+                       kwargs={'slug': self.slug, 'group_slug': self.main_group.slug_to_string()})
 
     def attribute_summary(self):
         attributes = []
@@ -137,6 +171,10 @@ class Item(models.Model):
     image_preview.short_description = _('Image')
     image_preview.allow_tags = True
 
+    def genres_to_string(self):
+        return ', '.join([genre.title for genre in self.genres.all()])
+    genres_to_string.short_description = _('Genres')
+
 
 class ItemImages(models.Model):
     image = models.ImageField(verbose_name=_('Image item'), upload_to='images/materials/%Y/%m/')
@@ -145,21 +183,11 @@ class ItemImages(models.Model):
 
 
 class Attribute(models.Model):
-    ICON = (
-        ('asterisk', 'asterisk'),
-        ('music', 'music'),
-        ('th', 'th'),
-        ('th-list', 'th-list'),
-        ('ok', 'ok'),
-        ('star-empty', 'star-empty'),
-        ('film', 'film'),
-        ('user', 'user'),
-    )
     title = models.CharField(_('Title'), max_length=200)
     slug = models.SlugField(_('Slug'), max_length=200, unique=True)
     enable = models.BooleanField(_('Enable'), default=True)
     on_item = models.BooleanField(_('Show on item'), default=False)
-    icon = models.CharField(max_length=100, choices=ICON, blank=True)
+    icon = models.ForeignKey(Icon, blank=True, null=True)
     parent = models.ForeignKey('self', related_name='children', verbose_name=_('Parent'), blank=True, null=True)
     groups = models.ManyToManyField('Group', related_name='attributes', verbose_name=_('Group'), blank=True)
 

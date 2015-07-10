@@ -1,7 +1,5 @@
 from materials.models import Group, Item
-from fs.core import ex_view
 from django.db.models import Count
-from random import shuffle
 from django.contrib.contenttypes.models import ContentType
 from django.views.generic.base import TemplateView
 
