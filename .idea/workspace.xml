@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6aad01fd-8a8a-4683-a63c-43ca567eccca" name="Default" comment="heroku">
+    <list default="true" id="6aad01fd-8a8a-4683-a63c-43ca567eccca" name="Default" comment="add">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/registration/password_change_done.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/registration/password_reset_done.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/registration/password_reset_form.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/registration/password_change_form.html" afterPath="$PROJECT_DIR$/templates/registration/password_change_form.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fs/settings.py" afterPath="$PROJECT_DIR$/fs/settings.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -124,21 +128,11 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/fs/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="3.953125" vertical-offset="1904" max-vertical-offset="3024">
-              <caret line="162" column="50" selection-start-line="162" selection-start-column="50" selection-end-line="162" selection-end-column="50" />
+            <state vertical-scroll-proportion="0.17142858" vertical-offset="1818" max-vertical-offset="2934">
+              <caret line="107" column="0" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
               <folding>
-                <marker date="1436525993072" expanded="true" signature="3328:3620" placeholder="..." />
+                <marker date="1436529834463" expanded="true" signature="3334:3604" placeholder="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="requirements.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/requirements.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
-              <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -154,16 +148,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/comments/models.py" />
-        <option value="$PROJECT_DIR$/ex_user/admin.py" />
-        <option value="$PROJECT_DIR$/templates/authenticate.html" />
         <option value="$PROJECT_DIR$/templates/login.html" />
         <option value="$PROJECT_DIR$/templates/registration/profile.html" />
         <option value="$PROJECT_DIR$/dumpdata/data_db.yaml" />
         <option value="$PROJECT_DIR$/comments/views.py" />
         <option value="$PROJECT_DIR$/materials/templates/materials/main_group_detail.html" />
         <option value="$PROJECT_DIR$/templates/registration/login.html" />
-        <option value="$PROJECT_DIR$/templates/registration/password_change_form.html" />
         <option value="$PROJECT_DIR$/locale/ua/LC_MESSAGES/django.po" />
         <option value="$PROJECT_DIR$/locale/ru/LC_MESSAGES/django.po" />
         <option value="$PROJECT_DIR$/locale/uk/LC_MESSAGES/django.po" />
@@ -205,6 +195,10 @@
         <option value="$PROJECT_DIR$/static/www/js/custom.js" />
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/fs/settings.py" />
+        <option value="$PROJECT_DIR$/templates/registration/password_change_form.html" />
+        <option value="$PROJECT_DIR$/templates/registration/password_reset_form.html" />
+        <option value="$PROJECT_DIR$/templates/registration/password_reset_done.html" />
+        <option value="$PROJECT_DIR$/templates/registration/password_change_done.html" />
       </list>
     </option>
   </component>
@@ -275,6 +269,38 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="registration" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -288,7 +314,7 @@
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="FullScreen" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="requi&#9;FILE&#9;file:///home/igor/web/www/fs/requirements.txt&#10;sett&#9;FILE&#9;file:///home/igor/web/www/fs/fs/settings.py&#10;sty&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/style.less&#10;style&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/style.less&#10;admin&#9;FILE&#9;file:///home/igor/web/www/fs/materials/admin.py&#10;base.ht&#9;FILE&#9;file:///home/igor/web/www/fs/templates/base.html&#10;ba&#9;FILE&#9;file:///home/igor/web/www/fs/ENV/local/lib/python2.7/site-packages/django/core/management/base.py&#10;gro&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/group_detail.html&#10;pro&#9;FILE&#9;file:///home/igor/web/www/fs/ex_user/templates/ex_user/profile.html&#10;sear&#9;FILE&#9;file:///home/igor/web/www/fs/search/templates/search/search.html&#10;views&#9;FILE&#9;file:///home/igor/web/www/fs/search/views.py&#10;varia&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/variables.less&#10;item&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/item_detail.html&#10;set&#9;FILE&#9;file:///home/igor/web/www/fs/fs/settings.py&#10;ad&#9;FILE&#9;file:///home/igor/web/www/fs/materials/admin.py&#10;mode&#9;FILE&#9;file:///home/igor/web/www/fs/materials/models.py&#10;i&#9;FILE&#9;file:///home/igor/web/www/fs/materials/search_indexes.py&#10;.js&#9;FILE&#9;file:///home/igor/web/www/fs/static/www/js/custom.js&#10;st&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/style.less&#10;item.ht&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/item_detail.html&#10;view&#9;FILE&#9;file:///home/igor/web/www/fs/materials/views.py&#10;s&#9;FILE&#9;file:///home/igor/web/www/fs/fs/settings.py&#10;admin.py&#9;FILE&#9;file:///home/igor/web/www/fs/materials/admin.py&#10;admin &#9;null&#9;null&#10;models&#9;FILE&#9;file:///home/igor/web/www/fs/comments/models.py&#10;txt&#9;FILE&#9;file:///home/igor/web/www/fs/templates/search/indexes/materials/item_text.txt&#10;inde&#9;FILE&#9;file:///home/igor/web/www/fs/materials/search_indexes.py&#10;urls&#9;FILE&#9;file:///home/igor/web/www/fs/fs/urls.py&#10;base&#9;FILE&#9;file:///home/igor/web/www/fs/templates/base.html&#10;url&#9;FILE&#9;file:///home/igor/web/www/fs/fs/urls.py&#10;custo&#9;FILE&#9;file:///home/igor/web/www/fs/static/www/js/custom.js&#10;vi&#9;FILE&#9;file:///home/igor/web/www/fs/materials/views.py&#10;context_&#9;FILE&#9;file:///home/igor/web/www/fs/fs/template/context_processors.py&#10;search/view&#9;FILE&#9;file:///home/igor/web/www/fs/search/views.py&#10;se&#9;FILE&#9;file:///home/igor/web/www/fs/fs/settings.py&#10;gr&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/group_detail.html&#10;context&#9;FILE&#9;file:///home/igor/web/www/fs/fs/template/context_processors.py&#10;model&#9;FILE&#9;file:///home/igor/web/www/fs/materials/models.py&#10;index&#9;FILE&#9;file:///home/igor/web/www/fs/materials/search_indexes.py&#10;varial&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/variables.less&#10;sea&#9;FILE&#9;file:///home/igor/web/www/fs/search/templates/search/search.html&#10;.ht&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/item_detail.html&#10;settin&#9;FILE&#9;file:///home/igor/web/www/fs/fs/settings.py&#10;urls.py&#9;FILE&#9;file:///home/igor/web/www/fs/materials/urls.py&#10;materials/mode&#9;FILE&#9;file:///home/igor/web/www/fs/materials/models.py&#10;management.py&#9;FILE&#9;file:///home/igor/web/www/fs/ENV/lib/python2.7/site-packages/django/contrib/contenttypes/management.py" />
+    <property name="SearchEverywhereHistoryKey" value="pass&#9;FILE&#9;file:///home/igor/web/www/fs/templates/registration/password_change_done.html&#10;passw&#9;FILE&#9;file:///home/igor/web/www/fs/templates/registration/password_change_done.html&#10;password_re&#9;FILE&#9;file:///home/igor/web/www/fs/templates/registration/password_reset_form.html&#10;pas&#9;FILE&#9;file:///home/igor/web/www/fs/templates/registration/password_change_done.html&#10;uls&#9;null&#9;null&#10;urls&#9;FILE&#9;file:///home/igor/web/www/fs/fs/urls.py&#10;registration/&#9;FILE&#9;file:///home/igor/web/www/fs/templates/registration&#10;requi&#9;FILE&#9;file:///home/igor/web/www/fs/requirements.txt&#10;sett&#9;FILE&#9;file:///home/igor/web/www/fs/fs/settings.py&#10;sty&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/style.less&#10;style&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/style.less&#10;admin&#9;FILE&#9;file:///home/igor/web/www/fs/materials/admin.py&#10;base.ht&#9;FILE&#9;file:///home/igor/web/www/fs/templates/base.html&#10;ba&#9;FILE&#9;file:///home/igor/web/www/fs/ENV/local/lib/python2.7/site-packages/django/core/management/base.py&#10;gro&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/group_detail.html&#10;pro&#9;FILE&#9;file:///home/igor/web/www/fs/ex_user/templates/ex_user/profile.html&#10;sear&#9;FILE&#9;file:///home/igor/web/www/fs/search/templates/search/search.html&#10;views&#9;FILE&#9;file:///home/igor/web/www/fs/search/views.py&#10;varia&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/variables.less&#10;item&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/item_detail.html&#10;set&#9;FILE&#9;file:///home/igor/web/www/fs/fs/settings.py&#10;ad&#9;FILE&#9;file:///home/igor/web/www/fs/materials/admin.py&#10;mode&#9;FILE&#9;file:///home/igor/web/www/fs/materials/models.py&#10;i&#9;FILE&#9;file:///home/igor/web/www/fs/materials/search_indexes.py&#10;.js&#9;FILE&#9;file:///home/igor/web/www/fs/static/www/js/custom.js&#10;st&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/style.less&#10;item.ht&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/item_detail.html&#10;view&#9;FILE&#9;file:///home/igor/web/www/fs/materials/views.py&#10;s&#9;FILE&#9;file:///home/igor/web/www/fs/fs/settings.py&#10;admin.py&#9;FILE&#9;file:///home/igor/web/www/fs/materials/admin.py&#10;admin &#9;null&#9;null&#10;models&#9;FILE&#9;file:///home/igor/web/www/fs/comments/models.py&#10;txt&#9;FILE&#9;file:///home/igor/web/www/fs/templates/search/indexes/materials/item_text.txt&#10;inde&#9;FILE&#9;file:///home/igor/web/www/fs/materials/search_indexes.py&#10;base&#9;FILE&#9;file:///home/igor/web/www/fs/templates/base.html&#10;url&#9;FILE&#9;file:///home/igor/web/www/fs/fs/urls.py&#10;custo&#9;FILE&#9;file:///home/igor/web/www/fs/static/www/js/custom.js&#10;vi&#9;FILE&#9;file:///home/igor/web/www/fs/materials/views.py&#10;context_&#9;FILE&#9;file:///home/igor/web/www/fs/fs/template/context_processors.py&#10;search/view&#9;FILE&#9;file:///home/igor/web/www/fs/search/views.py&#10;se&#9;FILE&#9;file:///home/igor/web/www/fs/fs/settings.py&#10;gr&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/group_detail.html&#10;context&#9;FILE&#9;file:///home/igor/web/www/fs/fs/template/context_processors.py&#10;model&#9;FILE&#9;file:///home/igor/web/www/fs/materials/models.py&#10;index&#9;FILE&#9;file:///home/igor/web/www/fs/materials/search_indexes.py&#10;varial&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/variables.less&#10;sea&#9;FILE&#9;file:///home/igor/web/www/fs/search/templates/search/search.html&#10;.ht&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/item_detail.html&#10;settin&#9;FILE&#9;file:///home/igor/web/www/fs/fs/settings.py&#10;urls.py&#9;FILE&#9;file:///home/igor/web/www/fs/materials/urls.py" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="72" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="164" />
@@ -315,9 +341,9 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates/registration" />
       <recent name="$PROJECT_DIR$/static" />
       <recent name="$PROJECT_DIR$/materials/templates/materials" />
-      <recent name="$PROJECT_DIR$/templates/registration" />
       <recent name="$PROJECT_DIR$/materials" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -751,7 +777,13 @@
       <option name="project" value="LOCAL" />
       <updated>1436525731203</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="heroku">
+      <created>1436528133538</created>
+      <option name="number" value="00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1436528133538</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -779,14 +811,12 @@
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5200594" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5557206" sideWeight="0.5330677" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5780089" sideWeight="0.4996016" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.55423474" sideWeight="0.5330677" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32988048" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35066864" sideWeight="0.49884704" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49925706" sideWeight="0.45338646" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25577688" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287037" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3268945" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24940239" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -795,10 +825,12 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49925706" sideWeight="0.4996016" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5780089" sideWeight="0.4996016" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -859,54 +891,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ex_user/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.61586314" vertical-offset="0" max-vertical-offset="643">
-          <caret line="22" column="33" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#28#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ex_user/templates/ex_user/registration.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.3333335" vertical-offset="0" max-vertical-offset="468">
-          <caret line="11" column="33" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/materials/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.251944" vertical-offset="0" max-vertical-offset="643">
-          <caret line="9" column="20" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ex_user/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.083981335" vertical-offset="0" max-vertical-offset="643">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/registration/password_change_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.058441557" vertical-offset="0" max-vertical-offset="616">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/materials/templates/materials/main_group_detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3863248" vertical-offset="368" max-vertical-offset="990">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/materials/templates/materials/play_video.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.29850745" vertical-offset="0" max-vertical-offset="603">
@@ -990,7 +974,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.9772725" vertical-offset="4914" max-vertical-offset="15534">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1026,7 +1009,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1892" max-vertical-offset="3762">
           <caret line="125" column="8" selection-start-line="125" selection-start-column="8" selection-end-line="125" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1037,14 +1019,6 @@
           <folding>
             <element signature="e#20#61#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fs/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20588236" vertical-offset="0" max-vertical-offset="612">
-          <caret line="12" column="50" selection-start-line="12" selection-start-column="45" selection-end-line="12" selection-end-column="50" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1060,9 +1034,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1136" max-vertical-offset="2376">
           <caret line="75" column="32" selection-start-line="75" selection-start-column="32" selection-end-line="75" selection-end-column="32" />
-          <folding>
-            <element signature="e#19#101#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1134,9 +1105,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5318818" vertical-offset="0" max-vertical-offset="643">
           <caret line="19" column="10" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
-          <folding>
-            <element signature="e#24#63#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1144,7 +1112,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.36391914" vertical-offset="0" max-vertical-offset="643">
           <caret line="17" column="32" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1160,7 +1127,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.814815" vertical-offset="437" max-vertical-offset="1116">
           <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1176,7 +1142,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.15863141" vertical-offset="9024" max-vertical-offset="11772">
           <caret line="523" column="0" selection-start-line="523" selection-start-column="0" selection-end-line="523" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1184,11 +1149,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="545" max-vertical-offset="1620">
           <caret line="81" column="62" selection-start-line="81" selection-start-column="62" selection-end-line="81" selection-end-column="62" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-            <element signature="e#792#2121#0" expanded="false" />
-            <element signature="e#2188#2279#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1218,7 +1178,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7097902" vertical-offset="5174" max-vertical-offset="19242">
           <caret line="310" column="18" selection-start-line="310" selection-start-column="18" selection-end-line="310" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1226,7 +1185,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.51252085" vertical-offset="3401" max-vertical-offset="4284">
           <caret line="206" column="37" selection-start-line="206" selection-start-column="37" selection-end-line="206" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1244,7 +1202,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2799378" vertical-offset="0" max-vertical-offset="643">
           <caret line="11" column="36" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1266,18 +1223,73 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
+        <state vertical-scroll-proportion="0.535316" vertical-offset="0" max-vertical-offset="612">
           <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fs/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.19595645" vertical-offset="0" max-vertical-offset="643">
+          <caret line="12" column="50" selection-start-line="12" selection-start-column="45" selection-end-line="12" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/python2.7/dist-packages/mechanize/_beautifulsoup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="19494">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/registration/password_change_form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.23376623" vertical-offset="0" max-vertical-offset="616">
+          <caret line="8" column="28" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/registration/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0064935065" vertical-offset="32" max-vertical-offset="648">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/registration/password_change_done.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.08766234" vertical-offset="0" max-vertical-offset="616">
+          <caret line="3" column="44" selection-start-line="3" selection-start-column="44" selection-end-line="3" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/registration/password_reset_done.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.08766234" vertical-offset="0" max-vertical-offset="616">
+          <caret line="3" column="44" selection-start-line="3" selection-start-column="44" selection-end-line="3" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/registration/password_reset_form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.26298702" vertical-offset="0" max-vertical-offset="616">
+          <caret line="9" column="27" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/fs/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.953125" vertical-offset="1904" max-vertical-offset="3024">
-          <caret line="162" column="50" selection-start-line="162" selection-start-column="50" selection-end-line="162" selection-end-column="50" />
+        <state vertical-scroll-proportion="0.17142858" vertical-offset="1818" max-vertical-offset="2934">
+          <caret line="107" column="0" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
           <folding>
-            <marker date="1436525993072" expanded="true" signature="3328:3620" placeholder="..." />
+            <marker date="1436529834463" expanded="true" signature="3334:3604" placeholder="..." />
           </folding>
         </state>
       </provider>
