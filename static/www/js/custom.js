@@ -6,9 +6,64 @@ $(document).ready(function(){
         controls: false
     });
 
+     $('#datetimepicker').datetimepicker({
+        viewMode: 'years',
+        format: 'YYYY-mm-DD'
+    });
+
     $('#userTabs a').click(function (e) {
         e.preventDefault();
         $(this).tab('show')
+    });
+
+    $(document).on('click', '#add_content_type', function(e){
+        e.preventDefault();
+        var el = $(this);
+
+        $.ajax({
+            url: '/materials/add_content_type/',
+            type: 'POST',
+            cache: false,
+            data: 'model_name=' + el.attr('data-model'),
+            success: function(data) {
+                if (data.success == true) {
+                    var html = '<select class="form-control" data-name-field="' + el.attr('data-name-field') + '" id="' + el.attr('data-model') + '">';
+
+                    $(data.objects).each(function() {
+                        html += '<option value="' + $(this).attr('pk') + '">' + $(this).attr('title') + '</option>';
+                    });
+
+                    html += '</select>  ';
+                    el.before(html);
+                    el.attr('id', 'set_select_obj')
+                }
+            }
+        })
+    });
+
+    $(document).on('click', '#set_select_obj', function(e) {
+        e.preventDefault();
+        var el = $(this);
+        var repeat_button = false;
+        var select = el.parent().find('select');
+
+        el.parent().find('input[name=' + select.attr('data-name-field') + ']').each(function() {
+            if (select.val() == $(this).val()) {
+                repeat_button = true;
+            }
+        });
+
+        if (repeat_button == false) {
+            var text = $('#' + select.attr('id') + ' :selected').text()
+
+            var html = '<button class="btn btn-primary btn-xs block" onclick="$(this).remove()">' +
+                '<input name="' + select.attr('data-name-field') + '" type="hidden" value="' + select.val() + '">' +
+                text + ' <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>' +
+                '</button>';
+            el.before(html);
+            select.remove();
+            el.attr('id', 'add_content_type');
+        }
     });
 
     $(document).on('click', '.user_add_item', function(e) {

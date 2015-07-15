@@ -3085,7 +3085,7 @@ output {
   padding-top: 7px;
   font-size: 14px;
   line-height: 1.42857143;
-  color: #b2b2b2;
+  color: #4d5352;
 }
 .form-control {
   display: block;
@@ -3094,7 +3094,7 @@ output {
   padding: 6px 12px;
   font-size: 14px;
   line-height: 1.42857143;
-  color: #b2b2b2;
+  color: #4d5352;
   background-color: #f3f3f3;
   background-image: none;
   border: 1px solid #e7e7e7;
@@ -4339,7 +4339,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   font-size: 14px;
   font-weight: normal;
   line-height: 1;
-  color: #b2b2b2;
+  color: #4d5352;
   text-align: center;
   background-color: #eeeeee;
   border: 1px solid #e7e7e7;
@@ -7277,6 +7277,9 @@ h3 {
   padding-left: 16px;
   margin-right: 2px;
 }
+.errorlist {
+  color: #ff3535;
+}
 .not-like {
   font-size: 14px;
   color: #c33e43;
@@ -8018,6 +8021,15 @@ body .container .content .item-desc .item-detail .comments .positive {
 body .container .content .item-desc .item-detail .comments .negative {
   background: #FFE8E8;
   border: 1px solid #E8BABA;
+}
+body .container .content .item-edit .fieldWrapper {
+  margin-bottom: 10px;
+}
+body .container .content .item-edit .fieldWrapper .btn {
+  margin-bottom: 10px;
+}
+body .container .content .item-edit .fieldWrapper .add_content {
+  margin-top: 10px;
 }
 body .container .content .search .group .item {
   display: inline-block;

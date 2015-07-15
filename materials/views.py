@@ -1,11 +1,11 @@
-from materials.models import Group, Item, Attribute
+from materials.models import Group, Item, Attribute, Genre, ProxyCountry
 from django.db.models import Q, F
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
 from django.views.generic import View
 from django.views.generic import FormView
 from django.views.generic.detail import SingleObjectMixin
-from django.views.generic.edit import FormMixin
+from django.views.generic.edit import FormMixin, ModelFormMixin
 from django.views import generic
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
@@ -14,8 +14,11 @@ from django.views.decorators.http import require_POST
 from django.http import HttpResponse
 import json
 from django.views.decorators.csrf import csrf_exempt
-from materials.forms import CommentForm
+from materials.forms import CommentForm, EditItemForm
 from django.shortcuts import redirect
+from django.http import JsonResponse
+from django.views.generic import TemplateView
+from django.core import serializers
 
 
 class AttributeDetailView(generic.DetailView):
@@ -189,23 +192,26 @@ class DetailGroupView(generic.DetailView):
         return ['materials/main_group_detail.html']
 
 
-class ExtendContextDataItem(object):
-    def __init__(self, view):
-        self.view = view
-
-    def get_context_data(self):
-        return {
-            'recommend_item': self.view.object.recommend_item.filter(enable=1)[:8],
-            'count_comments': self.view.object.comments.count(),
-            'user_like': self.view.object.users_liked.filter(user=self.view.request.user.id),
-            'user_defer': self.view.object.users_defer.filter(user=self.view.request.user.id),
-        }
-
-
-class CommentHandler(SingleObjectMixin, FormView):
+class DetailItemView(SingleObjectMixin, FormView):
     model = Item
-    template_name = 'materials/item_detail.html'
     form_class = CommentForm
+    template_name = 'materials/item_detail.html'
+
+    def get_queryset(self):
+        qs = super(DetailItemView, self).get_queryset()
+        return qs\
+            .filter(enable=1)\
+            .select_related('creator', 'main_group')\
+            .prefetch_related('main_group__groups', 'comments', 'comments__user', 'recommend_item', 'images',
+                              'item_attr__attribute', 'item_attr__attribute_values')
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        slug = self.kwargs.get('slug', None)
+
+        if slug is not None:
+            self.kwargs['slug'] = self.kwargs['slug'].split('/').pop()
+        return super(DetailItemView, self).get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated():
@@ -223,51 +229,17 @@ class CommentHandler(SingleObjectMixin, FormView):
         return self.form_invalid(form)
 
     def get_context_data(self, **kwargs):
-        context = super(CommentHandler, self).get_context_data(**kwargs)
-        context['form_comment'] = self.get_form()
-        ex_context_data = ExtendContextDataItem(self)
-        context.update(ex_context_data.get_context_data())
+        self.model.objects.filter(pk=self.object.pk).update(popular=F('popular') + 1)
+
+        context = super(DetailItemView, self).get_context_data(**kwargs)
+        context['recommend_item'] = self.object.recommend_item.filter(enable=1)[:8]
+        context['count_comments'] = self.object.comments.count()
+        context['user_like'] = self.object.users_liked.filter(user=self.request.user.id)
+        context['user_defer'] = self.object.users_defer.filter(user=self.request.user.id)
         return context
 
     def get_success_url(self):
         return self.object.get_absolute_url()
-
-
-class DetailItemView(FormMixin, generic.DetailView):
-    model = Item
-
-    def get_queryset(self):
-        qs = super(DetailItemView, self).get_queryset()
-        return qs\
-            .filter(enable=1)\
-            .select_related('creator', 'main_group')\
-            .prefetch_related('main_group__groups', 'comments', 'comments__user', 'recommend_item', 'images',
-                              'item_attr__attribute', 'item_attr__attribute_values')
-
-    def get(self, request, *args, **kwargs):
-        slug = self.kwargs.get('slug', None)
-
-        if slug is not None:
-            self.kwargs['slug'] = self.kwargs['slug'].split('/').pop()
-        return super(DetailItemView, self).get(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        self.model.objects.filter(pk=self.object.pk).update(popular=F('popular') + 1)
-        context = super(DetailItemView, self).get_context_data(**kwargs)
-        context['form_comment'] = CommentForm
-        ex_context_data = ExtendContextDataItem(self)
-        context.update(ex_context_data.get_context_data())
-        return context
-
-
-class ItemDetail(View):
-    def get(self, request, *args, **kwargs):
-        view = DetailItemView.as_view()
-        return view(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        view = CommentHandler.as_view()
-        return view(request, *args, **kwargs)
 
 
 class PlayVideo(generic.DetailView):
@@ -280,6 +252,89 @@ class PlayVideo(generic.DetailView):
         if slug is not None:
             self.kwargs['slug'] = self.kwargs['slug'].split('/').pop()
         return super(PlayVideo, self).get(request, *args, **kwargs)
+
+
+class EditItemView(ModelFormMixin, FormView):
+    model = Item
+    template_name = 'materials/item_edit.html'
+    form_class = EditItemForm
+
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated():
+            return redirect('/login/?next=%s' % request.path)
+        self.object = self.get_object()
+
+        return super(EditItemView, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated():
+            return redirect('/login/?next=%s' % request.path)
+        self.object = self.get_object()
+
+        form = self.get_form()
+        if form.is_valid():
+            item = form.save(commit=False)
+
+            if item.origin_title == '':
+                import goslate
+                gs = goslate.Goslate()
+                item.origin_title = gs.translate(item.title, 'en')
+                item.save()
+            return self.form_valid(form)
+        return self.form_invalid(form)
+
+    def get_success_url(self):
+        return reverse('materials:item_edit', kwargs={'slug': self.object.slug})
+
+
+class Vote(SingleObjectMixin):
+    model = Item
+
+
+class ItemAddToProfile(SingleObjectMixin):
+    model = Item
+
+
+class JSONResponseMixin(object):
+    """
+    A mixin that can be used to render a JSON response.
+    """
+    def render_to_json_response(self, context, **response_kwargs):
+        """
+        Returns a JSON response, transforming 'context' to make the payload.
+        """
+        return JsonResponse(
+            self.get_data(context),
+            **response_kwargs
+        )
+
+    def get_data(self, context):
+        """
+        Returns an object that will be serialized as JSON by json.dumps().
+        """
+        # Note: This is *EXTREMELY* naive; in reality, you'll need
+        # to do much more complex handling to ensure that arbitrary
+        # objects -- such as Django model instances or querysets
+        # -- can be serialized as JSON.
+        return context
+
+
+class AddContentType(JSONResponseMixin, TemplateView):
+    def render_to_response(self, context, **response_kwargs):
+        return self.render_to_json_response(context, **response_kwargs)
+
+    @csrf_exempt
+    def post(self, request, *args, **kwargs):
+        return self.render_to_response(self.get_context_data(**kwargs), **kwargs)
+
+    def get_context_data(self, **kwargs):
+        model_name_target = self.request.POST.get('model_name', None)
+        c_type_model_target = ContentType.objects.get(app_label="materials", model=model_name_target)
+        model_target = c_type_model_target.model_class()
+        context = dict()
+        context['objects'] = [{'title': obj.get_name(), 'pk': obj.pk} for obj in model_target.objects.all()]
+        context['success'] = True
+        return context
 
 
 @csrf_exempt

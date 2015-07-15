@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'multiselectfield',
     'django.contrib.gis',
     'cities',
+    'goslate',
     'ex_user',
 )
 
@@ -143,7 +144,7 @@ USE_THOUSAND_SEPARATOR = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR,  'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR,  'static')
 MEDIA_ROOT = os.path.join(BASE_DIR,  'media')
 MEDIA_URL = "/media/"
 

@@ -14,6 +14,9 @@ from cities.models import Country
 class Genre(models.Model):
     title = models.CharField(max_length=300, verbose_name=_('Title genre'))
 
+    def get_name(self):
+        return self.title
+
     class Meta:
         ordering = ['title']
         verbose_name = _('Genre')
@@ -110,6 +113,14 @@ class ItemClass(models.Model):
         return self.title
 
 
+class ProxyCountry(Country):
+    def get_name(self):
+        return self.name
+
+    class Meta:
+        proxy = True
+
+
 class Item(models.Model):
     title = models.CharField(_('Title'), max_length=200)
     origin_title = models.CharField(_('Origin title'), max_length=200, blank=True)
@@ -119,7 +130,7 @@ class Item(models.Model):
     groups = models.ManyToManyField('Group', verbose_name=_('Group'), related_name='items', blank=True)
     main_group = models.ForeignKey('Group', verbose_name=_('Main Group'), related_name='items_main_group')
     genres = models.ManyToManyField('Genre', verbose_name=_('Genre'), related_name='items', blank=True)
-    countries = models.ManyToManyField(Country, verbose_name=_('Countries production'))
+    countries = models.ManyToManyField('ProxyCountry', verbose_name=_('Countries production'))
     recommend_item = models.ManyToManyField('self', verbose_name=_('Recommended item'), blank=True)
     main_image = models.ImageField(_('Main Image'), upload_to='images/materials/%Y/%m/')
     description = models.TextField(verbose_name=_('Description'))

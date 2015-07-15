@@ -15,10 +15,11 @@ from fs.settings import BASE_DIR
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "fs.settings")
 
 # Activate your virtual env
-# activate_env = os.path.expanduser(os.path.join(BASE_DIR, "ENV/bin/activate_this.py"))
-# execfile(activate_env, dict(__file__=activate_env))
+activate_env = os.path.expanduser(os.path.join(BASE_DIR, "ENV/bin/activate_this.py"))
+execfile(activate_env, dict(__file__=activate_env))
 
-from dj_static import Cling
+# from dj_static import Cling
+# application = Cling(get_wsgi_application())
 
-application = Cling(get_wsgi_application())
-# application = get_wsgi_application()
+# Django server
+application = get_wsgi_application()

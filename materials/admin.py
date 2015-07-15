@@ -8,6 +8,10 @@ from django.db.models import When, Case
 from django.forms import SelectMultiple
 from django.db import models
 from multiselectfield import MultiSelectField
+from django.contrib.admin import widgets
+from django import forms
+from django.utils.safestring import mark_safe
+from materials.widgets import ImageWidget
 
 
 def change_status(modeladmin, request, queryset):
@@ -77,7 +81,8 @@ class ItemAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title", )}
     actions = [change_status]
     formfield_overrides = {
-        models.ManyToManyField: {'widget': SelectMultiple(attrs={'size': '10'})},
+        models.ManyToManyField: {'widget': widgets.FilteredSelectMultiple('', False, attrs={'size': '10'})},
+        models.ImageField: {'widget': ImageWidget(attrs={'max_width': '100px', 'max_height': '100px'})},
     }
     list_filter = ['date_create', 'creator', 'enable', 'genres', 'main_group', 'item_class', 'title']
 

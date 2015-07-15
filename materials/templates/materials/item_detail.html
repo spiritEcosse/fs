@@ -5,7 +5,7 @@
 {% block title %}{% trans object.title %}{% endblock %}
 
 {% block main %}
-    <div class="main item-desc">
+    <div class="item-desc">
         <div class="wrapp item-detail">
             <div class="row">
                 <div class="col-md-5">
@@ -144,6 +144,14 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-xs-5 col-xs-offset-19">
+                    {% if request.user.is_authenticated %}
+                        <a class="bnt" href="{% url 'materials:item_edit' object.slug %}" >{% trans 'Редактировать материал' %}</a>
+                    {% endif %}
+                </div>
+            </div>
+
             {% if object.tags %}
                 <ul>
                     {% for tag in object.tags %}
@@ -183,15 +191,15 @@
                 </div>
             {% endif %}
 
-            <div class="new_comment">
+            <div class="new_comment" id="write_comment">
                 {% if comment_success_save %}
                     <div class="alert alert-success" role="alert">{{ comment_success_save }}</div>
                 {% endif %}
 
-                <form action="{{ object.get_absolute_url }}" method="post">
+                <form method="post">
                     {% csrf_token %}
                     <ul>
-                        {{ form_comment.as_p }}
+                        {{ form.as_p }}
                     </ul>
                     <div class="pull-right">
                         <input type="submit" class="btn btn-primary btn-group-lg" value="{% trans 'Отправить' %}"/>
@@ -201,9 +209,19 @@
 
             <div class="row comments">
                 <div class="col-md-24">
-                    <h3>Лучшие отзывы</h3>
-                    <div class="">
-                        {{ count_comments }}
+                    <div class="row">
+                        <div class="col-xs-5 col-xs-offset-19">
+{#                            <button class="btn btn-primary" #}
+{#                                    onclick="$('#write_comment').removeClass('none'); $('#write_comment').addClass('block');">{% trans 'Написать комментарий' %}#}
+{#                            </button>#}
+                        </div>
+                    </div>
+
+                    <h3>{% trans 'Лучшие отзывы' %}</h3>
+                    <div class="row">
+                        <div class="col-xs-5">
+                            {{ count_comments }}
+                        </div>
                     </div>
                 </div>
 

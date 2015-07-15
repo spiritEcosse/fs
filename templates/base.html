@@ -369,12 +369,15 @@
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="{% static 'www/js/jquery.js' %}"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{% static 'www/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'www/js/bootstrap.js' %}"></script>
     <script src="{% static 'www/js/custom.js' %}"></script>
     <script src="{% static 'www/js/jquery.cookie.js' %}"></script>
+    <script type="text/javascript" src="{% static 'www/js/bower_components/moment/min/moment.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'www/js/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'www/js/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css' %}" />
 </div>
 </body>
 </html>

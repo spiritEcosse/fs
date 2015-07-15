@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load filter_extra %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block main %}
+    <div class="wrapp item-edit">
+        <a href="{{ object.get_absolute_url }}">
+            <h1>{{ object.title|capfirst }}</h1>
+        </a>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="row" id="model_name">
+                <div class="col-md-5">
+                    {{ form.main_image.errors }}
+                    {{ form.main_image }}
+                </div>
+                <div class="col-md-19" >
+                    <div class="row fieldWrapper">
+                        <div class="col-xs-12">
+                            <div class="label_tag_field">{{ form.title.label_tag }}</div>
+                            <div class="value_field">{{ form.title }}</div>
+                            <div class="error_field">{{ form.title.errors }}</div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="label_tag_field">{{ form.origin_title.label_tag }}</div>
+                            <div class="value_field">{{ form.origin_title }}</div>
+                            <div class="error_field">{{ form.origin_title.errors }}</div>
+                        </div>
+                    </div>
+                    <div class="row fieldWrapper">
+                        <div class="col-xs-7">
+                            {{ form.genres.label_tag }}
+                            {{ form.genres.errors }}
+                        </div>
+                        <div class="col-xs-17">
+                            {{ form.genres }}
+                        </div>
+                    </div>
+                    <div class="row fieldWrapper">
+                        <div class="col-xs-7">
+                            {{ form.countries.label_tag }}
+                            {{ form.countries.errors }}
+                        </div>
+                        <div class="col-xs-17">
+                            {{ form.countries }}
+                        </div>
+                    </div>
+                    <div class="row fieldWrapper">
+                        <div class="col-xs-7">
+                            {{ form.description.label_tag }}
+                            {{ form.description.errors }}
+                        </div>
+                        <div class="col-xs-17">
+                            {{ form.description }}
+                        </div>
+                    </div>
+                    <div class="row fieldWrapper">
+                        <div class="col-xs-7">
+                            {{ form.year_release.label_tag }}
+                            {{ form.year_release.errors }}
+                        </div>
+                        <div class="col-xs-17">
+                            {{ form.year_release }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-24 text-center">
+                    <input type="submit" class="btn btn-primary" value="{% trans 'Сохранить изменения' %}"/>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
