@@ -1,26 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6aad01fd-8a8a-4683-a63c-43ca567eccca" name="Default" comment="add custom template on change pass">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/materials/templates/materials/item_edit.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/www/js/jquery.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tornado_main.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/materials/widgets.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/materials/admin.py" afterPath="$PROJECT_DIR$/materials/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/base.html" afterPath="$PROJECT_DIR$/templates/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/www/js/custom.js" afterPath="$PROJECT_DIR$/static/www/js/custom.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/materials/templatetags/filter_extra.py" afterPath="$PROJECT_DIR$/materials/templatetags/filter_extra.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/materials/forms.py" afterPath="$PROJECT_DIR$/materials/forms.py" />
+    <list default="true" id="6aad01fd-8a8a-4683-a63c-43ca567eccca" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/materials/templates/materials/item_detail.html" afterPath="$PROJECT_DIR$/materials/templates/materials/item_detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/materials/models.py" afterPath="$PROJECT_DIR$/materials/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fs/settings.py" afterPath="$PROJECT_DIR$/fs/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/www/css/style.css" afterPath="$PROJECT_DIR$/static/www/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/src/less/my_style/style.less" afterPath="$PROJECT_DIR$/static/src/less/my_style/style.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/materials/urls.py" afterPath="$PROJECT_DIR$/materials/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/src/less/my_style/variables.less" afterPath="$PROJECT_DIR$/static/src/less/my_style/variables.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/materials/views.py" afterPath="$PROJECT_DIR$/materials/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fs/wsgi.py" afterPath="$PROJECT_DIR$/fs/wsgi.py" />
     </list>
     <ignored path="fs.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -108,7 +92,7 @@
       <file leaf-file-name="item_edit.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/materials/templates/materials/item_edit.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1224" max-vertical-offset="1512">
+            <state vertical-scroll-proportion="-45.333332" vertical-offset="0" max-vertical-offset="1512">
               <caret line="68" column="22" selection-start-line="68" selection-start-column="22" selection-end-line="68" selection-end-column="22" />
               <folding />
             </state>
@@ -142,8 +126,8 @@
       <file leaf-file-name="forms.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/materials/forms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="5" max-vertical-offset="648">
-              <caret line="2" column="28" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="648">
+              <caret line="7" column="34" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
               <folding>
                 <element signature="e#394#769#0" expanded="false" />
               </folding>
@@ -151,21 +135,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/fs/settings.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.07936508" vertical-offset="2353" max-vertical-offset="2952">
-              <caret line="131" column="0" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="item_detail.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="item_detail.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/materials/templates/materials/item_detail.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1386" max-vertical-offset="4788">
-              <caret line="77" column="58" selection-start-line="77" selection-start-column="52" selection-end-line="77" selection-end-column="58" />
+            <state vertical-scroll-proportion="0.74509805" vertical-offset="548" max-vertical-offset="4806">
+              <caret line="41" column="31" selection-start-line="41" selection-start-column="31" selection-end-line="41" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -184,8 +158,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/materials/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="725" max-vertical-offset="3906">
-              <caret line="274" column="15" selection-start-line="274" selection-start-column="15" selection-end-line="274" selection-end-column="15" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3263" max-vertical-offset="3906">
+              <caret line="411" column="36" selection-start-line="411" selection-start-column="36" selection-end-line="411" selection-end-column="36" />
               <folding>
                 <element signature="e#0#72#0" expanded="true" />
                 <element signature="e#1042#3005#0" expanded="false" />
@@ -240,7 +214,6 @@
         <option value="$PROJECT_DIR$/templates/registration/password_reset_form.html" />
         <option value="$PROJECT_DIR$/templates/registration/password_reset_done.html" />
         <option value="$PROJECT_DIR$/templates/registration/password_change_done.html" />
-        <option value="$PROJECT_DIR$/materials/templates/materials/item_detail.html" />
         <option value="$PROJECT_DIR$/materials/abstract_models.py" />
         <option value="$PROJECT_DIR$/materials/admin.py" />
         <option value="$PROJECT_DIR$/materials/models.py" />
@@ -252,13 +225,14 @@
         <option value="$PROJECT_DIR$/templates/base.html" />
         <option value="$PROJECT_DIR$/materials/templates/materials/item_edit.html" />
         <option value="$PROJECT_DIR$/static/src/less/my_style/style.less" />
-        <option value="$PROJECT_DIR$/materials/forms.py" />
         <option value="$PROJECT_DIR$/materials/widgets.py" />
         <option value="$PROJECT_DIR$/static/www/js/custom.js" />
         <option value="$PROJECT_DIR$/tornado.py" />
         <option value="$PROJECT_DIR$/fs/wsgi.py" />
         <option value="$PROJECT_DIR$/tornado_main.py" />
         <option value="$PROJECT_DIR$/fs/settings.py" />
+        <option value="$PROJECT_DIR$/materials/templates/materials/item_detail.html" />
+        <option value="$PROJECT_DIR$/materials/forms.py" />
       </list>
     </option>
   </component>
@@ -339,7 +313,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
+              <option name="myItemId" value="static_root" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -350,13 +324,13 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="recentsLimit" value="5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../angular-phonecat" />
     <property name="options.lastSelected" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="options.splitter.main.proportions" value="0.21137586" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="FullScreen" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="sett&#9;FILE&#9;file:///home/igor/web/www/fs/fs/settings.py&#10;view&#9;FILE&#9;file:///home/igor/web/www/fs/materials/views.py&#10;admin&#9;FILE&#9;file:///home/igor/web/www/fs/materials/admin.py&#10;item&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/item_detail.html&#10;views&#9;FILE&#9;file:///home/igor/web/www/fs/ex_user/views.py&#10;base&#9;FILE&#9;file:///home/igor/web/www/fs/templates/base.html&#10;style&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/style.less&#10;va&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/variables.less&#10;stle&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/style.less&#10;form&#9;FILE&#9;file:///home/igor/web/www/fs/materials/forms.py&#10;filter&#9;null&#9;null&#10;mode&#9;FILE&#9;file:///home/igor/web/www/fs/materials/models.py&#10;urls&#9;FILE&#9;file:///home/igor/web/www/fs/fs/urls.py&#10;cus&#9;FILE&#9;file:///home/igor/web/www/fs/static/www/js/custom.js&#10;admi&#9;FILE&#9;file:///home/igor/web/www/fs/materials/admin.py&#10;b&#9;FILE&#9;file:///home/igor/web/www/fs/materials/abstract_models.py&#10;model&#9;FILE&#9;file:///home/igor/web/www/fs/materials/models.py&#10;styl&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/style.less&#10;det&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/item_detail.html&#10;ex_user/v&#9;FILE&#9;file:///home/igor/web/www/fs/ex_user/views.py&#10;url&#9;FILE&#9;file:///home/igor/web/www/fs/materials/urls.py&#10;admi.py&#9;FILE&#9;file:///home/igor/web/www/fs/materials/admin.py&#10;models&#9;FILE&#9;file:///home/igor/web/www/fs/materials/models.py&#10;materials/forms&#9;FILE&#9;file:///home/igor/web/www/fs/materials/forms.py&#10;style.css&#9;null&#9;null&#10;deta&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/group_detail.html&#10;pass&#9;FILE&#9;file:///home/igor/web/www/fs/templates/registration/password_change_done.html&#10;passw&#9;FILE&#9;file:///home/igor/web/www/fs/templates/registration/password_change_done.html&#10;password_re&#9;FILE&#9;file:///home/igor/web/www/fs/templates/registration/password_reset_form.html&#10;pas&#9;FILE&#9;file:///home/igor/web/www/fs/templates/registration/password_change_done.html&#10;uls&#9;null&#9;null&#10;registration/&#9;FILE&#9;file:///home/igor/web/www/fs/templates/registration&#10;requi&#9;FILE&#9;file:///home/igor/web/www/fs/requirements.txt&#10;sty&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/style.less&#10;base.ht&#9;FILE&#9;file:///home/igor/web/www/fs/templates/base.html&#10;ba&#9;FILE&#9;file:///home/igor/web/www/fs/ENV/local/lib/python2.7/site-packages/django/core/management/base.py&#10;gro&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/group_detail.html&#10;pro&#9;FILE&#9;file:///home/igor/web/www/fs/ex_user/templates/ex_user/profile.html&#10;sear&#9;FILE&#9;file:///home/igor/web/www/fs/search/templates/search/search.html&#10;varia&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/variables.less&#10;set&#9;FILE&#9;file:///home/igor/web/www/fs/fs/settings.py&#10;ad&#9;FILE&#9;file:///home/igor/web/www/fs/materials/admin.py&#10;i&#9;FILE&#9;file:///home/igor/web/www/fs/materials/search_indexes.py&#10;.js&#9;FILE&#9;file:///home/igor/web/www/fs/static/www/js/custom.js&#10;st&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/style.less&#10;item.ht&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/item_detail.html&#10;s&#9;FILE&#9;file:///home/igor/web/www/fs/fs/settings.py&#10;admin.py&#9;FILE&#9;file:///home/igor/web/www/fs/materials/admin.py&#10;admin &#9;null&#9;null&#10;txt&#9;FILE&#9;file:///home/igor/web/www/fs/templates/search/indexes/materials/item_text.txt" />
+    <property name="SearchEverywhereHistoryKey" value="item&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/item_detail.html&#10;base&#9;FILE&#9;file:///home/igor/web/www/fs/templates/base.html&#10;sett&#9;FILE&#9;file:///home/igor/web/www/fs/fs/settings.py&#10;view&#9;FILE&#9;file:///home/igor/web/www/fs/materials/views.py&#10;admin&#9;FILE&#9;file:///home/igor/web/www/fs/materials/admin.py&#10;views&#9;FILE&#9;file:///home/igor/web/www/fs/ex_user/views.py&#10;style&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/style.less&#10;va&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/variables.less&#10;stle&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/style.less&#10;form&#9;FILE&#9;file:///home/igor/web/www/fs/materials/forms.py&#10;filter&#9;null&#9;null&#10;mode&#9;FILE&#9;file:///home/igor/web/www/fs/materials/models.py&#10;urls&#9;FILE&#9;file:///home/igor/web/www/fs/fs/urls.py&#10;cus&#9;FILE&#9;file:///home/igor/web/www/fs/static/www/js/custom.js&#10;admi&#9;FILE&#9;file:///home/igor/web/www/fs/materials/admin.py&#10;b&#9;FILE&#9;file:///home/igor/web/www/fs/materials/abstract_models.py&#10;model&#9;FILE&#9;file:///home/igor/web/www/fs/materials/models.py&#10;styl&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/style.less&#10;det&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/item_detail.html&#10;ex_user/v&#9;FILE&#9;file:///home/igor/web/www/fs/ex_user/views.py&#10;url&#9;FILE&#9;file:///home/igor/web/www/fs/materials/urls.py&#10;admi.py&#9;FILE&#9;file:///home/igor/web/www/fs/materials/admin.py&#10;models&#9;FILE&#9;file:///home/igor/web/www/fs/materials/models.py&#10;materials/forms&#9;FILE&#9;file:///home/igor/web/www/fs/materials/forms.py&#10;style.css&#9;null&#9;null&#10;deta&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/group_detail.html&#10;pass&#9;FILE&#9;file:///home/igor/web/www/fs/templates/registration/password_change_done.html&#10;passw&#9;FILE&#9;file:///home/igor/web/www/fs/templates/registration/password_change_done.html&#10;password_re&#9;FILE&#9;file:///home/igor/web/www/fs/templates/registration/password_reset_form.html&#10;pas&#9;FILE&#9;file:///home/igor/web/www/fs/templates/registration/password_change_done.html&#10;uls&#9;null&#9;null&#10;registration/&#9;FILE&#9;file:///home/igor/web/www/fs/templates/registration&#10;requi&#9;FILE&#9;file:///home/igor/web/www/fs/requirements.txt&#10;sty&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/style.less&#10;base.ht&#9;FILE&#9;file:///home/igor/web/www/fs/templates/base.html&#10;ba&#9;FILE&#9;file:///home/igor/web/www/fs/ENV/local/lib/python2.7/site-packages/django/core/management/base.py&#10;gro&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/group_detail.html&#10;pro&#9;FILE&#9;file:///home/igor/web/www/fs/ex_user/templates/ex_user/profile.html&#10;sear&#9;FILE&#9;file:///home/igor/web/www/fs/search/templates/search/search.html&#10;varia&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/variables.less&#10;set&#9;FILE&#9;file:///home/igor/web/www/fs/fs/settings.py&#10;ad&#9;FILE&#9;file:///home/igor/web/www/fs/materials/admin.py&#10;i&#9;FILE&#9;file:///home/igor/web/www/fs/materials/search_indexes.py&#10;.js&#9;FILE&#9;file:///home/igor/web/www/fs/static/www/js/custom.js&#10;st&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/style.less&#10;item.ht&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/item_detail.html&#10;s&#9;FILE&#9;file:///home/igor/web/www/fs/fs/settings.py&#10;admin.py&#9;FILE&#9;file:///home/igor/web/www/fs/materials/admin.py&#10;admin &#9;null&#9;null&#10;txt&#9;FILE&#9;file:///home/igor/web/www/fs/templates/search/indexes/materials/item_text.txt" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="72" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="164" />
@@ -831,7 +805,13 @@
       <option name="project" value="LOCAL" />
       <updated>1436531959776</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="change item on view, add tornado">
+      <created>1436965523839</created>
+      <option name="number" value="00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1436965523839</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -858,24 +838,24 @@
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5185735" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.79643387" sideWeight="0.5330677" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.51708764" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.51263" sideWeight="0.5330677" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32988048" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35066864" sideWeight="0.49884704" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49925706" sideWeight="0.45338646" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25577688" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32838038" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3268945" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24940239" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2565737" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2565737" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49925706" sideWeight="0.5466136" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49925706" sideWeight="0.4996016" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5690936" sideWeight="0.4996016" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -896,7 +876,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="delete app options" />
     <MESSAGE value="fix bags" />
     <MESSAGE value="change ValidationError materials" />
     <MESSAGE value="remove model itemAttribute add Attribute" />
@@ -921,7 +900,8 @@
     <MESSAGE value="heroku change db" />
     <MESSAGE value="heroku" />
     <MESSAGE value="add custom template on change pass" />
-    <option name="LAST_COMMIT_MESSAGE" value="add custom template on change pass" />
+    <MESSAGE value="change item on view, add tornado" />
+    <option name="LAST_COMMIT_MESSAGE" value="change item on view, add tornado" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1164,13 +1144,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.52238804" vertical-offset="6363" max-vertical-offset="6984">
-          <caret line="371" column="34" selection-start-line="371" selection-start-column="34" selection-end-line="371" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ex_user/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.4556766" vertical-offset="0" max-vertical-offset="1224">
@@ -1218,40 +1191,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/materials/templates/materials/item_edit.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1224" max-vertical-offset="1512">
-          <caret line="68" column="22" selection-start-line="68" selection-start-column="22" selection-end-line="68" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/materials/admin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.21617419" vertical-offset="833" max-vertical-offset="1476">
           <caret line="107" column="47" selection-start-line="107" selection-start-column="47" selection-end-line="107" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/materials/templates/materials/item_detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1386" max-vertical-offset="4788">
-          <caret line="77" column="58" selection-start-line="77" selection-start-column="52" selection-end-line="77" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/materials/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="725" max-vertical-offset="3906">
-          <caret line="274" column="15" selection-start-line="274" selection-start-column="15" selection-end-line="274" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#72#0" expanded="true" />
-            <element signature="e#1042#3005#0" expanded="false" />
-            <element signature="e#3055#8171#0" expanded="false" />
-            <element signature="e#8229#10218#0" expanded="false" />
-            <element signature="e#10262#10582#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1287,16 +1230,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tornado_main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="144" max-vertical-offset="846">
-          <caret line="14" column="51" selection-start-line="14" selection-start-column="51" selection-end-line="14" selection-end-column="51" />
-          <folding>
-            <element signature="e#208#240#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///etc/nginx/sites-available/fs">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.44189852" vertical-offset="0" max-vertical-offset="1548">
@@ -1316,20 +1249,68 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/fs/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6571429" vertical-offset="2322" max-vertical-offset="2952">
+          <caret line="152" column="1" selection-start-line="152" selection-start-column="1" selection-end-line="152" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.47761193" vertical-offset="0" max-vertical-offset="6984">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tornado_main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="144" max-vertical-offset="846">
+          <caret line="14" column="51" selection-start-line="14" selection-start-column="51" selection-end-line="14" selection-end-column="51" />
+          <folding>
+            <element signature="e#208#240#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/materials/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="5" max-vertical-offset="648">
-          <caret line="2" column="28" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="648">
+          <caret line="7" column="34" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
           <folding>
             <element signature="e#394#769#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fs/settings.py">
+    <entry file="file://$PROJECT_DIR$/materials/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.07936508" vertical-offset="2353" max-vertical-offset="2952">
-          <caret line="131" column="0" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="3263" max-vertical-offset="3906">
+          <caret line="411" column="36" selection-start-line="411" selection-start-column="36" selection-end-line="411" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#72#0" expanded="true" />
+            <element signature="e#1042#3005#0" expanded="false" />
+            <element signature="e#3055#8171#0" expanded="false" />
+            <element signature="e#8229#10218#0" expanded="false" />
+            <element signature="e#10262#10582#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/materials/templates/materials/item_edit.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-45.333332" vertical-offset="0" max-vertical-offset="1512">
+          <caret line="68" column="22" selection-start-line="68" selection-start-column="22" selection-end-line="68" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/materials/templates/materials/item_detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.74509805" vertical-offset="548" max-vertical-offset="4806">
+          <caret line="41" column="31" selection-start-line="41" selection-start-column="31" selection-end-line="41" selection-end-column="31" />
           <folding />
         </state>
       </provider>
