@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6aad01fd-8a8a-4683-a63c-43ca567eccca" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tornado_main.py" afterPath="$PROJECT_DIR$/tornado_main.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fs/settings.py" afterPath="$PROJECT_DIR$/fs/settings.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="fs.iws" />
@@ -46,27 +46,27 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/materials/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="280" max-vertical-offset="4122">
-              <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="3822" max-vertical-offset="4122">
+              <caret line="233" column="35" selection-start-line="233" selection-start-column="35" selection-end-line="233" selection-end-column="35" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/fs/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2024" max-vertical-offset="2970">
-              <caret line="107" column="0" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.5625" vertical-offset="1854" max-vertical-offset="2898">
+              <caret line="111" column="13" selection-start-line="111" selection-start-column="13" selection-end-line="111" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tornado_main.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="tornado_main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tornado_main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7759336" vertical-offset="569" max-vertical-offset="864">
+            <state vertical-scroll-proportion="0.0" vertical-offset="623" max-vertical-offset="864">
               <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
               <folding>
                 <element signature="e#208#240#0" expanded="true" />
@@ -147,8 +147,8 @@
         <option value="$PROJECT_DIR$/materials/migrations/0038_auto_20150627_1030.py" />
         <option value="$PROJECT_DIR$/materials/migrations/0064_auto_20150708_1338.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/fs/settings.py" />
         <option value="$PROJECT_DIR$/tornado_main.py" />
+        <option value="$PROJECT_DIR$/fs/settings.py" />
       </list>
     </option>
   </component>
@@ -775,7 +775,19 @@
       <option name="project" value="LOCAL" />
       <updated>1437485180110</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="fake">
+      <created>1437486617938</created>
+      <option name="number" value="00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1437486617938</updated>
+    </task>
+    <task id="LOCAL-00040" summary="fake settings">
+      <created>1437486702584</created>
+      <option name="number" value="00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1437486702584</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TodoView" selected-index="2">
@@ -804,7 +816,7 @@
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5096582" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5973254" sideWeight="0.5330677" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5096582" sideWeight="0.5330677" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3268945" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32988048" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24940239" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -840,8 +852,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="add user for item" />
-    <MESSAGE value="add comments" />
     <MESSAGE value="add ex_user, add slider on main page, add image on list item admin" />
     <MESSAGE value="add account profile to ex_user" />
     <MESSAGE value="fix fab bootstrap show sub menu" />
@@ -865,7 +875,9 @@
     <MESSAGE value="fix bag migrations from materials.0038_auto_20150627_1030." />
     <MESSAGE value="fix bag migrations from materials.0064" />
     <MESSAGE value="change setting" />
-    <option name="LAST_COMMIT_MESSAGE" value="change setting" />
+    <MESSAGE value="fake" />
+    <MESSAGE value="fake settings" />
+    <option name="LAST_COMMIT_MESSAGE" value="fake settings" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1220,22 +1232,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/materials/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="280" max-vertical-offset="4122">
-          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fs/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2024" max-vertical-offset="2970">
-          <caret line="107" column="0" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/fs/wsgi.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="127" max-vertical-offset="558">
@@ -1248,11 +1244,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tornado_main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7759336" vertical-offset="569" max-vertical-offset="864">
+        <state vertical-scroll-proportion="0.0" vertical-offset="623" max-vertical-offset="864">
           <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
           <folding>
             <element signature="e#208#240#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/materials/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3822" max-vertical-offset="4122">
+          <caret line="233" column="35" selection-start-line="233" selection-start-column="35" selection-end-line="233" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fs/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5625" vertical-offset="1854" max-vertical-offset="2898">
+          <caret line="111" column="13" selection-start-line="111" selection-start-column="13" selection-end-line="111" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
