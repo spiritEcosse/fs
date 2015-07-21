@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6aad01fd-8a8a-4683-a63c-43ca567eccca" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/materials/migrations/0038_auto_20150627_1030.py" afterPath="$PROJECT_DIR$/materials/migrations/0038_auto_20150627_1030.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/materials/migrations/0064_auto_20150708_1338.py" afterPath="$PROJECT_DIR$/materials/migrations/0064_auto_20150708_1338.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="fs.iws" />
@@ -46,7 +46,7 @@
       <file leaf-file-name="item_edit.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/materials/templates/materials/item_edit.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1224" max-vertical-offset="1512">
+            <state vertical-scroll-proportion="-0.0" vertical-offset="1224" max-vertical-offset="1512">
               <caret line="68" column="22" selection-start-line="68" selection-start-column="22" selection-end-line="68" selection-end-column="22" />
               <folding />
             </state>
@@ -56,38 +56,28 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/materials/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="288" max-vertical-offset="396">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="396">
               <caret line="17" column="1" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fs/settings.py">
+      <file leaf-file-name="0064_auto_20150708_1338.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/materials/migrations/0064_auto_20150708_1338.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="512" max-vertical-offset="2970">
-              <caret line="39" column="16" selection-start-line="39" selection-start-column="16" selection-end-line="39" selection-end-column="16" />
+            <state vertical-scroll-proportion="0.5852535" vertical-offset="125" max-vertical-offset="828">
+              <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="0038_auto_20150627_1030.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/materials/migrations/0038_auto_20150627_1030.py">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/materials/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5192308" vertical-offset="54" max-vertical-offset="522">
-              <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="0037_auto_20150627_0903.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/materials/migrations/0037_auto_20150627_0903.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="91" max-vertical-offset="504">
-              <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+            <state vertical-scroll-proportion="-101.29032" vertical-offset="280" max-vertical-offset="4122">
+              <caret line="200" column="8" selection-start-line="200" selection-start-column="4" selection-end-line="200" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -138,7 +128,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/locale/ru/LC_MESSAGES/django.po" />
         <option value="$PROJECT_DIR$/locale/uk/LC_MESSAGES/django.po" />
         <option value="$PROJECT_DIR$/Procfile" />
         <option value="$PROJECT_DIR$/materials/templates/materials/attribute_detail.html" />
@@ -189,6 +178,7 @@
         <option value="$PROJECT_DIR$/static/www/js/custom.js" />
         <option value="$PROJECT_DIR$/fs/settings.py" />
         <option value="$PROJECT_DIR$/materials/migrations/0038_auto_20150627_1030.py" />
+        <option value="$PROJECT_DIR$/materials/migrations/0064_auto_20150708_1338.py" />
       </list>
     </option>
   </component>
@@ -304,7 +294,7 @@
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="FullScreen" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///home/igor/web/www/fs/tornado_main.py&#10;setting&#9;FILE&#9;file:///home/igor/web/www/fs/fs/settings.py&#10;wsgi&#9;FILE&#9;file:///home/igor/web/www/fs/fs/wsgi.py&#10;urls&#9;FILE&#9;file:///home/igor/web/www/fs/materials/urls.py&#10;item&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/item_edit.html&#10;custom&#9;FILE&#9;file:///home/igor/web/www/fs/static/www/js/custom.js&#10;base&#9;FILE&#9;file:///home/igor/web/www/fs/templates/base.html&#10;sett&#9;FILE&#9;file:///home/igor/web/www/fs/fs/settings.py&#10;view&#9;FILE&#9;file:///home/igor/web/www/fs/materials/views.py&#10;admin&#9;FILE&#9;file:///home/igor/web/www/fs/materials/admin.py&#10;views&#9;FILE&#9;file:///home/igor/web/www/fs/ex_user/views.py&#10;style&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/style.less&#10;va&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/variables.less&#10;stle&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/style.less&#10;form&#9;FILE&#9;file:///home/igor/web/www/fs/materials/forms.py&#10;filter&#9;null&#9;null&#10;mode&#9;FILE&#9;file:///home/igor/web/www/fs/materials/models.py&#10;cus&#9;FILE&#9;file:///home/igor/web/www/fs/static/www/js/custom.js&#10;admi&#9;FILE&#9;file:///home/igor/web/www/fs/materials/admin.py&#10;b&#9;FILE&#9;file:///home/igor/web/www/fs/materials/abstract_models.py&#10;model&#9;FILE&#9;file:///home/igor/web/www/fs/materials/models.py&#10;styl&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/style.less&#10;det&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/item_detail.html&#10;ex_user/v&#9;FILE&#9;file:///home/igor/web/www/fs/ex_user/views.py&#10;url&#9;FILE&#9;file:///home/igor/web/www/fs/materials/urls.py&#10;admi.py&#9;FILE&#9;file:///home/igor/web/www/fs/materials/admin.py&#10;models&#9;FILE&#9;file:///home/igor/web/www/fs/materials/models.py&#10;materials/forms&#9;FILE&#9;file:///home/igor/web/www/fs/materials/forms.py&#10;style.css&#9;null&#9;null&#10;deta&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/group_detail.html&#10;pass&#9;FILE&#9;file:///home/igor/web/www/fs/templates/registration/password_change_done.html&#10;passw&#9;FILE&#9;file:///home/igor/web/www/fs/templates/registration/password_change_done.html&#10;password_re&#9;FILE&#9;file:///home/igor/web/www/fs/templates/registration/password_reset_form.html&#10;pas&#9;FILE&#9;file:///home/igor/web/www/fs/templates/registration/password_change_done.html&#10;uls&#9;null&#9;null&#10;registration/&#9;FILE&#9;file:///home/igor/web/www/fs/templates/registration&#10;requi&#9;FILE&#9;file:///home/igor/web/www/fs/requirements.txt&#10;sty&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/style.less&#10;base.ht&#9;FILE&#9;file:///home/igor/web/www/fs/templates/base.html&#10;ba&#9;FILE&#9;file:///home/igor/web/www/fs/ENV/local/lib/python2.7/site-packages/django/core/management/base.py&#10;gro&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/group_detail.html&#10;pro&#9;FILE&#9;file:///home/igor/web/www/fs/ex_user/templates/ex_user/profile.html&#10;sear&#9;FILE&#9;file:///home/igor/web/www/fs/search/templates/search/search.html&#10;varia&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/variables.less&#10;set&#9;FILE&#9;file:///home/igor/web/www/fs/fs/settings.py&#10;ad&#9;FILE&#9;file:///home/igor/web/www/fs/materials/admin.py&#10;i&#9;FILE&#9;file:///home/igor/web/www/fs/materials/search_indexes.py&#10;.js&#9;FILE&#9;file:///home/igor/web/www/fs/static/www/js/custom.js&#10;st&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/style.less&#10;item.ht&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/item_detail.html" />
+    <property name="SearchEverywhereHistoryKey" value="models&#9;FILE&#9;file:///home/igor/web/www/fs/materials/models.py&#10;setting&#9;FILE&#9;file:///home/igor/web/www/fs/fs/settings.py&#10;wsgi&#9;FILE&#9;file:///home/igor/web/www/fs/fs/wsgi.py&#10;urls&#9;FILE&#9;file:///home/igor/web/www/fs/materials/urls.py&#10;item&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/item_edit.html&#10;custom&#9;FILE&#9;file:///home/igor/web/www/fs/static/www/js/custom.js&#10;base&#9;FILE&#9;file:///home/igor/web/www/fs/templates/base.html&#10;sett&#9;FILE&#9;file:///home/igor/web/www/fs/fs/settings.py&#10;view&#9;FILE&#9;file:///home/igor/web/www/fs/materials/views.py&#10;admin&#9;FILE&#9;file:///home/igor/web/www/fs/materials/admin.py&#10;views&#9;FILE&#9;file:///home/igor/web/www/fs/ex_user/views.py&#10;style&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/style.less&#10;va&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/variables.less&#10;stle&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/style.less&#10;form&#9;FILE&#9;file:///home/igor/web/www/fs/materials/forms.py&#10;filter&#9;null&#9;null&#10;mode&#9;FILE&#9;file:///home/igor/web/www/fs/materials/models.py&#10;cus&#9;FILE&#9;file:///home/igor/web/www/fs/static/www/js/custom.js&#10;admi&#9;FILE&#9;file:///home/igor/web/www/fs/materials/admin.py&#10;b&#9;FILE&#9;file:///home/igor/web/www/fs/materials/abstract_models.py&#10;model&#9;FILE&#9;file:///home/igor/web/www/fs/materials/models.py&#10;styl&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/style.less&#10;det&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/item_detail.html&#10;ex_user/v&#9;FILE&#9;file:///home/igor/web/www/fs/ex_user/views.py&#10;url&#9;FILE&#9;file:///home/igor/web/www/fs/materials/urls.py&#10;admi.py&#9;FILE&#9;file:///home/igor/web/www/fs/materials/admin.py&#10;materials/forms&#9;FILE&#9;file:///home/igor/web/www/fs/materials/forms.py&#10;style.css&#9;null&#9;null&#10;deta&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/group_detail.html&#10;pass&#9;FILE&#9;file:///home/igor/web/www/fs/templates/registration/password_change_done.html&#10;passw&#9;FILE&#9;file:///home/igor/web/www/fs/templates/registration/password_change_done.html&#10;password_re&#9;FILE&#9;file:///home/igor/web/www/fs/templates/registration/password_reset_form.html&#10;pas&#9;FILE&#9;file:///home/igor/web/www/fs/templates/registration/password_change_done.html&#10;uls&#9;null&#9;null&#10;registration/&#9;FILE&#9;file:///home/igor/web/www/fs/templates/registration&#10;requi&#9;FILE&#9;file:///home/igor/web/www/fs/requirements.txt&#10;sty&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/style.less&#10;base.ht&#9;FILE&#9;file:///home/igor/web/www/fs/templates/base.html&#10;ba&#9;FILE&#9;file:///home/igor/web/www/fs/ENV/local/lib/python2.7/site-packages/django/core/management/base.py&#10;gro&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/group_detail.html&#10;pro&#9;FILE&#9;file:///home/igor/web/www/fs/ex_user/templates/ex_user/profile.html&#10;sear&#9;FILE&#9;file:///home/igor/web/www/fs/search/templates/search/search.html&#10;varia&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/variables.less&#10;set&#9;FILE&#9;file:///home/igor/web/www/fs/fs/settings.py&#10;ad&#9;FILE&#9;file:///home/igor/web/www/fs/materials/admin.py&#10;i&#9;FILE&#9;file:///home/igor/web/www/fs/materials/search_indexes.py&#10;.js&#9;FILE&#9;file:///home/igor/web/www/fs/static/www/js/custom.js&#10;st&#9;FILE&#9;file:///home/igor/web/www/fs/static/src/less/my_style/style.less&#10;item.ht&#9;FILE&#9;file:///home/igor/web/www/fs/materials/templates/materials/item_detail.html" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="72" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="164" />
@@ -803,7 +793,19 @@
       <option name="project" value="LOCAL" />
       <updated>1437478349362</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="fix bag migrations from materials.0038_auto_20150627_1030.">
+      <created>1437478460223</created>
+      <option name="number" value="00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1437478460223</updated>
+    </task>
+    <task id="LOCAL-00035" summary="fix bag migrations from materials.0064">
+      <created>1437479007662</created>
+      <option name="number" value="00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1437479007662</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TodoView" selected-index="2">
@@ -831,7 +833,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5096582" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.781575" sideWeight="0.5330677" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.6329866" sideWeight="0.5330677" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32988048" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5690936" sideWeight="0.4996016" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35066864" sideWeight="0.49884704" order="12" side_tool="false" content_ui="tabs" />
@@ -868,7 +870,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="admin attribute_values for specifically attribute" />
     <MESSAGE value="add template main group view&#10;add images for item" />
     <MESSAGE value="add user for item" />
     <MESSAGE value="add comments" />
@@ -893,7 +894,8 @@
     <MESSAGE value="fix bag static files (collectstatic)" />
     <MESSAGE value="add root static files" />
     <MESSAGE value="fix bag migrations from materials.0038_auto_20150627_1030." />
-    <option name="LAST_COMMIT_MESSAGE" value="fix bag migrations from materials.0038_auto_20150627_1030." />
+    <MESSAGE value="fix bag migrations from materials.0064" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix bag migrations from materials.0064" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -912,13 +914,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ex_user/templates/ex_user/profile.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6" vertical-offset="1143" max-vertical-offset="2052">
-          <caret line="83" column="78" selection-start-line="83" selection-start-column="78" selection-end-line="83" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/search/templates/search/search.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.53731346" vertical-offset="432" max-vertical-offset="1854">
@@ -1101,13 +1096,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/materials/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.755832" vertical-offset="1566" max-vertical-offset="2898">
-          <caret line="192" column="57" selection-start-line="192" selection-start-column="51" selection-end-line="192" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/src/less/my_style/style.less">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-11.037037" vertical-offset="2546" max-vertical-offset="4950">
@@ -1217,14 +1205,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/materials/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="396">
-          <caret line="17" column="1" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/fs/wsgi.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="127" max-vertical-offset="558">
@@ -1260,14 +1240,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fs/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="512" max-vertical-offset="2970">
-          <caret line="39" column="16" selection-start-line="39" selection-start-column="16" selection-end-line="39" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/materials/migrations/0037_auto_20150627_0903.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="91" max-vertical-offset="504">
@@ -1278,8 +1250,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/materials/migrations/0038_auto_20150627_1030.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5192308" vertical-offset="54" max-vertical-offset="522">
-          <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+        <state vertical-scroll-proportion="0.6210526" vertical-offset="47" max-vertical-offset="522">
+          <caret line="24" column="32" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fs/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.21052632" vertical-offset="512" max-vertical-offset="2970">
+          <caret line="34" column="34" selection-start-line="34" selection-start-column="34" selection-end-line="34" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/materials/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="396">
+          <caret line="17" column="1" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/materials/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-101.29032" vertical-offset="280" max-vertical-offset="4122">
+          <caret line="200" column="8" selection-start-line="200" selection-start-column="4" selection-end-line="200" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/materials/migrations/0064_auto_20150708_1338.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5852535" vertical-offset="125" max-vertical-offset="828">
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding />
         </state>
       </provider>
