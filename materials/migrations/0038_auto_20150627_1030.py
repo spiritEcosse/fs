@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='item',
             name='countries',
-            field=django.contrib.postgres.fields.ArrayField(default='', base_field=models.CharField(max_length=200), verbose_name='countries', size=None),
+            field=django.contrib.postgres.fields.ArrayField(default={}, base_field=models.CharField(max_length=200), verbose_name='countries', size=None),
             preserve_default=False,
         ),
         migrations.AlterField(
