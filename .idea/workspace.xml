@@ -56,8 +56,8 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/fs/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5625" vertical-offset="1854" max-vertical-offset="2898">
-              <caret line="111" column="13" selection-start-line="111" selection-start-column="13" selection-end-line="111" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.3515625" vertical-offset="1854" max-vertical-offset="2844">
+              <caret line="108" column="0" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -787,7 +787,13 @@
       <option name="project" value="LOCAL" />
       <updated>1437486702584</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="change settings">
+      <created>1437487278778</created>
+      <option name="number" value="00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1437487278778</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TodoView" selected-index="2">
@@ -852,7 +858,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="add ex_user, add slider on main page, add image on list item admin" />
     <MESSAGE value="add account profile to ex_user" />
     <MESSAGE value="fix fab bootstrap show sub menu" />
     <MESSAGE value="add translate, Procfile" />
@@ -877,7 +882,8 @@
     <MESSAGE value="change setting" />
     <MESSAGE value="fake" />
     <MESSAGE value="fake settings" />
-    <option name="LAST_COMMIT_MESSAGE" value="fake settings" />
+    <MESSAGE value="change settings" />
+    <option name="LAST_COMMIT_MESSAGE" value="change settings" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1262,8 +1268,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/fs/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5625" vertical-offset="1854" max-vertical-offset="2898">
-          <caret line="111" column="13" selection-start-line="111" selection-start-column="13" selection-end-line="111" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.3515625" vertical-offset="1854" max-vertical-offset="2844">
+          <caret line="108" column="0" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
           <folding />
         </state>
       </provider>

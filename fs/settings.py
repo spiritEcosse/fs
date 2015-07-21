@@ -106,9 +106,6 @@ WSGI_APPLICATION = 'fs.wsgi.application'
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/profile/'
 
-# Database
-# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
