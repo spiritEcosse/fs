@@ -113,17 +113,17 @@ LOGIN_REDIRECT_URL = '/profile/'
 # DATABASES = dict()
 # DATABASES['default'] = dj_database_url.config(default='postgres://sdwggupntqwkhv:NLHqVZibgjGS02J3Cm0rpt8Db9@ec2-54-227-247-161.compute-1.amazonaws.com:5432/d89a2n0erbu51b')
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'fs',
-        'USER': 'fs',
-        'PASSWORD': '1',
-        'HOST': '',
-        'POST': '',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.contrib.gis.db.backends.postgis',
+#         # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'fs',
+#         'USER': 'fs',
+#         'PASSWORD': '1',
+#         'HOST': '',
+#         'POST': '',
+#     }
+# }
 
 
 # Internationalization
