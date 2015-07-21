@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'django.contrib.gis',
     'cities',
     'goslate',
+    'djangular',
     'ex_user',
 )
 
