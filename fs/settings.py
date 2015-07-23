@@ -167,6 +167,7 @@ PIPELINE_LESS_ARGUMENTS = u'--include-path={}'.format(os.pathsep.join([bootstrap
 # STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage'
+PIPELINE_YUGLIFY_CSS_ARGUMENTS = '--terminal'
 
 PIPELINE_COMPILERS = (
     'pipeline.compilers.less.LessCompiler',
