@@ -7,7 +7,7 @@
 # http://localhost:8080/hello-django
 
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+from fs.ex_settings import BASE_DIR
 
 # Activate your virtual env
 activate_env = os.path.expanduser(os.path.join(BASE_DIR, "ENV/bin/activate_this.py"))

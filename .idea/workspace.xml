@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6aad01fd-8a8a-4683-a63c-43ca567eccca" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fs/ex_settings.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tornado_main.py" afterPath="$PROJECT_DIR$/tornado_main.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -43,11 +44,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fs/settings.py">
+      <file leaf-file-name="ex_settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/fs/ex_settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="56" max-vertical-offset="3834">
-              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="252">
+              <caret line="5" column="9" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -56,9 +57,11 @@
       <file leaf-file-name="tornado_main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tornado_main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.22395024" vertical-offset="0" max-vertical-offset="864">
-              <caret line="8" column="9" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
-              <folding />
+            <state vertical-scroll-proportion="0.2799378" vertical-offset="0" max-vertical-offset="864">
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+              <folding>
+                <element signature="e#208#217#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -74,7 +77,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/fs/filter.py" />
         <option value="$PROJECT_DIR$/ex_user/forms.py" />
         <option value="$PROJECT_DIR$/ex_user/models.py" />
         <option value="$PROJECT_DIR$/ex_user/templates/ex_user/registration.html" />
@@ -124,6 +126,7 @@
         <option value="$PROJECT_DIR$/templates/base.html" />
         <option value="$PROJECT_DIR$/fs/settings.py" />
         <option value="$PROJECT_DIR$/static/www/less/style.less" />
+        <option value="$PROJECT_DIR$/fs/ex_settings.py" />
         <option value="$PROJECT_DIR$/tornado_main.py" />
       </list>
     </option>
@@ -361,11 +364,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/fs" />
       <recent name="$PROJECT_DIR$/static/less" />
       <recent name="$PROJECT_DIR$/materials" />
       <recent name="$PROJECT_DIR$/materials/templates/materials" />
       <recent name="$PROJECT_DIR$/templates/registration" />
-      <recent name="$PROJECT_DIR$/static" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/static/www/js" />
@@ -635,12 +638,6 @@
       <created>1429020729346</created>
       <option name="number" value="Default" />
       <updated>1429020729346</updated>
-    </task>
-    <task id="LOCAL-00004" summary="remove model itemAttribute add Attribute">
-      <created>1429918524120</created>
-      <option name="number" value="00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1429918524120</updated>
     </task>
     <task id="LOCAL-00005" summary="admin attribute_values for specifically attribute">
       <created>1430203220383</created>
@@ -930,7 +927,13 @@
       <option name="project" value="LOCAL" />
       <updated>1437652628534</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="tornado_main fix bag load settings">
+      <created>1437652710351</created>
+      <option name="number" value="00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1437652710351</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TodoView" selected-index="2">
@@ -1391,17 +1394,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/fs/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="56" max-vertical-offset="3834">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.30482116" vertical-offset="56" max-vertical-offset="3834">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fs/ex_settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="252">
+          <caret line="5" column="9" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tornado_main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22395024" vertical-offset="0" max-vertical-offset="864">
-          <caret line="8" column="9" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
-          <folding />
+        <state vertical-scroll-proportion="0.2799378" vertical-offset="0" max-vertical-offset="864">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding>
+            <element signature="e#208#217#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
