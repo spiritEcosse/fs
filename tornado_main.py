@@ -6,14 +6,14 @@
 # http://localhost:8080/hello-tornado and
 # http://localhost:8080/hello-django
 
+from fs.settings import BASE_DIR
 import os
-from fs.ex_settings import BASE_DIR
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "fs.settings")
 
 # Activate your virtual env
 activate_env = os.path.expanduser(os.path.join(BASE_DIR, "ENV/bin/activate_this.py"))
 execfile(activate_env, dict(__file__=activate_env))
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "fs.settings")
 
 from tornado.options import options, define, parse_command_line
 import django.core.handlers.wsgi
@@ -39,4 +39,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

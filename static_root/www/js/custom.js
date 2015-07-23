@@ -6,7 +6,7 @@ $(document).ready(function(){
         controls: false
     });
 
-    $('#datetimepicker').datetimepicker({
+     $('#datetimepicker').datetimepicker({
         viewMode: 'years',
         format: 'YYYY-mm-DD'
     });
@@ -168,6 +168,21 @@ $(document).ready(function(){
         });
     });
 
+    var csrftoken = $.cookie('csrftoken');
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    $.ajaxSetup({
+        crossDomain: false, // obviates need for sameOrigin test
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type)) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
     var Autocomplete = function(options) {
         this.form_selector = options.form_selector;
         this.url = options.url || '/search/autocomplete/';
@@ -270,29 +285,4 @@ $(document).ready(function(){
         form_selector: '.autocomplete-me'
     });
     window.autocomplete.setup()
-
-
-    //var module = angular.module('Cabinet', [], function ($interpolateProvider) {
-    //    $interpolateProvider.startSymbol('[[');
-    //    $interpolateProvider.endSymbol(']]');
-    //}).
-    //    config(function($httpProvider){
-    //        $httpProvider.defaults.headers.common['X-CSRFToken'] = '{{ csrf_token }}';
-    //    });
-
-    var csrftoken = $.cookie('csrftoken');
-    function csrfSafeMethod(method) {
-        // these HTTP methods do not require CSRF protection
-        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-    }
-
-    $.ajaxSetup({
-        crossDomain: false, // obviates need for sameOrigin test
-        beforeSend: function(xhr, settings) {
-            if (!csrfSafeMethod(settings.type)) {
-                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            }
-        }
-    });
-
 });
