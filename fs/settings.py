@@ -179,7 +179,7 @@ PIPELINE_CSS = {
             'twitter_bootstrap/less/bootstrap.less',
             'www/less/style.less',
         ),
-        'output_filename': 'css/bla.css',
+        'output_filename': 'css/b.css',
         'extra_context': {
             'media': 'screen,projection',
         },
