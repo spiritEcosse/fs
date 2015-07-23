@@ -6,12 +6,13 @@
 # http://localhost:8080/hello-tornado and
 # http://localhost:8080/hello-django
 
-from fs.settings import BASE_DIR
 import os
 
 # Activate your virtual env
 activate_env = os.path.expanduser(os.path.join(BASE_DIR, "ENV/bin/activate_this.py"))
 execfile(activate_env, dict(__file__=activate_env))
+
+from fs.settings import BASE_DIR
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "fs.settings")
 
