@@ -8,12 +8,12 @@
 
 from fs.settings import BASE_DIR
 import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "fs.settings")
 
 # Activate your virtual env
 activate_env = os.path.expanduser(os.path.join(BASE_DIR, "ENV/bin/activate_this.py"))
 execfile(activate_env, dict(__file__=activate_env))
 
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "fs.settings")
 
 from tornado.options import options, define, parse_command_line
 import django.core.handlers.wsgi
