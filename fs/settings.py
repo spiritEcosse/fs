@@ -46,6 +46,8 @@ INSTALLED_APPS = (
     'cities',
     'goslate',
     'djangular',
+    'twitter_bootstrap',
+    'pipeline',
     'ex_user',
 )
 
@@ -100,6 +102,7 @@ TEMPLATES = [
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
 )
 
 WSGI_APPLICATION = 'fs.wsgi.application'
@@ -151,3 +154,54 @@ TEMPLATE_DIRS = (
 )
 
 DEFAULT_FROM_EMAIL = 'shevchenkcoigor@gmail.com'
+
+
+my_app_less = os.path.join(BASE_DIR, 'static_root')
+
+# For apps outside of your project, it's simpler to import them to find their root folders
+import twitter_bootstrap
+bootstrap_less = os.path.join(os.path.dirname(twitter_bootstrap.__file__), 'static')
+
+PIPELINE_LESS_ARGUMENTS = u'--include-path={}'.format(os.pathsep.join([bootstrap_less, my_app_less]))
+
+# STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage'
+
+PIPELINE_COMPILERS = (
+    'pipeline.compilers.less.LessCompiler',
+)
+
+PIPELINE_CSS = {
+    'bootstrap': {
+        'source_filenames': (
+            'twitter_bootstrap/less/bootstrap.less',
+            'www/less/style.less',
+        ),
+        'output_filename': 'css/bla.css',
+        'extra_context': {
+            'media': 'screen,projection',
+        },
+    },
+}
+
+PIPELINE_JS = {
+    'bootstrap': {
+        'source_filenames': (
+          'twitter_bootstrap/js/transition.js',
+          'twitter_bootstrap/js/modal.js',
+          'twitter_bootstrap/js/dropdown.js',
+          'twitter_bootstrap/js/scrollspy.js',
+          'twitter_bootstrap/js/tab.js',
+          'twitter_bootstrap/js/tooltip.js',
+          'twitter_bootstrap/js/popover.js',
+          'twitter_bootstrap/js/alert.js',
+          'twitter_bootstrap/js/button.js',
+          'twitter_bootstrap/js/collapse.js',
+          'twitter_bootstrap/js/carousel.js',
+          'twitter_bootstrap/js/affix.js',
+          'www/js/bx_slider/jquery.bxslider.min.js'
+        ),
+        'output_filename': 'js/b.js',
+    },
+}
