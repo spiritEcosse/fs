@@ -16,13 +16,11 @@ class ExUser(TemplateView):
         return super(ExUser, self).get(request, *args, **kwargs)
 
 
-class ExUserRegistrationFormView(FormView, TemplateView):
+class ExUserRegistrationFormView(FormView):
     template_name = 'ex_user/registration.html'
     success_url = '/profile/'
     form_class = UserForm
-    prefix = 'form_user'
     ex_user_form = ExUserForm
-    prefix_form_ex_user = 'form_ex_user'
 
     def forms_valid(self, request, **kwargs):
         user = authenticate(username=kwargs['username'], password=kwargs['password'])
@@ -39,7 +37,7 @@ class ExUserRegistrationFormView(FormView, TemplateView):
 
     def post(self, request, *args, **kwargs):
         user_form = self.get_form()
-        form_ex_user = self.ex_user_form(self.request.POST, self.request.FILES, prefix=self.prefix_form_ex_user)
+        form_ex_user = self.ex_user_form(self.request.POST, self.request.FILES)
 
         if user_form.is_valid() and form_ex_user.is_valid():
             user = user_form.save(commit=False)
@@ -48,8 +46,8 @@ class ExUserRegistrationFormView(FormView, TemplateView):
             ex_user = form_ex_user.save(commit=False)
             ex_user.user = user
             ex_user.save()
-            return self.forms_valid(request, username=self.request.POST.get(self.prefix + '-username'),
-                                    password=self.request.POST.get(self.prefix + '-password'))
+            return self.forms_valid(request, username=self.request.POST.get('username'),
+                                    password=self.request.POST.get('password'))
         return self.forms_invalid(user_form, form_ex_user)
 
     def get(self, request, *args, **kwargs):
@@ -61,7 +59,7 @@ class ExUserRegistrationFormView(FormView, TemplateView):
     def get_context_data(self, **kwargs):
         context = dict()
         context['form_user'] = self.get_form()
-        context['form_ex_user'] = self.ex_user_form(prefix=self.prefix_form_ex_user)
+        context['form_ex_user'] = self.ex_user_form()
         context.update(super(ExUserRegistrationFormView, self).get_context_data(**kwargs))
         return context
 
