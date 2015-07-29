@@ -47,6 +47,8 @@ INSTALLED_APPS = (
     'goslate',
     'djangular',
     'ex_user',
+    'crispy_forms',
+    'tastypie',
 )
 
 HAYSTACK_CONNECTIONS = {
@@ -157,4 +159,5 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,  'templates'),
 )
 
+CRISPY_TEMPLATE_PACK = 'bootstrap'
 DEFAULT_FROM_EMAIL = 'shevchenkcoigor@gmail.com'

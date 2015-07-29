@@ -5,7 +5,6 @@ from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
 
 
 class ExUser(TemplateView):

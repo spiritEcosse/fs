@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load staticfiles %}
+
 
 {% with title="Registration" %}
     {% block title %}{% trans title %}{% endblock %}
@@ -7,15 +9,19 @@
     {% block main %}
         <div class="wrapp">
             <h1>{{ title }}</h1>
-            <form enctype="multipart/form-data" action="{% url 'ex_user:registration' %}" method="post">
+            <form enctype="multipart/form-data" name="{{ form_user.form_name }}" method="post" novalidate action="{% url 'ex_user:registration' %}" >
                 {% csrf_token %}
-                {{ form_user.as_p }}
-                {{ form_ex_user.as_p }}
-
-                <div class="pull-right">
-                    <input type="submit" value="Submit"/>
-                </div>
+                {{ form_user.as_div }}
+                {{ form_ex_user.as_div }}
+                <button type="submit" ng-disabled="{{ form_user.form_name }}.$invalid" class="btn btn-primary pull-right">{% trans 'Submit' %}</button>
             </form>
         </div>
-    {% endblock %}
+    {% endblock main %}
 {% endwith %}
+
+{% block scripts %}
+    <script src="{% static 'client/src/js/ng-django-forms.js' %}" type="text/javascript"></script>
+    <script type="text/javascript">
+        var my_app = angular.module('demo', ['ng.django.forms']);
+    </script>
+{% endblock scripts %}
