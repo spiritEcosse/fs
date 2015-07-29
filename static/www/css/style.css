@@ -7477,6 +7477,9 @@ body .container .content .main .wrapp {
 body .container .content .main .wrapp h2 {
   margin-top: 5px;
 }
+body .container .content .main .wrapp .form_registration {
+  overflow: hidden;
+}
 body .container .content .main .popular a {
   color: #0D5096;
   display: block;

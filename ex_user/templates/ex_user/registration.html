@@ -9,7 +9,7 @@
     {% block main %}
         <div class="wrapp" ng-app="registration">
             <h1>{{ title }}</h1>
-            <form enctype="multipart/form-data" name="{{ form_user.form_name }}" method="post" novalidate action="{% url 'ex_user:registration' %}" >
+            <form class="form_registration" enctype="multipart/form-data" name="{{ form_user.form_name }}" method="post" novalidate action="{% url 'ex_user:registration' %}" >
                 {% csrf_token %}
                 {{ form_user.as_div }}
                 {{ form_ex_user.as_div }}
