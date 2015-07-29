@@ -7,7 +7,7 @@
     {% block title %}{% trans title %}{% endblock %}
 
     {% block main %}
-        <div class="wrapp">
+        <div class="wrapp" ng-app="registration">
             <h1>{{ title }}</h1>
             <form enctype="multipart/form-data" name="{{ form_user.form_name }}" method="post" novalidate action="{% url 'ex_user:registration' %}" >
                 {% csrf_token %}
@@ -22,6 +22,9 @@
 {% block scripts %}
     <script src="{% static 'client/src/js/ng-django-forms.js' %}" type="text/javascript"></script>
     <script type="text/javascript">
-        var my_app = angular.module('demo', ['ng.django.forms']);
+        var registration_app = angular.module('registration', ['ng.django.forms']).config(function($interpolateProvider) {
+            $interpolateProvider.startSymbol('{$');
+            $interpolateProvider.endSymbol('$}');
+        });
     </script>
 {% endblock scripts %}
