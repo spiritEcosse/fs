@@ -22,9 +22,6 @@
 {% block scripts %}
     <script src="{% static 'client/src/js/ng-django-forms.js' %}" type="text/javascript"></script>
     <script type="text/javascript">
-        var registration_app = angular.module('registration', ['ng.django.forms']).config(function($interpolateProvider) {
-            $interpolateProvider.startSymbol('{$');
-            $interpolateProvider.endSymbol('$}');
-        });
+        var registration_app = angular.module('registration', ['ng.django.forms']);
     </script>
 {% endblock scripts %}
