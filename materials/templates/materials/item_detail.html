@@ -6,7 +6,7 @@
 {% block title %}{% trans object.title %}{% endblock %}
 
 {% block main %}
-    <div class="item-desc">
+    <div class="item-desc" ng-app="item">
         <div class="wrapp item-detail">
             <div class="row">
                 <div class="col-md-5">
@@ -195,7 +195,7 @@
                     <div class="alert alert-success" role="alert">{{ comment_success_save }}</div>
                 {% endif %}
 
-                <form ng-app="comment" name="{{ form.form_name }}" method="post" novalidate action=".">
+                <form name="{{ form.form_name }}" method="post" novalidate action=".">
                     {% csrf_token %}
                     {{ form.as_div }}
                     <button type="submit" ng-disabled="{{ form.form_name }}.$invalid" class="btn btn-primary btn-group-lg pull-right">{% trans 'Submit' %}</button>
@@ -257,6 +257,6 @@
 {% block scripts %}
     <script src="{% static 'client/src/js/ng-django-forms.js' %}" type="text/javascript"></script>
     <script type="text/javascript">
-        angular.module('comment', ['ng.django.forms']);
+        angular.module('item', ['ng.django.forms']);
     </script>
 {% endblock scripts %}

@@ -6,12 +6,12 @@
 {% block title %}{{ object.title }}{% endblock %}
 
 {% block main %}
-    <div class="wrapp item-edit">
+    <div class="wrapp item-edit" ng-app="edit-item">
         <a href="{{ object.get_absolute_url }}">
             <h1>{{ object.title|capfirst }}</h1>
         </a>
 
-        <form ng-app="edit-item" enctype="multipart/form-data" validate action="{% url 'materials:item_edit' object.slug %}" name="{{ form.form_name }}" method="post" >
+        <form enctype="multipart/form-data" validate action="{% url 'materials:item_edit' object.slug %}" name="{{ form.form_name }}" method="post" >
             {% csrf_token %}
             <div class="row" id="model_name">
                 <div class="col-md-5">
