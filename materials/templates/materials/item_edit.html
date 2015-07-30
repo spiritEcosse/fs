@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load filter_extra %}
+{% load staticfiles %}
 
 {% block title %}{{ object.title }}{% endblock %}
 
@@ -10,7 +11,7 @@
             <h1>{{ object.title|capfirst }}</h1>
         </a>
 
-        <form method="post">
+        <form ng-app="edit-item" enctype="multipart/form-data" validate action="{% url 'materials:item_edit' object.slug %}" name="{{ form.form_name }}" method="post" >
             {% csrf_token %}
             <div class="row" id="model_name">
                 <div class="col-md-5">
@@ -70,9 +71,16 @@
             </div>
             <div class="row">
                 <div class="col-xs-24 text-center">
-                    <input type="submit" class="btn btn-primary" value="{% trans 'Сохранить изменения' %}"/>
+                    <button type="submit" class="btn btn-primary pull-right">{% trans 'Submit' %}</button>
                 </div>
             </div>
         </form>
     </div>
 {% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'client/src/js/ng-django-forms.js' %}" type="text/javascript"></script>
+    <script type="text/javascript">
+        angular.module('edit-item', ['ng.django.forms']);
+    </script>
+{% endblock scripts %}

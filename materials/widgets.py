@@ -25,18 +25,21 @@ class ImageWidget(forms.FileInput):
 class MultipleChoiceWidget(forms.CheckboxSelectMultiple):
     def render(self, name, value, attrs=None, choices=()):
         self.choices.queryset = self.choices.queryset.filter(pk__in=value)
-        output = ''
+        output = []
 
         for obj in self.choices.queryset:
-            output += ('<button class="btn btn-primary btn-xs block" onclick="$(this).remove()" >'
-                       '<input name="%s" type="hidden" value="%d" >%s '
-                       '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>') \
-                      % (name, obj.pk, obj.get_name())
-        output += ('<button class="add_content" class="btn bnt-default btn-sm" id="add_content_type" '
-                   'data-name-field="%s" data-model="%s">'
-                   '<span class="glyphicon glyphicon-plus"></span>'
-                   + unicode(_('Add')) + ' %s</button>') % (name, self.choices.queryset.model._meta.model_name, name, )
-        return mark_safe(output)
+            output.append('<button class="btn btn-primary btn-xs block" onclick="$(this).remove()" >'
+                          '<input name="%s" type="hidden" value="%d" >%s '
+                          '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>'
+                          % (name, obj.pk, obj.get_name()))
+        output.append('<button class="add_content" class="btn bnt-default btn-sm" id="add_content_type" '
+                      'data-name-field="%s" data-model="%s">'
+                      '<span class="glyphicon glyphicon-plus"></span>'
+                      % (name, self.choices.queryset.model._meta.model_name, )
+                      + unicode(_('Add')) + ' %s</button>'
+                      % (name, ))
+        output.append(super(MultipleChoiceWidget, self).render(name, value, attrs=None, choices=()))
+        return mark_safe(u''.join(output))
 
 
 class DateWidget(forms.DateInput):

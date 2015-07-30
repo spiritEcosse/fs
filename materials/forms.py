@@ -7,18 +7,23 @@ from materials.models import Item
 from django.contrib.admin import widgets
 from materials.models import Genre
 from materials.widgets import ImageWidget, MultipleChoiceWidget, DateWidget
+from djangular.forms import NgFormValidationMixin, NgModelForm
+from djangular.styling.bootstrap3.forms import Bootstrap3Form
 
 
-class CommentForm(ModelForm):
+class UserMeta(type(NgModelForm), type(Bootstrap3Form)):
+    pass
+
+
+class CommentForm(NgModelForm, NgFormValidationMixin, Bootstrap3Form):
+    __metaclass__ = UserMeta
+
     class Meta:
         model = Comment
         fields = ['text', 'like_object']
         widgets = {
             'text': forms.Textarea(attrs={'placeholder': _('You comment')})
         }
-        labels = {
-            'text': '',
-            }
         error_messages = {
             'text': {
                 'require': _("This field required."),
@@ -26,7 +31,9 @@ class CommentForm(ModelForm):
             }
 
 
-class EditItemForm(ModelForm):
+class EditItemForm(NgModelForm, NgFormValidationMixin, Bootstrap3Form):
+    __metaclass__ = UserMeta
+
     class Meta:
         model = Item
         fields = ['title', 'origin_title', 'genres', 'main_image', 'description',
