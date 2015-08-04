@@ -11,23 +11,24 @@
             <div class="row">
                 <div class="col-md-5">
                     <a href="#" class="thumbnail"><img class="img-responsive shadow" src="{{ object.main_image.url }}" title="" alt=""></a>
-                    <div class="wrapp-btn">
-                        <a  href="#" role="button" class="btn btn-primary btn-sm btn-block
-                        {% if user_like %}user_del_item{% else %}user_add_item{% endif %}" data-btn-type="0" data-pk="{{ object.pk }}">
-                            {% if user_like %}
-                                {% trans "Favoured" %}
-                            {% else %}
-                                {% trans "Add to favorites" %}
-                            {% endif %}
-                        </a>
-                        <a  href="#" role="button" class="btn btn-primary btn-sm btn-block
-                        {% if user_defer %}user_del_item{% else %}user_add_item{% endif %}" data-btn-type="1" data-pk="{{ object.pk }}">
-                            {% if user_defer %}
-                                {% trans "For the future" %}
-                            {% else %}
-                                {% trans "Add for the future" %}
-                            {% endif %}
-                        </a>
+                    <div class="wrapp-btn" ng-controller="UserAddItem">
+                        <form ng-cloak ng-submit="favorite()" >
+                            <input type="hidden" ng-init="favorite_text='{{ favorite_text }}'">
+                            <input type="hidden" ng-init="favorite_url='{% url 'materials:favorite_item' object.pk %}'">
+                            <input type="hidden" ng-init="favorite_item_add='{{ favorite_item_add }}'">
+                            <button class="btn btn-primary btn-sm btn-block" >
+                                {% verbatim %}{{ favorite_text }}{% endverbatim %}
+                            </button>
+                        </form>
+
+                        <form ng-cloak ng-submit="future()">
+                            <input type="hidden" ng-init="future_text='{{ future_text }}'">
+                            <input type="hidden" ng-init="future_url='{% url 'materials:future_item' object.pk %}'">
+                            <input type="hidden" ng-init="future_item_add='{{ future_item_add }}'">
+                            <button class="btn btn-primary btn-sm btn-block" >
+                                {% verbatim %}{{ future_text }}{% endverbatim %}
+                            </button>
+                        </form>
                     </div>
                 </div>
                 <div class="col-md-14">
@@ -256,7 +257,7 @@
 
 {% block scripts %}
     <script src="{% static 'client/src/js/ng-django-forms.js' %}" type="text/javascript"></script>
-    <script type="text/javascript">
-        angular.module('item', ['ng.django.forms']);
-    </script>
+    <script src="{% static 'materials/js/app.js' %}" type="text/javascript"></script>
+    <script src="{% static 'materials/js/controllers.js' %}" type="text/javascript"></script>
+    <script src="{% static 'materials/js/services.js' %}"></script>
 {% endblock scripts %}

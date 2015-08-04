@@ -7,7 +7,7 @@
 {% block main %}
     <div class="wrapp" ng-app="profile">
         <h1>Welcome, {{ user }}</h1>
-        <div class="row">
+        <div class="row" ng-controller="Tabs">
             <div class="col-md-5">
                 {% if user.ex_user.img %}
                     <div class="image">
@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="col-md-19" >
-                <div id="userTabs" ng-init="tabList=['Favorite', 'Defer']">
+                <div ng-init="tabList=['Favorite', 'Defer']">
                     <ul class="nav nav-tabs" role="tablist">
                         <li ng-repeat="tab in tabList" ng-class="tabClass(tab)">
                             <a ng-click="setTab(tab)" ng-bind="tab"></a>
@@ -112,8 +112,5 @@
 {% endblock %}
 
 {% block scripts %}
-    <script type="text/javascript" src="{% static 'client/src/js/app.js' %}" ></script>
-    <script type="text/javascript">
-        angular.module('profile');
-    </script>
+    <script type="text/javascript" src="{% static 'ex_user/js/app.js' %}" ></script>
 {% endblock scripts %}

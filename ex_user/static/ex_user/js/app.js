@@ -1,9 +1,9 @@
 (function() {
 "use strict";
 
-var my_app = angular.module('profile');
+var profile = angular.module('profile', []);
 
-my_app.controller('TutorialCtrl', function($scope) {
+profile.controller('Tabs', function($scope) {
 	$scope.setTab = function(tab) {
 		$scope.activeTab = tab;
 	};

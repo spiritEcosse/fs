@@ -11,10 +11,10 @@ $(document).ready(function(){
         format: 'YYYY-mm-DD'
     });
 
-    $('#userTabs a').click(function (e) {
-        e.preventDefault();
-        $(this).tab('show')
-    });
+    //$('#userTabs a').click(function (e) {
+    //    e.preventDefault();
+    //    $(this).tab('show')
+    //});
 
     $(document).on('click', '#add_content_type', function(e){
         e.preventDefault();
@@ -64,44 +64,6 @@ $(document).ready(function(){
             select.remove();
             el.attr('id', 'add_content_type');
         }
-    });
-
-    $(document).on('click', '.user_add_item', function(e) {
-        e.preventDefault();
-        var el = $(this);
-
-        $.ajax({
-            url: '/materials/put_item/',
-            type: 'POST',
-            cache: false,
-            data: 'item_pk=' + $(this).attr('data-pk') + '&type_btn=' + $(this).attr('data-btn-type')
-        })
-            .done(function(data) {
-                if (data.success == true) {
-                    el.text(data.text);
-                    el.removeClass('user_add_item');
-                    el.addClass('user_del_item');
-                }
-            })
-    });
-
-    $(document).on('click', '.user_del_item', function(e) {
-        e.preventDefault();
-        var el = $(this);
-
-        $.ajax({
-            url: '/materials/del_item/',
-            type: 'POST',
-            cache: false,
-            data: 'item_pk=' + el.attr('data-pk') + '&type_btn=' + el.attr('data-btn-type')
-        })
-            .done(function(data) {
-                if (data.success == true) {
-                    el.text(data.text);
-                    el.removeClass('user_del_item');
-                    el.addClass('user_add_item');
-                }
-            })
     });
 
     $(document).on('click', '#cancel_vote', function(e){

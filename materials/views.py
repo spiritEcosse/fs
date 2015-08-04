@@ -18,7 +18,12 @@ from materials.forms import CommentForm, EditItemForm
 from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.views.generic import TemplateView
-from django.core import serializers
+from django.views.generic import View
+
+ADD_TO_FAVORITES = _('Add to favorites')
+FAVOURED = _('Favoured')
+FUTURE = _('For the future')
+ADD_TO_FUTURE = _('Add to future')
 
 
 class AttributeDetailView(generic.DetailView):
@@ -234,8 +239,16 @@ class DetailItemView(SingleObjectMixin, FormView):
         context = super(DetailItemView, self).get_context_data(**kwargs)
         context['recommend_item'] = self.object.recommend_item.filter(enable=1)[:8]
         context['count_comments'] = self.object.comments.count()
-        context['user_like'] = self.object.users_liked.filter(user=self.request.user.id)
-        context['user_defer'] = self.object.users_defer.filter(user=self.request.user.id)
+        context['favorite_item_add'] = 1 if self.object.users_liked.filter(user=self.request.user.id).exists() else 0
+        context['future_item_add'] = 1 if self.object.users_defer.filter(user=self.request.user.id).exists() else 0
+        context['favorite_text'] = ADD_TO_FAVORITES
+        context['future_text'] = ADD_TO_FUTURE
+
+        if context['future_item_add'] == 1:
+            context['future_text'] = FUTURE
+
+        if context['favorite_item_add'] == 1:
+            context['favorite_text'] = FAVOURED
         return context
 
     def get_success_url(self):
@@ -337,46 +350,56 @@ class AddContentType(JSONResponseMixin, TemplateView):
         return context
 
 
-@csrf_exempt
-@require_POST
-def put_item(request, **kwargs):
-    pk = request.POST.get('item_pk')
-    item = get_object_or_404(Item, pk=pk)
-    data = {}
+class FavoriteItem(SingleObjectMixin, JSONResponseMixin, View):
+    model = Item
 
-    if request.POST.get('type_btn') == '0':
-        data['text'] = unicode(_('Favoured'))
-        request.user.ex_user.liked.add(item)
-    elif request.POST.get('type_btn') == '1':
-        data['text'] = unicode(_('For the future'))
-        request.user.ex_user.defer.add(item)
-    else:
-        raise Exception('type_btn is not valid')
+    @csrf_exempt
+    def post(self, request, *args, **kwargs):
+        del kwargs['pk']
+        if not request.user.is_authenticated():
+            kwargs['user_not_authorized'] = reverse('/login/?next=%s' % request.path)
+        self.object = self.get_object()
+        return self.render_to_json_response(self.get_context_data(**kwargs), **kwargs)
 
-    data['success'] = True
-    data = json.dumps(data)
-    return HttpResponse(data, content_type="application/json; charset=utf8")
+    def get_context_data(self, **kwargs):
+        context = dict()
+        data = json.loads(self.request.body)
+
+        if int(data.get('favorite_item_add')) == 1:
+            self.request.user.ex_user.liked.remove(self.object)
+            context['favorite_item_add'] = 0
+            context['favorite_text'] = unicode(ADD_TO_FAVORITES)
+        else:
+            self.request.user.ex_user.liked.add(self.object)
+            context['favorite_item_add'] = 1
+            context['favorite_text'] = unicode(FAVOURED)
+        return context
 
 
-@csrf_exempt
-@require_POST
-def del_item(request, **kwargs):
-    pk = request.POST.get('item_pk')
-    item = get_object_or_404(Item, pk=pk)
-    data = {}
+class FutureItem(SingleObjectMixin, JSONResponseMixin, View):
+    model = Item
 
-    if request.POST.get('type_btn') == '0':
-        data['text'] = unicode(_('Add to favorites'))
-        request.user.ex_user.liked.remove(item)
-    elif request.POST.get('type_btn') == '1':
-        data['text'] = unicode(_('Add for the future'))
-        request.user.ex_user.defer.remove(item)
-    else:
-        raise Exception('type_btn is not valid')
+    @csrf_exempt
+    def post(self, request, *args, **kwargs):
+        del kwargs['pk']
+        if not request.user.is_authenticated():
+            kwargs['user_not_authorized'] = reverse('/login/?next=%s' % request.path)
+        self.object = self.get_object()
+        return self.render_to_json_response(self.get_context_data(**kwargs), **kwargs)
 
-    data['success'] = True
-    data = json.dumps(data)
-    return HttpResponse(data, content_type="application/json; charset=utf8")
+    def get_context_data(self, **kwargs):
+        context = dict()
+        data = json.loads(self.request.body)
+
+        if int(data.get('future_item_add')) == 1:
+            self.request.user.ex_user.defer.remove(self.object)
+            context['future_item_add'] = 0
+            context['future_text'] = unicode(ADD_TO_FUTURE)
+        else:
+            self.request.user.ex_user.defer.add(self.object)
+            context['future_item_add'] = 1
+            context['future_text'] = unicode(FUTURE)
+        return context
 
 
 @csrf_exempt
