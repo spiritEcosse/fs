@@ -325,6 +325,7 @@ class JSONResponseMixin(object):
         """
         Returns an object that will be serialized as JSON by json.dumps().
         """
+        from django.core import serializers
         # Note: This is *EXTREMELY* naive; in reality, you'll need
         # to do much more complex handling to ensure that arbitrary
         # objects -- such as Django model instances or querysets

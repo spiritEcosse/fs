@@ -1,9 +1,9 @@
-(function() {
-    "use strict";
+"use strict";
 
-    var profile = angular.module('item', ['ng.django.forms']);
-
-    profile.controller('UserAddItem', function($scope) {
-
-    });
-})();
+var item = angular.module('item', [
+    'ng.django.forms',
+    'itemControllers'
+]).config(function($httpProvider) {
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+});
