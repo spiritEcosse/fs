@@ -108,13 +108,6 @@ WSGI_APPLICATION = 'fs.wsgi.application'
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/profile/'
 
-# Database
-# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
-# import dj_database_url
-# DATABASES = dict()
-# DATABASES['default'] = dj_database_url.config(default='postgres://sdwggupntqwkhv:NLHqVZibgjGS02J3Cm0rpt8Db9@ec2-54-227-247-161.compute-1.amazonaws.com:5432/d89a2n0erbu51b')
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
