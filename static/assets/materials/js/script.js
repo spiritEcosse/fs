@@ -50,16 +50,7 @@
         });
       };
     }
-  ]).provider("addItemFavorite", function() {
-    return $http.post($scope.favorite_url, {
-      favorite_item_add: $scope.favorite_item_add
-    }).success(function(data) {
-      $scope.favorite_text = data.favorite_text;
-      return $scope.favorite_item_add = data.favorite_item_add;
-    }).error(function(data) {
-      return console.log('error');
-    });
-  });
+  ]);
 
 }).call(this);
 

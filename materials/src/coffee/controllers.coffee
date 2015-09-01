@@ -20,9 +20,3 @@ app.controller 'UserAddItem', ['$http', '$scope', ($http, $scope) ->
     .error (data) ->
       console.log('error')
 ]
-.provider "addItemFavorite", [] = ->
-  $http.post($scope.favorite_url, {favorite_item_add: $scope.favorite_item_add}).success (data) ->
-    $scope.favorite_text = data.favorite_text
-    $scope.favorite_item_add = data.favorite_item_add
-  .error (data) ->
-    console.log('error')
