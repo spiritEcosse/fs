@@ -2,32 +2,28 @@
 
 ### jasmine specs for controllers go here ###
 
-app_name = "myApp"
+app_name = "item"
 
 describe 'Controllers', ->
   beforeEach module app_name
 
-  describe 'myCtrl1', ->
+  describe 'UserAddItem', ->
     scope = {}; ctrl = null
     beforeEach inject ($controller) ->
-      ctrl = $controller 'myCtrl1', {$scope: scope}
+      ctrl = $controller 'UserAddItem', {$scope: scope}
 
-    it 'should have a name variable and a say function defined', ->
-      expect(
-        scope.name
-      ).toMatch /view 1/
+    it "the user can put the item in the favorites", ->
+      scope.favorite_item_add = 1
+      scope.favorite_url = '/materials/favorite_item/9/'
+      scope.favorite_text = 'Favoured'
+      scope.favorite()
+      expect(scope.favorite_text).toBe('Add to favorites')
+      expect(scope.favorite_item_add).toBe(0)
 
-      expect(
-        scope.say
-      ).toBeDefined()
-
-
-  describe 'myCtrl2', ->
-    myCtrl2 = null
-
-    scope = {}; ctrl = null
-    beforeEach inject ($controller) ->
-      ctrl = $controller 'myCtrl2', {$scope: scope}
-
-    it 'should ....', ->
-      #spec body
+    it "the user can apply an element of the future", ->
+      scope.future_url = '/materials/future_item/9/'
+      scope.future_url = '/materials/favorite_item/9/'
+      scope.favorite_text = 'For the future'
+      scope.future()
+      expect(scope.favorite_text).toBe('Add to future')
+      expect(scope.favorite_item_add).toBe(0)
