@@ -6,6 +6,8 @@ $(document).ready(function(){
         controls: false
     });
 
+    $(':checkbox').checkboxpicker();
+
     $('#datetimepicker').datetimepicker({
         viewMode: 'years',
         format: 'YYYY-mm-DD'
