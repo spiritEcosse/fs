@@ -11,13 +11,21 @@ REQUIREMENTS_FILE = 'requirements.txt'
 TORNADO_SCRIPT = 'tornado_main.py'
 
 
-def prepare_deploy():
+def deploy():
+    """
+    deploy project on remote server
+    :return:
+    """
     local_act()
     update_requirements()
     touch()
 
 
 def local_act():
+    """
+    prepare deploy
+    :return: None
+    """
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "fs.settings")
     activate_env = os.path.expanduser(os.path.join(BASE_DIR, "ENV/bin/activate_this.py"))
     execfile(activate_env, dict(__file__=activate_env))
@@ -31,19 +39,18 @@ def local_act():
 
 
 def touch():
+    """
+    reload tornado script
+    :return: None
+    """
     run('touch %s' % TORNADO_SCRIPT)
 
 
 def update_requirements():
-    """ update external dependencies on remote host """
+    """
+    install external requirements on remote host
+    :return: None
+    """
     with cd(PROJECT_DIR):
         run('source ENV/bin/activate')
         run('%s%s' % ('pip install -r ', REQUIREMENTS_FILE))
-
-    # require('code_root', provided_by=('staging', 'production'))
-    # requirements = os.path.join(env.code_root, 'requirements')
-    # with cd(requirements):
-    #     cmd = ['pip install']
-    #     cmd += ['-E %(virtualenv_root)s' % env]
-    #     cmd += ['--requirement %s' % os.path.join(requirements, 'requirements.txt')]
-    #     run(' '.join(cmd))
