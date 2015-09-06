@@ -6,7 +6,7 @@ from fs.settings import BASE_DIR
 from fabric.state import env
 env.hosts = ['root@78.24.216.187']
 env.user = 'root'
-PROJECT_DIR = '/home/igor/web/www/fs/'
+PROJECT_DIR = '/home/igor/web/www/fs'
 REQUIREMENTS_FILE = 'requirements.txt'
 TORNADO_SCRIPT = 'tornado_main.py'
 
@@ -35,7 +35,7 @@ def local_act():
     local("git add .")
     local("git commit -F git_commit_message")
     local("git push origin")
-    # local("git push bit")
+    local("git push bit")
 
 
 def touch():
@@ -52,5 +52,4 @@ def update_requirements():
     :return: None
     """
     with cd(PROJECT_DIR):
-        run('source ENV/bin/activate')
-        run('%s%s' % ('pip install -r ', REQUIREMENTS_FILE))
+        run('%s && %s%s' % ('source ENV/bin/activate', 'pip install -r ', REQUIREMENTS_FILE))
