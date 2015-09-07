@@ -33,7 +33,7 @@ def local_act():
     local("%s%s" % ('pip freeze > ', REQUIREMENTS_FILE))
     local("./manage.py collectstatic -c --noinput")
     local("git add .")
-    local("git commit -F git_commit_message")
+    local("git commit -a -F git_commit_message")
     local("git push origin")
     local("git push bit")
 
