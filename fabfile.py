@@ -18,7 +18,6 @@ def deploy():
     """
     local_act()
     update_requirements()
-    touch()
 
 
 def local_act():
@@ -34,16 +33,15 @@ def local_act():
     local("./manage.py collectstatic -c --noinput")
     local("git add .")
     local("git commit -a -F git_commit_message")
+    current_branch = local("git symbolic-ref --short -q HEAD", capture=True)
+
+    if current_branch != 'master':
+        local("git checkout master")
+        local("git merge %s" % current_branch)
+        local("git branch -d %s" % current_branch)
+
     local("git push origin")
     local("git push bit")
-
-
-def touch():
-    """
-    reload tornado script
-    :return: None
-    """
-    run('touch %s' % TORNADO_SCRIPT)
 
 
 def update_requirements():
