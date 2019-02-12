@@ -1,0 +1,264 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load filter_extra %}
+{% load staticfiles %}
+
+{% block title %}{% trans object.title %}{% endblock %}
+
+{% block main %}
+    <div class="item-desc" ng-app="item">
+        <div class="wrapp item-detail">
+            <div class="row">
+                <div class="col-md-5">
+                    <a href="#" class="thumbnail"><img class="img-responsive shadow" src="{{ object.main_image.url }}" title="" alt=""></a>
+                    <div class="wrapp-btn" ng-controller="UserAddItem">
+                        <form ng-cloak ng-submit="favorite()" >
+                            <input type="hidden" ng-init="favorite_text='{{ favorite_text }}'">
+                            <input type="hidden" ng-init="favorite_url='{% url "materials:favorite_item" object.pk %}'">
+                            <input type="hidden" ng-init="favorite_item_add='{{ favorite_item_add }}'">
+                            <button class="btn btn-primary btn-sm btn-block" >
+                                {% verbatim %}{{ favorite_text }}{% endverbatim %}
+                            </button>
+                        </form>
+
+                        <form ng-cloak ng-submit="future()">
+                            <input type="hidden" ng-init="future_text='{{ future_text }}'">
+                            <input type="hidden" ng-init="future_url='{% url "materials:future_item" object.pk %}'">
+                            <input type="hidden" ng-init="future_item_add='{{ future_item_add }}'">
+                            <button class="btn btn-primary btn-sm btn-block" >
+                                {% verbatim %}{{ future_text }}{% endverbatim %}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-14">
+                    <h1>{{ object.title|capfirst }}<br/>
+                        <small>{{ object.origin_title }}</small>
+                    </h1>
+
+                    <div class="row">
+                        {% for country in object.countries.all %}
+                            <div class=" col-md-7">
+                                <a class="btn btn-primary btn-xs">
+                                    <img src="{% static 'flags/' %}{{ country.code|lower }}.gif">
+                                    {{ country|truncatechars:"50" }}
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    {% for attr in object.item_attr.all %}
+                        <div class="row">
+                            <div class=" col-md-7">
+                                <span>{{ attr.attribute }}:</span>
+                            </div>
+                            <div class="col-md-17">
+                                {% for value in attr.attribute_values.all|slice:":3" %}
+                                    <a class="btn btn-primary btn-xs">{{ value }}</a>
+                                {% endfor %}
+
+                                {% with attribute_values=attr.attribute_values.all|slice:"3:" %}
+                                    {% if attribute_values %}
+                                        <a class="btn btn-primary btn-xs" id="btn-more-{{ forloop.counter }}"
+                                           onclick="$('#btn-more-{{ forloop.counter }}').addClass('none');
+                                                   $('#more-desc-{{ forloop.counter }}').removeClass('none');
+                                                   $('#more-desc-{{ forloop.counter }}').addClass('block'); ">
+                                            еще
+                                        </a>
+                                        <div class="more-desc none" id="more-desc-{{ forloop.counter }}">
+                                            {% for value in attribute_values %}
+                                                <a class="btn btn-primary btn-xs">{{ value }}</a>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                {% endwith %}
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    <div class="row vertical-offset-md">
+                        {% for item_image in object.images.all %}
+                            <div class="col-md-4 wrapp-block">
+                                <a href="{{ item_image.pk }}" >
+                                    <img alt="{{ item_image.title }}" title="{{ item_image.title }}" src="{{ item_image.image.url }}" class="img-responsive">
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="row rating">
+                        <div class="col-md-9">
+                            <span>{% trans "Оценки пользователей" %}</span>
+                            <div class="progress">
+                                {% with sum_like=object.like|add:object.not_like %}
+                                    {% with percent_like=object.like|percent:sum_like %}
+                                        <div class="progress-bar progress-bar-success" style="width: {{ percent_like }}%">
+                                            <span class="sr-only">{{ percent_like }}% Complete (success)</span>
+                                        </div>
+                                        {% with percent_not_like=100|sub:percent_like %}
+                                            <div class="progress-bar progress-bar-danger" style="width: {{ percent_not_like }}%">
+                                                <span class="sr-only">{{ percent_not_like }}% Complete (danger)</span>
+                                            </div>
+                                        {% endwith %}
+                                    {% endwith %}
+                                {% endwith %}
+                            </div>
+                        </div>
+                        <div class="col-md-6 section text-center">
+                            <div class="text-center display-inline-block">
+                                <div class="like pull-left" id="like"><span>{{ object.like }}</span></div>
+                                <div class="not-like pull-left" id="not_like"><span>{{ object.not_like }}</span></div>
+                            </div>
+                        </div>
+                        <div class="col-md-9 section text-center">
+                            {% if object in request.user.ex_user.like_item.all %}
+                                <div class="cancel_vote green">
+                                    {% trans 'Ваша оценка +1' %}
+                                    <a data-pk="{{ object.pk }}"  href="#" role="button"  data-type-btn="1" id="cancel_vote">{% trans 'отмена' %}</a>
+                                </div>
+                            {% elif object in request.user.ex_user.not_like_item.all %}
+                                <div class="cancel_vote red">
+                                    {% trans 'Ваша оценка -1' %}
+                                    <a data-pk="{{ object.pk }}"  href="#" role="button" data-type-btn="0" id="cancel_vote">{% trans 'отмена' %}</a>
+                                </div>
+                            {% else %}
+                                <a class="btn btn-success btn-xs" id="vote" data-type-btn="1" data-pk="{{ object.pk }}">{% trans "Нравиться" %}</a>
+                                <a class="btn btn-danger btn-xs" id="vote" data-type-btn="0" data-pk="{{ object.pk }}">{% trans "Не нравиться" %}</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">f
+                    <span>{% trans "Трейлер" %}</span>
+                </div>
+            </div>
+
+            <div class="row share-net">
+                <div class="col-md-12">
+                    <span>{% trans "Понравился фильм? Поделись с друзьями!" %}</span>
+                </div>
+                <div class="col-md-12">
+                </div>
+            </div>
+
+            <div class="row description">
+                <div class="col-xs-24">
+                    {{ object.description }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-5 col-xs-offset-19">
+                    <a class="bnt" href="{% url 'materials:item_edit' object.slug %}" >{% trans 'Редактировать материал' %}</a>
+                </div>
+            </div>
+
+            {% if object.tags %}
+                <ul>
+                    {% for tag in object.tags %}
+                        <li>{{ tag }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <div class="row text-center">
+                <div class="col-md-8">
+                    <a role="button" href="#">
+                        {% trans 'Файлы и папки' %}
+                    </a>
+                </div>
+                <div class="col-md-8">
+                    <a role="button" href="{{ object.get_play_url }}" class="btn btn-primary btn-sm">Смотреть онлайн</a>
+                </div>
+                <div class="col-md-8">
+                    <a role="button" href="#">
+                        {% trans 'Управление файлами' %}
+                    </a>
+                </div>
+            </div>
+
+            {% if recommend_item %}
+                <div class="row related">
+                    <h3>{% trans "Похожие материалы" %}</h3>
+
+                    {% for item in recommend_item %}
+                        <div class="col-md-3">
+                            <a href="{{ item.get_absolute_url }}" class="item">
+                                <img class="img-responsive shadow img-rounded" src="{{ item.main_image.url }}">
+                                <div class="title">{{ item.title|truncatechars:20 }}</div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="new_comment none" id="write_comment">
+                {% if comment_success_save %}
+                    <div class="alert alert-success" role="alert">{{ comment_success_save }}</div>
+                {% endif %}
+
+                <form name="{{ form.form_name }}" method="post" novalidate action=".">
+                    {% csrf_token %}
+                    {{ form.as_div }}
+                    <button type="submit" ng-disabled="{{ form.form_name }}.$invalid" class="btn btn-primary btn-group-lg pull-right">{% trans 'Submit' %}</button>
+                </form>
+            </div>
+
+            <div class="row comments">
+                <div class="col-md-24">
+                    <div class="row">
+                        <div class="col-xs-5 col-xs-offset-19">
+                            <button class="btn btn-primary"
+                                    onclick="$('#write_comment').removeClass('none'); $('#write_comment').addClass('block');$(this).addClass('none');">{% trans 'Написать комментарий' %}
+                            </button>
+                        </div>
+                    </div>
+
+                    <h3>{% trans 'Лучшие отзывы' %}</h3>
+                    <div class="row">
+                        <div class="col-xs-5">
+                            {{ count_comments }}
+                        </div>
+                    </div>
+                </div>
+
+                {% for comment in object.comments.all %}
+                    <div class="col-md-24 comment {% if comment.like_object %}positive{% else %}negative{% endif %}">
+                        <div class="row">
+                            <div class="col-md-2">
+                                {% if comment.user.ex_user.img.url %}
+                                    <a href="#">
+                                        <img class="img-user img-responsive img-rounded" src="{{ comment.user.ex_user.img.url }}">
+                                    </a>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-22">
+                                <div class="name pull-left"><a href="">{{ comment.user }}</a></div>
+                                <div class="date pull-left"><span>{{ comment.date_create }}</span></div>
+                                <div class="help-comment pull-right">
+                                    <span>{% trans "Отзыв был полезен?" %}</span>
+                                    <a href="#" class="btn btn-default btn-xs">
+                                        Да<span class="pos-number">{{ comment.like }}</span>
+                                    </a>
+                                    <a href="#" class="btn btn-default btn-xs">
+                                        Нет<span class="negat-number">{{ comment.not_like }}</span>
+                                    </a>
+                                </div>
+                                <div class="comment-text">
+                                    <p>{{ comment.text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static "assets/bower_components/underscore/underscore.js" %}"></script>
+    <script src="{% static "assets/bower_components/angular/angular.js" %}"></script>
+    <script src="{% static "assets/bower_components/angular-resource/angular-resource.js" %}"></script>
+    <script src="{% static "assets/materials/js/script.js" %}"></script>
+    <script src="{% static 'client/src/js/ng-django-forms.js' %}" type="text/javascript"></script>
+{% endblock scripts %}

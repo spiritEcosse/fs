@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>End2end Test Runner</title>
+    <script src="../lib/angular/angular-scenario.js"></script>
+    <script src="../../app/lib/coffeescript/coffeescript.min.js"></script>
+    <script>
+      CoffeeScript.load('scenarios.coffee', function(){
+        angular.scenario.setUpAndRun({});
+      });
+    </script>
+  </head>
+  <body>
+  </body>
+</html>

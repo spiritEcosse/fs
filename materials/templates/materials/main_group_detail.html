@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block main %}
+    <div class="wrapp category">
+        <div class="row main_category">
+            <div class="col-xs-3">
+                <h1>{{ object.title|capfirst }}</h1>
+            </div>
+
+            {% for group in object.groups.all %}
+                <div class="col-xs-4">
+                    <a href="{{ group.get_absolute_url }}">
+                        <div class="sub-cat">
+                            <span class="film" aria-hidden="true"></span>
+                            <span class="text">{{ group.title|capfirst }}</span>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% if items_popular %}
+    <div class="menu">
+        <div class="row wrapp now">
+            <div class="col-xs-24">
+                <h3>
+                    Самое просматриваемое прямо сейчас
+                </h3>
+            </div>
+
+            {% for item in items_popular %}
+                <div class="col-md-3 col-sm-4 col-xs-6">
+                    <a href="{{ item.get_absolute_url }}">
+                        {% if item.main_image %}
+                            <img title="{{ item.title }}" alt="{{ item.title }}" class="img-responsive shadow" src="{{ item.main_image.url }}">
+                        {% endif %}
+                        <div class="title">{{ item.title|truncatechars:12 }}</div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}
+

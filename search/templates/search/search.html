@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans 'Results for - ' %}{{ query }}{% endblock %}
+
+{% block main %}
+    <div class="wrapp search">
+        {% if query %}
+            <h2>{% trans 'Results for - ' %}{{ query }}</h2>
+
+            {% if object_list %}
+                <div class="row">
+                    <div class="col-xs-4">
+                        {% for group in groups_search %}
+                            <a href="?q={{ query }}&amp;group={{ group.slug }}"
+                               class="{% if group_slug == group.slug %}active{% endif %} btn btn-block btn-default btn-md">
+                                {% if group.icon.img %}
+                                    <div class="icon-bar">
+                                        <img src="{{ group.icon.img.url }}" >
+                                    </div>
+                                {% endif %}
+                                {{ group.title }} {{ group.count_items }}
+                            </a>
+                        {% endfor %}
+                    </div>
+
+                    <div class="col-xs-20 group">
+                        {% for item in object_list %}
+                            <a class="item" href="{{ item.object.get_absolute_url }}">
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <img class="img-responsive shadow-item" src="{{ item.object.main_image.url }}">
+                                    </div>
+                                    <div class="col-xs-20">
+                                        <div class="title">
+                                            {{ item.object.title|truncatechars:33|capfirst }} /
+                                            {{ item.object.origin_title|truncatechars:33|capfirst }}
+                                            ({{ item.object.year_release|date:"Y" }})
+                                        </div>
+                                        <div class="category">
+                                            <div class="pull-left label-bl" >
+                                                <span class="label label-primary">{{ item.object.main_group }}</span>
+                                                {% for genre in item.object.genres.all %}
+                                                    <span class="label label-default">{{ genre.title }}</span>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="like pull-left">{{ item.object.like }}</div>
+                                            <div class="not-like pull-left">{{ item.object.not_like }}</div>
+                                        </div>
+                                        <div class="desc">
+                                            {{ item.object.description|truncatechars:200 }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                <div>No results found.</div>
+            {% endif %}
+
+            {% if page_obj.has_previous or page_obj.has_next %}
+                <div class="row text-center">
+                    <div class="col-xs-18 col-xs-offset-4">
+                        <nav>
+                            <ul class="pagination pagination-lg">
+                                {% if page_obj.has_previous %}
+                                    <li>
+                                        <a href="?q={{ query }}&amp;{% if group_slug %}group={{ group_slug }}&amp;{% endif %}page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+
+                                {% for num in page_obj.paginator.page_range %}
+                                    <li {% if num == page_obj.number %}class="active" onclick='return false;'{% endif %}>
+                                        <a href="?q={{ query }}&amp;{% if group_slug %}group={{ group_slug }}&amp;{% endif %}page={{ num }}">{{ num }}</a>
+                                    </li>
+                                {% endfor %}
+
+                                {% if page_obj.has_next %}
+                                    <li>
+                                        <a href="?q={{ query }}&amp;{% if group_slug %}group={{ group_slug }}&amp;{% endif %}page={{ page_obj.next_page_number }}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            {% endif %}
+        {% else %}
+            {# Show some example queries to run, maybe query syntax, something else? #}
+        {% endif %}
+    </div>
+{% endblock %}

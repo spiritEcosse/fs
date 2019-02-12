@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block main %}
+    <div class="wrapp category">
+        <div class="row">
+            <div class="col-xs-24">
+                <h1>{{ object.title|capfirst }}</h1>
+            </div>
+
+            {% for attribute in object.attributes.all %}
+                <div class="col-md-4">
+                    <div class="heading">
+                        {% if attribute.icon %}
+                            <span class="glyphicon glyphicon-{{ attribute.icon }}" aria-hidden="true"></span>
+                        {% endif %}
+                        {{ attribute.title }}
+                    </div>
+                    {% for children in attribute.children.all %}
+                        <a href="{{ children.link }}" class="{% if children.active %}active {% endif %}btn btn-block btn-default btn-sm">
+                            <span class="block text-left">{{ children.title }}</span>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% if items_popular %}
+        <div class="menu">
+            <div class="row wrapp now">
+                <div class="col-xs-24">
+                    <h3>
+                        Самое просматриваемое прямо сейчас
+                    </h3>
+                </div>
+
+                {% for item in items_popular %}
+                    <div class="col-md-3 col-sm-4 col-xs-6">
+                        <a href="{{ item.get_absolute_url }}">
+                            {% if item.main_image %}
+                                <img title="{{ item.title }}" alt="{{ item.title }}" class="img-responsive shadow" src="{{ item.main_image.url }}">
+                            {% endif %}
+                            <div class="title">{{ item.title|truncatechars:12 }}</div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="wrapp list-item">
+        <div class="row">
+            <div class="col-md-12">
+                {% block breadcrumbs %}
+                    <ol class="breadcrumb">
+                        {% for group in breadcrumbs %}
+                            <li><a href="{{ group.get_absolute_url }}">{{ group.title|capfirst }}</a></li>
+                        {% endfor %}
+                        <li class="active"><a>{{ object.title|capfirst }}</a></li>
+                    </ol>
+                {% endblock %}
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                {{ sort }}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                {% for text, link in link_sort %}
+                                    <li><a href="{{ link }}">{{ text }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-md-offset-8 text-right">
+                        <button class="btn btn-default active"><span class="glyphicon glyphicon-th"></span></button>
+                        <button class="btn btn-default"><span class="glyphicon glyphicon-th-list"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if items %}
+            <div class="row group">
+                {% for item in items %}
+                    <div class="col-md-4 item">
+                        <a href="{{ item.get_absolute_url }}">
+                            <img class="img-responsive shadow-item" src="{{ item.main_image.url }}">
+                            <div class="empty"></div>
+                            <div class="short_title">
+                                <span>{{ item.title|truncatechars:33 }}</span>
+                            </div>
+                            <div class="full_title">
+                                <div class="title"><span>{{ item.title|truncatechars:50 }}</span></div>
+                                <div class="short_desc">
+                                    <span>{{ item.year_release|date:'Y' }}</span>
+                                <span>
+                                    {% with countries=item.countries.all|join:', ' %}
+                                        {% if countries %}
+                                            &bull; {{ countries|truncatechars:"50" }}
+                                        {% endif %}
+                                    {% endwith %}
+                                </span>
+                                </div>
+                                <div class="bottom">
+                                    <div class="like pull-left">{{ item.like }}</div>
+                                    <div class="not-like pull-left">{{ item.not_like }}</div>
+                                    <div class="quality pull-right text-right">
+                                        <span class="hd"></span>
+                                        <span class="hq"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <nav>
+                <ul class="pagination pagination-lg">
+                    {% if items.has_previous %}
+                        <li>
+                            <a href="?page={{ items.previous_page_number }}{{ items.paginator.link }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% for page in items.paginator.page_range  %}
+                        <li {% if page == items.number %}class="active" onclick='return false;'{% endif %}>
+                            <a href="?page={{ page }}{{ items.paginator.link }}">{{ page }}</a>
+                        </li>
+                    {% endfor %}
+
+                    {% if items.has_next %}
+                        <li>
+                            <a href="?page={{ items.next_page_number }}{{ items.paginator.link }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+    </div>
+{% endblock %}
+

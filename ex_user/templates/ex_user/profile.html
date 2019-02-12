@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}{% trans 'Profile' %}{% endblock %}
+
+{% block main %}
+    <div class="wrapp" ng-app="profile">
+        <h1>Welcome, {{ user }}</h1>
+        <div class="row" ng-controller="Tabs">
+            <div class="col-md-5">
+                {% if user.ex_user.img %}
+                    <div class="image">
+                        <img class="img-user img-responsive img-rounded" src="{{ user.ex_user.img.url }}">
+                    </div>
+                {% endif %}
+                <div class="password_change">
+                    <a href="{% url 'password_change' %}">password change</a>
+                </div>
+            </div>
+            <div class="col-md-19" >
+                <div ng-init="tabList=['Favorite', 'Defer']">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li ng-repeat="tab in tabList" ng-class="tabClass(tab)">
+                            <a ng-click="setTab(tab)" ng-bind="tab"></a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="tab-content">
+                    <div ng-show="activeTab==='Favorite'">
+                        <div class="list-item">
+                            <div class="row group">
+                                {% for item in user.ex_user.liked.all %}
+                                    <div class="col-xs-4 item">
+                                        <a href="{{ item.get_absolute_url }}">
+                                            <img class="img-responsive shadow-item" src="{{ item.main_image.url }}">
+                                            <div class="empty"></div>
+                                            <div class="short_title">
+                                                <span>{{ item.title|truncatechars:33 }}</span>
+                                            </div>
+                                            <div class="full_title">
+                                                <div class="title"><span>{{ item.title|truncatechars:50 }}</span></div>
+                                                <div class="short_desc">
+                                                    <span>{{ item.year_release|date:'Y' }}</span>
+                                                    <span>
+                                                        {% with countries=item.countries.all|join:', ' %}
+                                                            {% if countries %}
+                                                                &bull; {{ countries|truncatechars:"50" }}
+                                                            {% endif %}
+                                                        {% endwith %}
+                                                    </span>
+                                                </div>
+                                                <div class="bottom">
+                                                    <div class="like pull-left">{{ item.like }}</div>
+                                                    <div class="not-like pull-left">{{ item.not_like }}</div>
+                                                    <div class="quality pull-right text-right">
+                                                        <span class="hd"></span>
+                                                        <span class="hq"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-show="activeTab==='Defer'" >
+                        <div class="list-item">
+                            <div class="row group">
+                                {% for item in user.ex_user.defer.all %}
+                                    <div class="col-xs-4 item">
+                                        <a href="{{ item.get_absolute_url }}">
+                                            <img class="img-responsive shadow-item" src="{{ item.main_image.url }}">
+                                            <div class="empty"></div>
+                                            <div class="short_title">
+                                                <span>{{ item.title|truncatechars:33 }}</span>
+                                            </div>
+                                            <div class="full_title">
+                                                <div class="title"><span>{{ item.title|truncatechars:50 }}</span></div>
+                                                <div class="short_desc">
+                                                    <span>{{ item.year_release|date:'Y' }}</span>
+                                                    <span>
+                                                        {% with countries=item.countries.all|join:', ' %}
+                                                            {% if countries %}
+                                                                &bull; {{ countries|truncatechars:"50" }}
+                                                            {% endif %}
+                                                        {% endwith %}
+                                                    </span>
+                                                </div>
+                                                <div class="bottom">
+                                                    <div class="like pull-left">{{ item.like }}</div>
+                                                    <div class="not-like pull-left">{{ item.not_like }}</div>
+                                                    <div class="quality pull-right text-right">
+                                                        <span class="hd"></span>
+                                                        <span class="hq"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="{% static 'ex_user/js/app.js' %}" ></script>
+{% endblock scripts %}
