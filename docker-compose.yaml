@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+    db:
+        image: mdillon/postgis:10
+        volumes:
+            - ./docker/postgres/:/docker-entrypoint-initdb.d/
+            - db_data:/var/lib/postgresql/data
+        environment:
+            POSTGRES_PASSWORD: "fs"
+            POSTGRES_USER: "fs"
+            POSTGRES_DB: "fs"
+            PGDATA: "/var/lib/postgresql/data/db/"
+
+    web:
+        build: .
+        command: python manage.py runserver 0.0.0.0:8000
+        volumes:
+            - ~/.ipython:/root/.ipython
+            - .:/code
+        ports:
+            - "8007:8000"
+        depends_on:
+            - db
+
+volumes:
+    db_data:

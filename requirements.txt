@@ -19,7 +19,6 @@ django-url-breadcrumbs==0.3.3
 djangorestframework==2.4.6
 ecdsa==0.13
 elasticsearch==1.6.0
-Fabric==1.10.2
 futures==3.0.3
 goslate==1.4.0
 gunicorn==19.3.0
@@ -41,3 +40,5 @@ Unidecode==0.4.17
 urllib3==1.10.4
 Werkzeug==0.10.4
 Whoosh==2.7.0
+django-suit==0.2.26
+git+https://github.com/feincms/feincms
