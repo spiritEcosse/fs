@@ -35,7 +35,7 @@ phonenumbers==7.0.4
 pickleshare==0.7.5
 Pillow==2.8.1
 prompt-toolkit==1.0.15
-psycopg2
+psycopg2-binary
 ptyprocess==0.6.0
 pycrypto==2.6.1
 Pygments==2.3.1
