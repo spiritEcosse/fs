@@ -27,8 +27,8 @@ class CommentForm(NgModelForm, NgFormValidationMixin, Bootstrap3Form):
         error_messages = {
             'text': {
                 'require': _("This field required."),
-                },
-            }
+            },
+        }
 
 
 class EditItemForm(NgModelForm, NgFormValidationMixin, Bootstrap3Form):
@@ -36,17 +36,36 @@ class EditItemForm(NgModelForm, NgFormValidationMixin, Bootstrap3Form):
 
     class Meta:
         model = Item
-        fields = ['title', 'origin_title', 'genres', 'main_image', 'description',
-                  'year_release', 'countries']
+        fields = [
+            'title', 'origin_title', 'genres', 'main_image', 'description',
+            'countries'
+        ]
         labels = {
-            'origin_title': _('Original name (do not fill in if the same as Russian):'),
+            'origin_title':
+            _('Original name (do not fill in if the same as Russian):'),
         }
         widgets = {
-            'main_image': ImageWidget(attrs={'max_width': 'auto', 'max_height': 'auto'}),
-            'genres': MultipleChoiceWidget,
-            'countries': MultipleChoiceWidget,
-            'year_release': DateWidget,
-            'description': forms.Textarea(attrs={'class': "form-control"}),
-            'title': forms.TextInput(attrs={'size': 40, 'title': _('Title'), 'class': "form-control"}),
-            'origin_title': forms.TextInput(attrs={'size': 40, 'title': _('Origin title'), 'class': "form-control"}),
+            'main_image':
+            ImageWidget(attrs={
+                'max_width': 'auto',
+                'max_height': 'auto'
+            }),
+            'genres':
+            MultipleChoiceWidget,
+            'countries':
+            MultipleChoiceWidget,
+            'description':
+            forms.Textarea(attrs={'class': "form-control"}),
+            'title':
+            forms.TextInput(attrs={
+                'size': 40,
+                'title': _('Title'),
+                'class': "form-control"
+            }),
+            'origin_title':
+            forms.TextInput(attrs={
+                'size': 40,
+                'title': _('Origin title'),
+                'class': "form-control"
+            }),
         }

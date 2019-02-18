@@ -6,8 +6,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericRelation
 from comments.models import Comment
-
-# from cities.models import Country
+from cities.models import Country
 
 
 class Genre(models.Model):
@@ -128,13 +127,13 @@ class ItemClass(models.Model):
         return self.title
 
 
-# class ProxyCountry(Country):
+class ProxyCountry(Country):
 
-#     def get_name(self):
-#         return self.name
+    def get_name(self):
+        return self.name
 
-#     class Meta:
-#         proxy = True
+    class Meta:
+        proxy = True
 
 
 class Item(models.Model):
@@ -153,8 +152,8 @@ class Item(models.Model):
         'Group', verbose_name=_('Main Group'), related_name='items_main_group')
     genres = models.ManyToManyField(
         'Genre', verbose_name=_('Genre'), related_name='items', blank=True)
-    # countries = models.ManyToManyField(
-    #     'ProxyCountry', verbose_name=_('Countries production'))
+    countries = models.ManyToManyField(
+        'ProxyCountry', verbose_name=_('Countries production'))
     recommend_item = models.ManyToManyField(
         'self', verbose_name=_('Recommended item'), blank=True)
     main_image = models.ImageField(

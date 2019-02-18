@@ -14,6 +14,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import os
 from django.utils.translation import ugettext_lazy as _
 from os import environ
+import dj_database_url
+from decouple import config
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -44,7 +46,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'multiselectfield',
     'django.contrib.gis',
-    # 'cities',
+    'cities',
     'goslate',
     'djangular',
     'ex_user',
@@ -117,8 +119,8 @@ LOGIN_REDIRECT_URL = '/profile/'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'fs',
         'USER': 'fs',
         'PASSWORD': 'fs',
@@ -126,6 +128,8 @@ DATABASES = {
         'PORT': '',
     }
 }
+
+DATABASES = {'default': dj_database_url.config(default=config('DATABASE_URL'))}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/

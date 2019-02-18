@@ -57,3 +57,4 @@ virtualenv==16.4.0
 wcwidth==0.1.7
 Werkzeug==0.10.4
 Whoosh==2.7.0
+python-decouple
