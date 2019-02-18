@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from django.utils.translation import ugettext_lazy as _
+from os import environ
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -115,8 +117,8 @@ LOGIN_REDIRECT_URL = '/profile/'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'fs',
         'USER': 'fs',
         'PASSWORD': 'fs',
@@ -154,3 +156,14 @@ TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'), )
 
 CRISPY_TEMPLATE_PACK = 'bootstrap'
 DEFAULT_FROM_EMAIL = 'shevchenkcoigor@gmail.com'
+
+LANGUAGES = (
+    (
+        'ru',
+        _('Russia'),
+    ),
+    ('en', _('English')),
+)
+
+GEOS_LIBRARY_PATH = environ.get('GEOS_LIBRARY_PATH')
+GDAL_LIBRARY_PATH = environ.get('GDAL_LIBRARY_PATH')

@@ -236,7 +236,8 @@ $(document).ready(function(){
                 console.log(obj.countries);
 
                 var html;
-                html =  '<a href="" class="block item-search">';
+                html =  '<a href="';
+                html += obj.href + '" class="block item-search">';
                 html += '<div class="row">';
                 html += '   <div class="col-md-7">';
                 html += '       <img class="img-responsive shadow" title="' + obj.title + '" alt="' + obj.title + '" src="' + obj.main_image + '" >';

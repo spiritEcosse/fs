@@ -28,22 +28,22 @@
 <body>
 <div class="wrapper container">
     <div class="content">
-        {#    <form action="{% url 'set_language' %}" method="post">#}
-        {#        {% csrf_token %}#}
-        {#        <input name="next" type="hidden" value="{{ redirect_to }}" />#}
-        {#        <select name="language">#}
-        {#            {% get_current_language as LANGUAGE_CODE %}#}
-        {#            {% get_available_languages as LANGUAGES %}#}
-        {#            {% get_language_info_list for LANGUAGES as languages %}#}
-        {#            {% for language in languages %}#}
-        {#                <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>#}
-        {#                    {{ language.name_local }} ({{ language.code }})#}
-        {#                </option>#}
-        {#            {% endfor %}#}
-        {#        </select>#}
-        {#        <input type="submit" value="Go" />#}
-        {#    </form>#}
-
+<!--         <form action="{% url 'set_language' %}" method="post">
+            {% csrf_token %}
+            <input name="next" type="hidden" value="{{ redirect_to }}" />
+            <select name="language">
+                {% get_current_language as LANGUAGE_CODE %}
+                {% get_available_languages as LANGUAGES %}
+                {% get_language_info_list for LANGUAGES as languages %}
+                {% for language in languages %}
+                    <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                        {{ language.name_local }} ({{ language.code }})
+                    </option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Go" />
+        </form>
+ -->
         {% block header %}
             <header>
                 <nav class="navbar navbar-default navbar-fixed-top">
@@ -51,11 +51,11 @@
                         <a href="/" class="logo"></a>
 
                         <ul class="nav navbar-nav">
-                            {% for group in groups %}
+                            {% for group in groups|slice:"5" %}
                                 {% if group.is_root %}
                                     <li class="dropdown">
                                         <a role="menuitem" class="dropdown-toggle" id="dropdownMenu{{ group.pk }}" data-toggle="dropdown" aria-expanded="false" href="{{ group.get_absolute_url }}">
-                                            {% trans group.title|capfirst %}
+                                            {% trans group.title|capfirst|truncatechars:10 %}
                                             <span class="caret"></span>
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu{{ group.pk }}" role="menu">
@@ -63,7 +63,7 @@
                                                 <li>
                                                     <a role="menuitem" class="btn" href="{{ sub_group.get_absolute_url }}">
                                                         <span class="film" aria-hidden="true"></span>
-                                                        {{ sub_group.title }}
+                                                        {{ sub_group.title|truncatechars:10 }}
                                                     </a>
                                                 </li>
                                             {% endfor %}
@@ -71,7 +71,7 @@
                                     </li>
                                 {% else %}
                                     <li>
-                                        <a role="menuitem" href="{{ group.get_absolute_url }}">{% trans group.title %}</a>
+                                        <a role="menuitem" href="{{ group.get_absolute_url }}">{% trans group.title|truncatechars:10 %}</a>
                                     </li>
                                 {% endif %}
                             {% endfor %}

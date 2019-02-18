@@ -13,12 +13,13 @@ class ItemIndex(indexes.SearchIndex, indexes.Indexable):
     title = indexes.CharField(model_attr='title')
     main_image = indexes.CharField(model_attr='main_image__url')
     content_auto = indexes.EdgeNgramField(model_attr='title')
+    slug = indexes.CharField(model_attr='slug')
 
     def get_model(self):
         return Item
 
     def prepare_countries(self, obj):
-       return [country.name for country in obj.countries.all()]
+        return [country.name for country in obj.countries.all()]
 
     def prepare_genres(self, obj):
         return [genre.title for genre in obj.genres.all()]
