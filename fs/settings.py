@@ -44,7 +44,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'multiselectfield',
     'django.contrib.gis',
-    'cities',
+    # 'cities',
     'goslate',
     'djangular',
     'ex_user',
