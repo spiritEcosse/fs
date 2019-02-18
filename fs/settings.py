@@ -52,14 +52,21 @@ INSTALLED_APPS = (
 
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE':
-        'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
-        'URL':
-        'http://elasticsearch:9200/',
-        'INDEX_NAME':
-        'haystack',
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
     },
 }
+
+# HAYSTACK_CONNECTIONS = {
+#     'default': {
+#         'ENGINE':
+#         'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+#         'URL':
+#         'http://elasticsearch:9200/',
+#         'INDEX_NAME':
+#         'haystack',
+#     },
+# }
 
 TEMPLATE_CONTEXT_PROCESSORS = ('django.template.context_processors.request', )
 
@@ -108,8 +115,8 @@ LOGIN_REDIRECT_URL = '/profile/'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'fs',
         'USER': 'fs',
         'PASSWORD': 'fs',
