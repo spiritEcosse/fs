@@ -37,13 +37,11 @@ Pillow==2.8.1
 prompt-toolkit==1.0.15
 psycopg2==2.6
 ptyprocess==0.6.0
-pyaml==18.11.0
 pycrypto==2.6.1
 Pygments==2.3.1
 pysolr==3.3.2
 python-dateutil==2.4.2
 python-mimeparse==0.1.4
-pyyaml>=4.2b1
 requests==2.7.0
 scandir==1.9.0
 simplegeneric==0.8.1
