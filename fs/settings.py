@@ -15,7 +15,6 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
@@ -25,7 +24,7 @@ SECRET_KEY = '4w+so4bufn#8855(e+23(=si*^i&hf60z&v+2=-*qu_1rw+i)b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -53,15 +52,16 @@ INSTALLED_APPS = (
 
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
-        'URL': 'http://127.0.0.1:9200/',
-        'INDEX_NAME': 'haystack',
+        'ENGINE':
+        'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL':
+        'http://elasticsearch:9200/',
+        'INDEX_NAME':
+        'haystack',
     },
 }
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.template.context_processors.request',
-)
+TEMPLATE_CONTEXT_PROCESSORS = ('django.template.context_processors.request', )
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -78,14 +78,12 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'fs.urls'
 
-LOCALE_PATHS = (
-    os.path.join(BASE_DIR, 'locale'),
-    )
+LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale'), )
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,  'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -114,12 +112,11 @@ DATABASES = {
         # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'fs',
         'USER': 'fs',
-        'PASSWORD': '1',
-        'HOST': '',
-        'POST': '',
+        'PASSWORD': 'fs',
+        'HOST': 'db',
+        'PORT': '',
     }
 }
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -140,17 +137,13 @@ USE_THOUSAND_SEPARATOR = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static_root/'
-STATIC_ROOT = os.path.join(BASE_DIR,  'static_root')
-MEDIA_ROOT = os.path.join(BASE_DIR,  'media')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = "/media/"
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
 
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR,  'templates'),
-)
+TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'), )
 
 CRISPY_TEMPLATE_PACK = 'bootstrap'
 DEFAULT_FROM_EMAIL = 'shevchenkcoigor@gmail.com'

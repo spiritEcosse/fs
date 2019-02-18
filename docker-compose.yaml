@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+    db:
+        image: mdillon/postgis:10
+        volumes:
+            - ./docker/postgres/:/docker-entrypoint-initdb.d/
+            - db_data:/var/lib/postgresql/data
+        environment:
+            POSTGRES_PASSWORD: "fs"
+            POSTGRES_USER: "fs"
+            POSTGRES_DB: "fs"
+            PGDATA: "/var/lib/postgresql/data/db/"
+
+    web:
+        build: .
+        volumes:
+            - ~/.ipython:/root/.ipython
+            - .:/app
+        ports:
+            - "8007:8000"
+        depends_on:
+            - db
+
+    elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:5.4.3
+
+    kibana:
+        image: docker.elastic.co/kibana/kibana:5.4.3
+        environment:
+            - "ELASTICSEARCH_URL=http://elasticsearch:9200"
+        depends_on:
+            - elasticsearch
+
+volumes:
+    db_data:
