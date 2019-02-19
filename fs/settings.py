@@ -14,6 +14,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import os
 from django.utils.translation import ugettext_lazy as _
 from os import environ
+import dj_database_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -170,3 +171,8 @@ LANGUAGES = (
 
 GEOS_LIBRARY_PATH = environ.get('GEOS_LIBRARY_PATH')
 GDAL_LIBRARY_PATH = environ.get('GDAL_LIBRARY_PATH')
+
+if os.environ.get('PRODUCTION', False):
+    DATABASES['default'] = dj_database_url.config(
+        default=os.environ.get('DATABASE_URL'))
+    DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
