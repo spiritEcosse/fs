@@ -1,4 +1,4 @@
-from materials.models import Group, Item, Attribute, Genre, ProxyCountry
+from materials.models import Group, Item, Attribute, Genre
 from django.db.models import Q, F
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
@@ -39,7 +39,8 @@ class AttributeDetailView(generic.DetailView):
         queryset_attribute_value = set()
 
         if self.request.GET.get('attribute_value', ()):
-            queryset_attribute_value = set(self.request.GET.get('attribute_value').split('__'))
+            queryset_attribute_value = set(
+                self.request.GET.get('attribute_value').split('__'))
 
         link = self.build_link_on_exist_data('', 'attribute')
         link = self.build_link_on_exist_data(link, 'sort')
@@ -61,12 +62,15 @@ class AttributeDetailView(generic.DetailView):
                 link_value += 'attribute_value=' + '__'.join(value_set)
 
             value.link = '%s%s' % \
-                         (reverse('materials:detail_group', kwargs={'slug': group.slug_to_string()}), link_value)
+                         (reverse('materials:detail_group', kwargs={
+                          'slug': group.slug_to_string()}), link_value)
             context['attribute_values'].append(value)
 
         link = self.build_link_on_exist_data(link, 'page')
         link = self.build_link_on_exist_data(link, 'attribute_value')
-        context['back'] = '%s%s' % (reverse('materials:detail_group', kwargs={'slug': group.slug_to_string()}), link)
+        context['back'] = '%s%s' % (reverse(
+            'materials:detail_group', kwargs={'slug': group.slug_to_string()}),
+            link)
         context['group'] = group
         return context
 
@@ -96,12 +100,16 @@ class DetailGroupView(generic.DetailView):
         queryset_attribute_value = self.request.GET.get('attribute_value', '')
 
         if self.request.GET.get('attribute', ()):
-            queryset_attribute = set(self.request.GET.get('attribute').split('__'))
-            queryset = queryset.filter(item_attr__attribute__slug__in=queryset_attribute)
+            queryset_attribute = set(
+                self.request.GET.get('attribute').split('__'))
+            queryset = queryset.filter(
+                item_attr__attribute__slug__in=queryset_attribute)
 
         if queryset_attribute_value:
-            attribute_value = set(self.request.GET.get('attribute_value').split('__'))
-            queryset = queryset.filter(item_attr__attribute_values__slug__in=attribute_value)
+            attribute_value = set(
+                self.request.GET.get('attribute_value').split('__'))
+            queryset = queryset.filter(
+                item_attr__attribute_values__slug__in=attribute_value)
 
         link = self.build_link_on_exist_data('', 'page')
         link = self.build_link_on_exist_data(link, 'sort')
@@ -124,29 +132,39 @@ class DetailGroupView(generic.DetailView):
                     attribute_link += 'attribute=' + '__'.join(attr_set)
 
                 if queryset_attribute_value:
-                    children_attribute_value = {value.slug for value in children.attribute_values.all()}
-                    attribute_value_get = set(self.request.GET.get('attribute_value').split('__'))
+                    children_attribute_value = {
+                        value.slug
+                        for value in children.attribute_values.all()
+                    }
+                    attribute_value_get = set(
+                        self.request.GET.get('attribute_value').split('__'))
 
-                    if children_attribute_value.intersection(attribute_value_get):
+                    if children_attribute_value.intersection(
+                            attribute_value_get):
                         children.active = True
                 children.link = self.object.get_absolute_url() + attribute_link
 
                 if children.attribute_values.exists():
-                    children.link = '%s%s' % (reverse('materials:attribute', kwargs={
-                        'slug': children.slug,
-                        'group_slug': self.object.slug
-                    }), attribute_link)
+                    children.link = '%s%s' % (reverse(
+                        'materials:attribute',
+                        kwargs={
+                            'slug': children.slug,
+                            'group_slug': self.object.slug
+                        }), attribute_link)
 
         link = self.build_link_on_exist_data('', 'page')
         link_sort = self.build_link_on_exist_data(link, 'attribute')
         link_sort = self.build_link_on_exist_data(link_sort, 'attribute_value')
 
-        keys = {'date_create': _('date added'),
-                'year_release': _('year release'),
-                'popular': _('popular'),
-                'sort': _('in trend'),
-                'like': _('by rating')}
-        context['link_sort'] = [(value, self.build_link(link_sort, 'sort', key)) for key, value in keys.items()]
+        keys = {
+            'date_create': _('date added'),
+            'year_release': _('year release'),
+            'popular': _('popular'),
+            'sort': _('in trend'),
+            'like': _('by rating')
+        }
+        context['link_sort'] = [(value, self.build_link(
+            link_sort, 'sort', key)) for key, value in keys.items()]
 
         link = self.build_link_on_exist_data('', 'sort')
         link = self.build_link_on_exist_data(link, 'attribute')
@@ -155,7 +173,8 @@ class DetailGroupView(generic.DetailView):
         context['sort'] = keys.get(self.request.GET.get('sort'), 'date_create')
 
         if self.request.GET.get('sort') == 'like':
-            queryset = queryset.annotate(diff_like=F('like')-F('not_like')).order_by('-diff_like')
+            queryset = queryset.annotate(
+                diff_like=F('like') - F('not_like')).order_by('-diff_like')
         elif self.request.GET.get('sort', ''):
             queryset = queryset.order_by('-%s' % self.request.GET.get('sort'))
         else:
@@ -227,20 +246,25 @@ class DetailItemView(SingleObjectMixin, FormView):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.object_id = self.object.pk
-            comment.content_type = ContentType.objects.get_for_model(self.model)
+            comment.content_type = ContentType.objects.get_for_model(
+                self.model)
             comment.user = request.user
             comment.save()
             return self.form_valid(form)
         return self.form_invalid(form)
 
     def get_context_data(self, **kwargs):
-        self.model.objects.filter(pk=self.object.pk).update(popular=F('popular') + 1)
+        self.model.objects.filter(pk=self.object.pk).update(
+            popular=F('popular') + 1)
 
         context = super(DetailItemView, self).get_context_data(**kwargs)
-        context['recommend_item'] = self.object.recommend_item.filter(enable=1)[:8]
+        context['recommend_item'] = self.object.recommend_item.filter(
+            enable=1)[:8]
         context['count_comments'] = self.object.comments.count()
-        context['favorite_item_add'] = 1 if self.object.users_liked.filter(user=self.request.user.id).exists() else 0
-        context['future_item_add'] = 1 if self.object.users_defer.filter(user=self.request.user.id).exists() else 0
+        context['favorite_item_add'] = 1 if self.object.users_liked.filter(
+            user=self.request.user.id).exists() else 0
+        context['future_item_add'] = 1 if self.object.users_defer.filter(
+            user=self.request.user.id).exists() else 0
         context['favorite_text'] = ADD_TO_FAVORITES
         context['future_text'] = ADD_TO_FUTURE
 
@@ -297,7 +321,8 @@ class EditItemView(ModelFormMixin, FormView):
         return self.form_invalid(form)
 
     def get_success_url(self):
-        return reverse('materials:item_edit', kwargs={'slug': self.object.slug})
+        return reverse(
+            'materials:item_edit', kwargs={'slug': self.object.slug})
 
 
 class Vote(SingleObjectMixin):
@@ -312,14 +337,12 @@ class JSONResponseMixin(object):
     """
     A mixin that can be used to render a JSON response.
     """
+
     def render_to_json_response(self, context, **response_kwargs):
         """
         Returns a JSON response, transforming 'context' to make the payload.
         """
-        return JsonResponse(
-            self.get_data(context),
-            **response_kwargs
-        )
+        return JsonResponse(self.get_data(context), **response_kwargs)
 
     def get_data(self, context):
         """
@@ -334,19 +357,25 @@ class JSONResponseMixin(object):
 
 
 class AddContentType(JSONResponseMixin, TemplateView):
+
     def render_to_response(self, context, **response_kwargs):
         return self.render_to_json_response(context, **response_kwargs)
 
     @csrf_exempt
     def post(self, request, *args, **kwargs):
-        return self.render_to_response(self.get_context_data(**kwargs), **kwargs)
+        return self.render_to_response(
+            self.get_context_data(**kwargs), **kwargs)
 
     def get_context_data(self, **kwargs):
         model_name_target = self.request.POST.get('model_name', None)
-        c_type_model_target = ContentType.objects.get(app_label="materials", model=model_name_target)
+        c_type_model_target = ContentType.objects.get(
+            app_label="materials", model=model_name_target)
         model_target = c_type_model_target.model_class()
         context = dict()
-        context['objects'] = [{'title': obj.get_name(), 'pk': obj.pk} for obj in model_target.objects.all()]
+        context['objects'] = [{
+            'title': obj.get_name(),
+            'pk': obj.pk
+        } for obj in model_target.objects.all()]
         context['success'] = True
         return context
 
@@ -358,9 +387,11 @@ class FavoriteItem(SingleObjectMixin, JSONResponseMixin, View):
     def post(self, request, *args, **kwargs):
         del kwargs['pk']
         if not request.user.is_authenticated():
-            kwargs['user_not_authorized'] = reverse('/login/?next=%s' % request.path)
+            kwargs['user_not_authorized'] = reverse(
+                '/login/?next=%s' % request.path)
         self.object = self.get_object()
-        return self.render_to_json_response(self.get_context_data(**kwargs), **kwargs)
+        return self.render_to_json_response(
+            self.get_context_data(**kwargs), **kwargs)
 
     def get_context_data(self, **kwargs):
         context = dict()
@@ -384,9 +415,11 @@ class FutureItem(SingleObjectMixin, JSONResponseMixin, View):
     def post(self, request, *args, **kwargs):
         del kwargs['pk']
         if not request.user.is_authenticated():
-            kwargs['user_not_authorized'] = reverse('/login/?next=%s' % request.path)
+            kwargs['user_not_authorized'] = reverse(
+                '/login/?next=%s' % request.path)
         self.object = self.get_object()
-        return self.render_to_json_response(self.get_context_data(**kwargs), **kwargs)
+        return self.render_to_json_response(
+            self.get_context_data(**kwargs), **kwargs)
 
     def get_context_data(self, **kwargs):
         context = dict()

@@ -13,13 +13,18 @@ class IndexView(TemplateView):
         context['items_popular'] = qs_item.order_by('-popular')[:8]
         c_type = ContentType.objects.get(app_label="materials", model="item")
         context['items_comment'] = qs_item.prefetch_related('comments', 'comments__user').\
-        annotate(count_comment=Count('comments')).filter(count_comment__gte=2, comments__content_type=c_type)[:16]
-        context['items_new'] = qs_item.select_related('creator', 'main_group').order_by('-date_create')[:20]
+            annotate(
+            count_comment=Count('comments')).filter(
+            count_comment__gte=2,
+            comments__content_type=c_type)[
+            :16]
+        context['items_new'] = qs_item.select_related(
+            'creator', 'main_group').order_by('-date_create')[:20]
 
         qs_group = Group.objects.prefetch_related('groups')
-        context['video'] = qs_group.get(slug='video')
-        context['audio'] = qs_group.get(slug='audio')
-        context['igry'] = qs_group.get(slug='igry')
-        context['knigi'] = qs_group.get(slug='knigi')
-        context['literatura'] = qs_group.get(slug='literatura')
+        # context['video'] = qs_group.get(slug='video')
+        # context['audio'] = qs_group.get(slug='audio')
+        # context['igry'] = qs_group.get(slug='igry')
+        # context['knigi'] = qs_group.get(slug='knigi')
+        # context['literatura'] = qs_group.get(slug='literatura')
         return context

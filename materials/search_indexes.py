@@ -8,7 +8,6 @@ class ItemIndex(indexes.SearchIndex, indexes.Indexable):
     main_group_slug = indexes.CharField(model_attr='main_group__slug')
     main_group_title = indexes.CharField(model_attr='main_group__title')
     year_release = indexes.DateField(model_attr='year_release')
-    countries = indexes.MultiValueField()
     genres = indexes.MultiValueField()
     title = indexes.CharField(model_attr='title')
     main_image = indexes.CharField(model_attr='main_image__url')
@@ -17,9 +16,6 @@ class ItemIndex(indexes.SearchIndex, indexes.Indexable):
 
     def get_model(self):
         return Item
-
-    def prepare_countries(self, obj):
-        return [country.name for country in obj.countries.all()]
 
     def prepare_genres(self, obj):
         return [genre.title for genre in obj.genres.all()]

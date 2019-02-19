@@ -37,8 +37,11 @@ class EditItemForm(NgModelForm, NgFormValidationMixin, Bootstrap3Form):
     class Meta:
         model = Item
         fields = [
-            'title', 'origin_title', 'genres', 'main_image', 'description',
-            'countries'
+            'title',
+            'origin_title',
+            'genres',
+            'main_image',
+            'description',
         ]
         labels = {
             'origin_title':
@@ -51,8 +54,6 @@ class EditItemForm(NgModelForm, NgFormValidationMixin, Bootstrap3Form):
                 'max_height': 'auto'
             }),
             'genres':
-            MultipleChoiceWidget,
-            'countries':
             MultipleChoiceWidget,
             'description':
             forms.Textarea(attrs={'class': "form-control"}),

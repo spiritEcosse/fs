@@ -44,7 +44,6 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'multiselectfield',
     'django.contrib.gis',
-    'cities',
     'goslate',
     'djangular',
     'ex_user',
@@ -66,7 +65,6 @@ HAYSTACK_CONNECTIONS = {
 #         'URL':
 #         'http://elasticsearch:9200/',
 #         'INDEX_NAME':
-#         'haystack',
 #     },
 # }
 
@@ -118,8 +116,26 @@ LOGIN_REDIRECT_URL = '/profile/'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'ENGINE':
+        # 'django.contrib.gis.db.backends.postgis',
+        'ENGINE':
+        'django.db.backends.postgresql_psycopg2',
+        'NAME':
+        'd8ng184nhikr6',
+        'USER':
+        'fkftotqckdvtug',
+        'PASSWORD':
+        '55e6873e1d70daadc9ea832a7e82621da3e03e0c783ccf1832e2d9192d9b2e7f',
+        'HOST':
+        'ec2-23-21-165-188.compute-1.amazonaws.com',
+        'PORT':
+        '5432',
+    }
+}
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'fs',
         'USER': 'fs',
         'PASSWORD': 'fs',
@@ -169,6 +185,6 @@ LANGUAGES = (
 )
 
 if os.environ.get('PRODUCTION', False):
+    DEBUG = False
     DATABASES['default'] = dj_database_url.config(
         default=os.environ.get('DATABASE_URL'))
-    DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
