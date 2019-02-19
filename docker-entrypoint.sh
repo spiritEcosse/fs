@@ -8,4 +8,4 @@ python manage.py collectstatic --noinput
 
 python manage.py rebuild_index --noinput
 
-python manage.py runserver 0.0.0.0:8000
+gunicorn fs.wsgi --log-file -
