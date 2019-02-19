@@ -255,8 +255,8 @@ th {
 }
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url('../fonts/glyphicons-halflings-regular.eot');
-  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+  src: url('../../../www/fonts/glyphicons-halflings-regular.eot');
+  src: url('../../../www/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../../../www/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../../../www/fonts/glyphicons-halflings-regular.woff') format('woff'), url('../../../www/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../../../www/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 .glyphicon {
   position: relative;
@@ -7230,20 +7230,20 @@ html {
   display: table-cell;
 }
 .film {
-  background: url(../images/btn.png) no-repeat;
+  background: url(../../../www/images/btn.png) no-repeat;
   width: 34px;
   height: 20px;
   display: inline-block;
   vertical-align: middle;
 }
 .music {
-  background: url("../images/btn.png") no-repeat 9px -735px transparent;
+  background: url("../../../www/images/btn.png") no-repeat 9px -735px transparent;
   width: 100%;
   height: 45px;
   display: block;
 }
 .tradition {
-  background: url("../images/btn.png") no-repeat scroll 4px -1197px transparent;
+  background: url("../../../www/images/btn.png") no-repeat scroll 4px -1197px transparent;
   width: inherit;
   height: 33px;
   display: block;
@@ -7276,7 +7276,7 @@ h3 {
   font-size: 14px;
   color: #62b56d;
   height: 20px;
-  background: url(../images/vote.png) no-repeat 0 0;
+  background: url(../../../www/images/vote.png) no-repeat 0 0;
   padding-left: 16px;
   margin-right: 2px;
 }
@@ -7287,11 +7287,11 @@ h3 {
   font-size: 14px;
   color: #c33e43;
   height: 20px;
-  background: url(../images/vote.png) no-repeat 0 -30px;
+  background: url(../../../www/images/vote.png) no-repeat 0 -30px;
   padding-left: 16px;
 }
 body {
-  background: url(../images/bg.png);
+  background: url(../../../www/images/bg.png);
   height: 100%;
 }
 body .wrapper {
@@ -7340,7 +7340,7 @@ body .container .content header form .glyphicon {
   top: -1px;
 }
 body .container .content header nav {
-  background: url(../images/nav_bar_top.png) bottom repeat-x;
+  background: url(../../../www/images/nav_bar_top.png) bottom repeat-x;
   height: 38px;
   min-height: 38px;
   border: none;
@@ -7360,7 +7360,7 @@ body .container .content header nav .container form {
   float: left !important;
 }
 body .container .content header nav .container .logo {
-  background: url(../images/logo.png) center no-repeat;
+  background: url(../../../www/images/logo.png) center no-repeat;
   width: 100px;
   height: 38px;
 }
@@ -7431,7 +7431,7 @@ body .container .content header nav .container .pull-right .navbar-form .ac-resu
   font-size: 13px;
 }
 body .container .content header nav .container .pull-right form .input-group-btn button {
-  background: url(../images/search.png) center no-repeat;
+  background: url(../../../www/images/search.png) center no-repeat;
 }
 body .container .content header nav .container .pull-right .welcome {
   float: left;
@@ -7492,7 +7492,7 @@ body .container .content .main .popular a .title {
 }
 body .container .content .main .menu {
   background-color: #f2f2f2;
-  background: url(../images/menu_bg.png);
+  background: url(../../../www/images/menu_bg.png);
 }
 body .container .content .main .menu .games > div > div,
 body .container .content .main .menu .video > div > div,
@@ -7806,12 +7806,12 @@ body .container .content .main .list-item .group .item .full_title .quality {
   line-height: 18px;
 }
 body .container .content .main .list-item .group .item .full_title .quality .hd {
-  background: url(../images/video_quality.png) no-repeat 0 0;
+  background: url(../../../www/images/video_quality.png) no-repeat 0 0;
   width: 21px;
   height: 14px;
 }
 body .container .content .main .list-item .group .item .full_title .quality .hq {
-  background: url(../images/video_quality.png) no-repeat 0px -25px;
+  background: url(../../../www/images/video_quality.png) no-repeat 0px -25px;
   width: 21px;
   height: 14px;
 }
@@ -7866,7 +7866,7 @@ body .container .content .main .rasparovka {
   height: 0px;
 }
 body .container .content .item-desc {
-  background: url(../images/blue-sky.png) repeat-x;
+  background: url(../../../www/images/blue-sky.png) repeat-x;
   border-radius: 4px 4px 0px 0px;
 }
 body .container .content .item-desc .item-detail .wrapp-btn {
@@ -7935,7 +7935,7 @@ body .container .content .item-desc .item-detail .shadow {
   box-shadow: 2px 2px 2px 0px #818A95;
 }
 body .container .content .item-desc .item-detail .share-net {
-  background: url(../images/share_net.png);
+  background: url(../../../www/images/share_net.png);
   height: 46px;
   line-height: 46px;
   margin: 0px;
