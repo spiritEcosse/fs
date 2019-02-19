@@ -43,7 +43,6 @@ INSTALLED_APPS = (
     'search',
     'debug_toolbar',
     'multiselectfield',
-    'django.contrib.gis',
     'goslate',
     'djangular',
     'ex_user',
