@@ -18,11 +18,46 @@ services:
         volumes:
             - ~/.ipython:/root/.ipython
             - .:/app
-        command: python manage.py runserver 0.0.0.0:8000
         ports:
             - "8007:8000"
         depends_on:
             - db
+            - redis
+        command: python manage.py runserver 0.0.0.0:8000
+
+    # queue:
+    #     image: rabbitmq:3.6.6-management
+    #     environment:
+    #         - RABBITMQ_DEFAULT_USER=admin
+    #         - RABBITMQ_DEFAULT_PASS=admin
+    #         - RABBITMQ_DEFAULT_VHOST=fs
+    #         - TZ=Europe/Kiev
+    #     ports:
+    #         - "5673:5672"
+    #         - "15673:15672"
+
+    celery:
+        build: .
+        command: celery -A fs worker -E -l info
+        volumes:
+            - .:/app
+        depends_on:
+            - db
+
+    flower:
+        build: .
+        command: celery -A fs flower -E -l info
+        ports:
+            - "5553:5555"
+        volumes:
+            - .:/app
+
+    redis:
+        image: redis:latest
+        ports:
+          - "6373:6379"
+        volumes:
+          - redis_db:/data
 
     # elasticsearch:
     #     image: docker.elastic.co/elasticsearch/elasticsearch:5.4.3
@@ -36,3 +71,4 @@ services:
 
 volumes:
     db_data:
+    redis_db:

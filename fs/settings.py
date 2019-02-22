@@ -181,7 +181,16 @@ LANGUAGES = (
     ('en', _('English')),
 )
 
+CELERY_BROKER_URL = 'redis://redis:6379/1'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/1'
+
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_ACCEPT_CONTENT = ['json']
+
 if os.environ.get('PRODUCTION', False):
+    CELERY_BROKER_URL = 'redis://127.0.0.1:6379/1'
+    CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/1'
     # DEBUG = False
     DATABASES['default'] = dj_database_url.config(
         default=os.environ.get('DATABASE_URL'))
