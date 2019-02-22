@@ -13,17 +13,17 @@ services:
             PGDATA: "/var/lib/postgresql/data/db/"
 
     web:
-        build: .
+        image: fs:latest
         restart: always
         volumes:
             - ~/.ipython:/root/.ipython
             - .:/app
         ports:
             - "8007:8000"
+        command: python manage.py runserver 0.0.0.0:8000
         depends_on:
             - db
             - redis
-        command: python manage.py runserver 0.0.0.0:8000
 
     # queue:
     #     image: rabbitmq:3.6.6-management
@@ -36,17 +36,33 @@ services:
     #         - "5673:5672"
     #         - "15673:15672"
 
+    worker:
+        image: fs:latest
+        environment:
+            DJANGO_SETTINGS_MODULE: fs.settings
+        command: celery worker -A fs -E -l info
+        volumes:
+          - .:/app
+        depends_on:
+          - db
+          - redis
+
     celery:
-        build: .
-        command: celery -A fs worker -E -l info
+        image: fs:latest
+        command: celery -A fs beat -l info
+        environment:
+            DJANGO_SETTINGS_MODULE: fs.settings
+            TZ: Europe/Kiev
         volumes:
             - .:/app
         depends_on:
             - db
 
     flower:
-        build: .
+        image: fs:latest
         command: celery -A fs flower -E -l info
+        environment:
+            DJANGO_SETTINGS_MODULE: fs.settings
         ports:
             - "5553:5555"
         volumes:
