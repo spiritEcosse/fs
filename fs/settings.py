@@ -194,7 +194,7 @@ if os.environ.get('PRODUCTION', False):
 else:
     REDIS_URL = 'redis://redis:6379/1'
 
-raise Exception(REDIS_URL)
+raise Exception(os.environ.get("REDIS_URL"))
 CACHES = {
     "default": {
         "BACKEND": "redis_cache.RedisCache",
