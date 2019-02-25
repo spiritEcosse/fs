@@ -15,7 +15,7 @@ shell:
 	docker-compose exec web ./manage.py shell
 
 deploy_hard:
-	docker build --no-cache=true -t fs:latest . && docker-compose stop && docker-compose rm -f && docker-compose up --build
+	sudo rm celerybeat.pid celerybeat-schedule || docker build --no-cache=true -t fs:latest . && docker-compose stop && docker-compose rm -f && docker-compose up --build
 
 deploy:
 	docker-compose up

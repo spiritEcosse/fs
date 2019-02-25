@@ -13,11 +13,13 @@ services:
             PGDATA: "/var/lib/postgresql/data/db/"
 
     web:
-        image: fs:latest
+        build: .
         restart: always
         volumes:
-            - ~/.ipython:/root/.ipython
             - .:/app
+            - ~/.ipython:/root/.ipython
+        env_file:
+            - .env
         ports:
             - "8007:8000"
         command: python manage.py runserver 0.0.0.0:8000
@@ -25,48 +27,35 @@ services:
             - db
             - redis
 
-    # queue:
-    #     image: rabbitmq:3.6.6-management
-    #     environment:
-    #         - RABBITMQ_DEFAULT_USER=admin
-    #         - RABBITMQ_DEFAULT_PASS=admin
-    #         - RABBITMQ_DEFAULT_VHOST=fs
-    #         - TZ=Europe/Kiev
-    #     ports:
-    #         - "5673:5672"
-    #         - "15673:15672"
-
     worker:
-        image: fs:latest
-        environment:
-            DJANGO_SETTINGS_MODULE: fs.settings
+        build: .
         command: celery worker -A fs -E -l info
         volumes:
-          - .:/app
+            - .:/app
+            - ~/.ipython:/root/.ipython
         depends_on:
           - db
           - redis
 
-    celery:
-        image: fs:latest
+    celery_beat:
+        build: .
         command: celery -A fs beat -l info
-        environment:
-            DJANGO_SETTINGS_MODULE: fs.settings
-            TZ: Europe/Kiev
         volumes:
             - .:/app
+            - ~/.ipython:/root/.ipython
         depends_on:
             - db
 
     flower:
-        image: fs:latest
+        build: .
         command: celery -A fs flower -E -l info
-        environment:
-            DJANGO_SETTINGS_MODULE: fs.settings
         ports:
             - "5553:5555"
         volumes:
             - .:/app
+            - ~/.ipython:/root/.ipython
+        depends_on:
+            - worker
 
     redis:
         image: redis:latest

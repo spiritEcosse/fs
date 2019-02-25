@@ -6,7 +6,6 @@ from time import mktime
 from datetime import datetime
 from django.contrib.auth.models import User
 from celery import task
-
 slug = UniqueSlugify()
 slug.to_lower = True
 
