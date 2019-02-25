@@ -240,7 +240,7 @@ $(document).ready(function(){
                 html += obj.href + '" class="block item-search">';
                 html += '<div class="row">';
                 html += '   <div class="col-md-7">';
-                html += '       <img class="img-responsive shadow" title="' + obj.title + '" alt="' + obj.title + '" src="' + obj.main_image + '" >';
+                html += '       <img class="img-responsive shadow" title="' + obj.title + '" alt="' + obj.title + '" src="' + obj.original_image + '" >';
                 html += '   </div>';
                 html += '   <div class="col-md-17">';
                 html += '       <div class="title">' + obj.title + ' &bull; <span class="year">' + obj.year_release + '</span></div>';

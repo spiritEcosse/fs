@@ -29,7 +29,10 @@ services:
 
     worker:
         build: .
+        restart: always
         command: celery worker -A fs -E -l info
+        env_file:
+            - .env
         volumes:
             - .:/app
             - ~/.ipython:/root/.ipython
@@ -39,6 +42,9 @@ services:
 
     celery_beat:
         build: .
+        restart: always
+        env_file:
+            - .env
         command: celery -A fs beat -l info
         volumes:
             - .:/app
@@ -48,6 +54,9 @@ services:
 
     flower:
         build: .
+        restart: always
+        env_file:
+            - .env
         command: celery -A fs flower -E -l info
         ports:
             - "5553:5555"
@@ -59,6 +68,7 @@ services:
 
     redis:
         image: redis:latest
+        restart: always
         ports:
           - "6373:6379"
         volumes:

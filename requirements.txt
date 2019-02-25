@@ -1,4 +1,6 @@
+[33mDEPRECATION: Python 2.7 will reach the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 won't be maintained after that date. A future version of pip will drop support for Python 2.7.[0m
 amqp==2.4.1
+awesome-slugify==1.6.5
 Babel==2.6.0
 backports.shutil-get-terminal-size==1.0.0
 backports.ssl-match-hostname==3.4.0.2
@@ -27,6 +29,7 @@ ecdsa==0.13
 elasticsearch==1.6.0
 enum34==1.1.6
 Fabric==1.10.2
+feedparser==5.2.1
 flower==0.9.2
 futures==3.0.3
 goslate==1.4.0
@@ -52,6 +55,7 @@ python-decouple==3.1
 python-mimeparse==0.1.4
 pytz==2018.9
 redis==3.2.0
+regex==2019.2.21
 requests==2.7.0
 scandir==1.9.0
 simplegeneric==0.8.1
@@ -68,5 +72,3 @@ wcwidth==0.1.7
 Werkzeug==0.10.4
 whitenoise==4.1.2
 Whoosh==2.7.0
-feedparser
-awesome-slugify

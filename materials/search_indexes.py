@@ -10,7 +10,7 @@ class ItemIndex(indexes.SearchIndex, indexes.Indexable):
     year_release = indexes.DateField(model_attr='year_release')
     genres = indexes.MultiValueField()
     title = indexes.CharField(model_attr='title')
-    main_image = indexes.CharField(model_attr='main_image__url')
+    original_image = indexes.CharField(model_attr='original_image')
     content_auto = indexes.EdgeNgramField(model_attr='title')
     slug = indexes.CharField(model_attr='slug')
 

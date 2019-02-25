@@ -40,7 +40,7 @@ class EditItemForm(NgModelForm, NgFormValidationMixin, Bootstrap3Form):
             'title',
             'origin_title',
             'genres',
-            'main_image',
+            'original_image',
             'description',
         ]
         labels = {
@@ -48,7 +48,7 @@ class EditItemForm(NgModelForm, NgFormValidationMixin, Bootstrap3Form):
             _('Original name (do not fill in if the same as Russian):'),
         }
         widgets = {
-            'main_image':
+            'original_image':
             ImageWidget(attrs={
                 'max_width': 'auto',
                 'max_height': 'auto'

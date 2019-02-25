@@ -34,7 +34,7 @@
                                 {% for item in user.ex_user.liked.all %}
                                     <div class="col-xs-4 item">
                                         <a href="{{ item.get_absolute_url }}">
-                                            <img class="img-responsive shadow-item" src="{{ item.main_image.url }}">
+                                            <img class="img-responsive shadow-item" src="{{ item.original_image }}">
                                             <div class="empty"></div>
                                             <div class="short_title">
                                                 <span>{{ item.title|truncatechars:33 }}</span>
@@ -73,7 +73,7 @@
                                 {% for item in user.ex_user.defer.all %}
                                     <div class="col-xs-4 item">
                                         <a href="{{ item.get_absolute_url }}">
-                                            <img class="img-responsive shadow-item" src="{{ item.main_image.url }}">
+                                            <img class="img-responsive shadow-item" src="{{ item.original_image }}">
                                             <div class="empty"></div>
                                             <div class="short_title">
                                                 <span>{{ item.title|truncatechars:33 }}</span>

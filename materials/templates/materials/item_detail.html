@@ -10,7 +10,7 @@
         <div class="wrapp item-detail">
             <div class="row">
                 <div class="col-md-5">
-                    <a href="#" class="thumbnail"><img class="img-responsive shadow" src="{{ object.main_image.url }}" title="" alt=""></a>
+                    <a href="#" class="thumbnail"><img class="img-responsive shadow" src="{{ object.original_image }}" title="" alt=""></a>
                     <div class="wrapp-btn" ng-controller="UserAddItem">
                         <form ng-cloak ng-submit="favorite()" >
                             <input type="hidden" ng-init="favorite_text='{{ favorite_text }}'">
@@ -142,7 +142,7 @@
 
             <div class="row description">
                 <div class="col-xs-24">
-                    {{ object.description }}
+                    {{ object.description|safe }}
                 </div>
             </div>
 
@@ -183,7 +183,7 @@
                     {% for item in recommend_item %}
                         <div class="col-md-3">
                             <a href="{{ item.get_absolute_url }}" class="item">
-                                <img class="img-responsive shadow img-rounded" src="{{ item.main_image.url }}">
+                                <img class="img-responsive shadow img-rounded" src="{{ item.original_image }}">
                                 <div class="title">{{ item.title|truncatechars:20 }}</div>
                             </a>
                         </div>

@@ -36,12 +36,13 @@ class MySearchView(SearchView):
 
 
 def autocomplete(request):
+
     sqs = SearchQuerySet().filter(content=AutoQuery(request.GET['q']))[:5]
     suggestions = [{
         'title':
         obj.title,
-        'main_image':
-        obj.main_image,
+        'original_image':
+        obj.original_image,
         'main_group_title':
         obj.main_group_title,
         'year_release':
@@ -54,9 +55,9 @@ def autocomplete(request):
                 'slug': obj.slug
             }).__str__(),
         'countries':
-        defaultfilters.truncatechars(', '.join(obj.countries), 30),
+        defaultfilters.truncatechars(', '.join(obj.countries or []), 30),
         'genres':
-        ', '.join(obj.genres)
+        ', '.join(obj.genres or [])
     } for obj in sqs]
     the_data = json.dumps({'results': suggestions})
     return HttpResponse(the_data, content_type='application/json')

@@ -35,8 +35,8 @@
             {% for item in items_popular %}
                 <div class="col-md-3 col-sm-4 col-xs-6">
                     <a href="{{ item.get_absolute_url }}">
-                        {% if item.main_image %}
-                            <img title="{{ item.title }}" alt="{{ item.title }}" class="img-responsive shadow" src="{{ item.main_image.url }}">
+                        {% if item.original_image %}
+                            <img title="{{ item.title }}" alt="{{ item.title }}" class="img-responsive shadow" src="{{ item.original_image }}">
                         {% endif %}
                         <div class="title">{{ item.title|truncatechars:12 }}</div>
                     </a>

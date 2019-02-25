@@ -114,8 +114,8 @@
                             {% for item in items_popular %}
                                 <div class="col-md-3 col-sm-4 col-xs-6">
                                     <a href="{{ item.get_absolute_url }}">
-                                        {% if item.main_image %}
-                                            <img title="{{ item.title }}" alt="{{ item.title }}" class="img-responsive shadow" src="{{ item.main_image.url }}">
+                                        {% if item.original_image %}
+                                            <img title="{{ item.title }}" alt="{{ item.title }}" class="img-responsive shadow" src="{{ item.original_image }}">
                                         {% endif %}
                                         <div class="title">{{ item.title|truncatechars:12 }}</div>
                                     </a>
@@ -255,9 +255,9 @@
                                             <div class="title">{{ item.title|truncatechars:26 }}</div>
 
                                             <div class="row detail">
-                                                {% if item.main_image %}
+                                                {% if item.original_image %}
                                                     <div class="col-xs-13">
-                                                        <img src="{{ item.main_image.url }}" class="img-responsive shadow">
+                                                        <img src="{{ item.original_image }}" class="img-responsive shadow">
                                                     </div>
                                                 {% endif %}
 
@@ -323,7 +323,7 @@
                                         <div class="item">
                                             <div class="row">
                                                 <div class="img col-xs-6 col-xs-offset-1">
-                                                    <img class="img-responsive shadow" title="{{ item.title }}" alt="{{ item.title }}" src="{{ item.main_image.url }}">
+                                                    <img class="img-responsive shadow" title="{{ item.title }}" alt="{{ item.title }}" src="{{ item.original_image }}">
                                                 </div>
 
                                                 <div class="col-xs-17">
@@ -345,7 +345,7 @@
                                                         </span>
                                                     </div>
                                                     <div class="short_desc">
-                                                        {{ item.description|truncatechars:220 }}
+                                                        {{ item.description|striptags|truncatechars:220 }}
                                                         <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
                                                     </div>
                                                 </div>

@@ -8,9 +8,6 @@ compilemessages:
 migrate:
 	docker-compose exec web ./manage.py makemigrations && docker-compose exec web ./manage.py migrate
 
-bash:
-	docker-compose exec web bash
-
 shell:
 	docker-compose exec web ./manage.py shell
 
@@ -31,3 +28,24 @@ restart_web:
 
 restart_web_hard:
 	docker-compose rm web && docker-compose stop web && docker-compose start web
+
+clear_db:
+	docker-compose exec web python manage.py flush --noinput
+
+pass_change_admin:
+	docker-compose exec web python manage.py changepassword admin
+
+create_superuser:
+	docker-compose exec web python manage.py createsuperuser
+
+ipython:
+	docker-compose exec web ipython
+
+bash:
+	docker-compose exec web bash
+
+rebuild_index:
+	docker-compose exec web python manage.py rebuild_index --noinput
+
+update_index:
+	docker-compose exec web python manage.py update_index

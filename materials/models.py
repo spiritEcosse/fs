@@ -144,6 +144,7 @@ class Item(models.Model):
         'Genre', verbose_name=_('Genre'), related_name='items', blank=True)
     recommend_item = models.ManyToManyField(
         'self', verbose_name=_('Recommended item'), blank=True)
+    original_image = models.URLField(_('Link image from original source'))
     main_image = models.ImageField(
         _('Main Image'), upload_to='images/materials/%Y/%m/')
     description = models.TextField(verbose_name=_('Description'))
@@ -152,6 +153,7 @@ class Item(models.Model):
     date_create = models.DateTimeField(auto_now_add=True)
     date_last_modified = models.DateTimeField(auto_now=True)
     item_class = models.ForeignKey('ItemClass', blank=True, null=True)
+    pub_date = models.DateTimeField(_('PubDate'))
     popular = models.BigIntegerField(
         _('Popular'), editable=False, blank=True, default=0)
     creator = models.ForeignKey(User, editable=False)
@@ -203,7 +205,7 @@ class Item(models.Model):
         return '; '.join(attributes)
 
     def image_preview(self):
-        return u'<img style="max-width:100px; max-height:100px" src="%s" />' % self.main_image.url
+        return u'<img style="max-width:100px; max-height:100px" src="%s" />' % self.original_image
 
     image_preview.short_description = _('Image')
     image_preview.allow_tags = True

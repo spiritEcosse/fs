@@ -9,8 +9,8 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
-    'add-every-day': {
+    'parser_premiere': {
         'task': 'materials.tasks.parser_premiere',
-        'schedule': crontab(hour=13, minute=7),
+        'schedule': crontab(hour=8),
     },
 }
