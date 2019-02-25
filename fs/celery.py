@@ -11,6 +11,6 @@ app.autodiscover_tasks()
 app.conf.beat_schedule = {
     'parser_premiere': {
         'task': 'materials.tasks.parser_premiere',
-        'schedule': crontab(hour=8),
+        'schedule': crontab(hour=os.environ.get('PARSER_PREMIERE_HOUR')),
     },
 }

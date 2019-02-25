@@ -31,7 +31,8 @@ def parser_premiere():
             title=title,
             # origin_title=gs.translate(title, 'en'),
             creator=user,
-            original_image=item.links[1].href,
+            original_image='https://st.kp.yandex.net/images/film_iphone/' +
+            item.links[1].href.split('/')[-1],
             tags=[],
             main_group=group,
             description=item.summary,
