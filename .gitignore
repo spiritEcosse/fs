@@ -10,7 +10,6 @@ local.py
 **/bower_components/
 /static_root/*
 !/static_root/empty
-.env
 fabfile.py
 db.sqlite3
 soloha_shop
