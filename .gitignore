@@ -25,7 +25,6 @@ npm-debug.log
 .~lock.*
 *.DS_Store
 .python-version
-**/migrations/**
 !/apps/customer/migrations/0001_initial.py
 !apps/customer/migrations/0002_auto_20160606_0840.py
 

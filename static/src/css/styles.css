@@ -26,3 +26,6 @@ ul.djng-field-errors li.valid:before {
 	color: #00c900;
 	content: "\2714";
 }
+.item .img {
+  min-height: 138px;
+}
