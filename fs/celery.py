@@ -8,9 +8,9 @@ app = Celery('fs')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 
-app.conf.beat_schedule = {
-    'parser_premiere': {
-        'task': 'materials.tasks.parser_premiere',
-        'schedule': crontab(hour=os.environ.get('PARSER_PREMIERE_HOUR')),
-    },
-}
+# app.conf.beat_schedule = {
+#     'parser_premiere': {
+#         'task': 'materials.tasks.parser_premiere',
+#         'schedule': crontab(hour=os.environ.get('PARSER_PREMIERE_HOUR')),
+#     },
+# }
