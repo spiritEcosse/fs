@@ -8,12 +8,13 @@ from django.contrib.auth.models import User
 from celery import task
 import os
 from haystack.management.commands import rebuild_index
-slug = UniqueSlugify()
-slug.to_lower = True
 
 
 @task
 def parser_premiere():
+    slug = UniqueSlugify()
+    slug.to_lower = True
+
     user, __ = User.objects.get_or_create(username='admin')
     name_group = 'Video'
     group, __ = Group.objects.get_or_create(
