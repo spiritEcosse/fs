@@ -8,6 +8,9 @@ app = Celery('fs')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 
+app.conf.update(
+    BROKER_URL=os.environ['REDIS_URL'],
+    CELERY_RESULT_BACKEND=os.environ['REDIS_URL'])
 app.conf.beat_schedule = {
     'parser_premiere': {
         'task': 'materials.tasks.parser_premiere',
