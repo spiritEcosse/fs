@@ -50,3 +50,4 @@ rebuild_index:
 update_index:
 	docker-compose exec web python manage.py update_index
 
+
