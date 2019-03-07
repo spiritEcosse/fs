@@ -27,15 +27,20 @@ def parser_premiere():
     for item in items.entries:
         title = item.title
 
-        film, created = Item.objects.get_or_create(
-            slug=slug(title),
-            title=title,
-            # origin_title=gs.translate(title, 'en'),
-            creator=user,
-            original_image=URL + item.links[1].href.split('/')[-1],
-            tags=[],
-            main_group=group,
-            description=item.summary,
-            pub_date=datetime.fromtimestamp(mktime(item.published_parsed)))
+        slug = slug = slug(title)
+
+        try:
+            Item.objects.get(slug=slug)
+        except Item.DoesNotExist:
+            Item.objects.create(
+                slug=slug,
+                title=title,
+                # origin_title=gs.translate(title, 'en'),
+                creator=user,
+                original_image=URL + item.links[1].href.split('/')[-1],
+                tags=[],
+                main_group=group,
+                description=item.summary,
+                pub_date=datetime.fromtimestamp(mktime(item.published_parsed)))
 
     rebuild_index.Command().handle(interactive=False)
