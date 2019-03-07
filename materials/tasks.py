@@ -27,13 +27,13 @@ def parser_premiere():
     for item in items.entries:
         title = item.title
 
-        slug = slug = slug(title)
+        slug_title = slug(title)
 
         try:
-            Item.objects.get(slug=slug)
+            Item.objects.get(slug=slug_title)
         except Item.DoesNotExist:
             Item.objects.create(
-                slug=slug,
+                slug=slug_title,
                 title=title,
                 # origin_title=gs.translate(title, 'en'),
                 creator=user,
