@@ -24,7 +24,7 @@ django-toolbelt==0.0.1
 django-treebeard==3.0
 django-url-breadcrumbs==0.3.3
 djangorestframework==2.4.6
-ecdsa==0.13
+ecdsa==0.13.3
 elasticsearch==1.6.0
 enum34==1.1.6
 Fabric==1.10.2
